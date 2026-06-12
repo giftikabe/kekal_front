@@ -1,5 +1,5 @@
 import { homePageContent } from "../data/home";
 
-export async function getHomePageContent() {
+export function getHomePageContent() {
   return homePageContent;
 }

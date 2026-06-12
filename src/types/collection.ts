@@ -21,6 +21,8 @@ export interface Collection {
 
   releaseYear: number;
 
+  createdAt: string;
+
   status: "current" | "archive";
 
   inStock: boolean;

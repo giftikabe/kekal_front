@@ -1,10 +1,10 @@
 import { collections } from "../data/collection";
 
-export async function getCollections() {
+export function getCollections() {
   return collections;
 }
 
-export async function getCollectionBySlug(
+export function getCollectionBySlug(
   slug: string
 ) {
   return collections.find(
@@ -13,8 +13,16 @@ export async function getCollectionBySlug(
   );
 }
 
-export async function getFeaturedCollections() {
+export function getFeaturedCollections() {
   return collections.filter(
     (collection) => collection.featured
+  );
+}
+
+export function getLatestCollections() {
+  return [...collections].sort(
+    (a, b) =>
+      new Date(b.createdAt).getTime() -
+      new Date(a.createdAt).getTime()
   );
 }
