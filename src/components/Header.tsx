@@ -8,6 +8,8 @@ import { getNavigation } from "../services/navigationService";
 
 import type { NavigationItem } from "../types/navigation";
 
+import styles from "./Header.module.css";
+
 export default function Header() {
   const [navigation, setNavigation] = useState<
     NavigationItem[]
@@ -28,25 +30,31 @@ export default function Header() {
 
   return (
     <>
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "16px 24px",
-        }}
-      >
-        <Link to="/">
-          KeKal Studio
-        </Link>
+      <header className={styles.header}>
 
-        <button
-          onClick={() =>
-            setIsMenuOpen(true)
-          }
-        >
-          ☰
-        </button>
+<div className={styles.logo}>
+  <Link to="/">KK</Link>
+</div>
+
+<nav className={styles.navigation}>
+  {navigation.map((item) => (
+    <Link
+      key={item.id}
+      to={item.href}
+    >
+      {item.label}
+    </Link>
+  ))}
+</nav>
+
+<button
+  className={styles.menuButton}
+  onClick={() =>
+    setIsMenuOpen(true)
+  }
+>
+  ☰
+</button>
       </header>
 
       <MobileMenu
