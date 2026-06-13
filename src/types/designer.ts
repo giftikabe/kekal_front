@@ -2,7 +2,6 @@ import type { SEO } from "./collection";
 import type { SocialLinks } from "./social";
 
 export interface Designer {
-
   name: string;
 
   title: string;
@@ -17,7 +16,9 @@ export interface Designer {
 
   instagram?: string;
 
-    socialLinks: SocialLinks;
+  socialLinks: SocialLinks;
+
+  quote: string;
 
   seo: SEO;
 }

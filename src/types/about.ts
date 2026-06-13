@@ -1,11 +1,39 @@
-export interface AboutPage {
-  heroImage: string;
+export interface About {
+  brandStory: {
+    title: string;
 
-  brandStory: string;
+    content: string;
 
-  mission: string;
+    image: string;
+  };
 
-  vision: string;
+  craftProcess: {
+    title: string;
 
-  studio: string;
+    content: string;
+
+    image: string;
+  };
+
+  visionImpact: {
+    title: string;
+
+    content: string;
+
+    image: string;
+  };
+
+  closingImage: {
+    image: string;
+
+    alt: string;
+  };
+
+  contactCta: {
+    title: string;
+
+    description: string;
+
+    buttonText: string;
+  };
 }

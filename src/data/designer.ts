@@ -5,8 +5,7 @@ export const designer: Designer = {
 
   title: "Founder & Creative Designer",
 
-  portrait:
-    "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+  portrait: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
 
   shortBio:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. KeKal Studio explores contemporary fashion through craftsmanship, simplicity, and Ethiopian handmade textiles.",
@@ -24,9 +23,10 @@ export const designer: Designer = {
     linkedin: "https://linkedin.com",
   },
 
+  quote: "Clothing should feel as intentional as the life we live in it.",
+
   seo: {
-    metaTitle:
-      "Kalkidan Adane | Founder & Creative Designer",
+    metaTitle: "Kalkidan Adane | Founder & Creative Designer",
 
     metaDescription:
       "Learn more about Kalkidan Adane, founder and creative designer of KeKal Studio.",
@@ -38,7 +38,6 @@ export const designer: Designer = {
       "creative designer",
     ],
 
-    socialImage:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    socialImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
   },
 };

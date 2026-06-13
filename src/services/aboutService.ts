@@ -1,5 +1,5 @@
-import { aboutPage } from "../data/about";
+import { about } from "../data/about";
 
-export async function getAboutPage() {
-  return aboutPage;
+export function getAbout() {
+  return about;
 }
