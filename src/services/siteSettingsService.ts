@@ -1,5 +1,5 @@
 import { siteSettings } from "../data/siteSettings";
 
-export async function getSiteSettings() {
+export  function getSiteSettings() {
   return siteSettings;
 }
