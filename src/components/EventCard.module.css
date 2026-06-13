@@ -1,0 +1,41 @@
+.card {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.image {
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.content {
+  padding-top: 1rem;
+}
+
+.content h3 {
+  font-size: 1.25rem;
+
+  font-weight: 400;
+
+  margin-bottom: 0.5rem;
+}
+
+.date {
+  display: block;
+
+  font-size: 0.9rem;
+
+  opacity: 0.7;
+
+  margin-bottom: 0.75rem;
+}
+
+.content p {
+  line-height: 1.6;
+}

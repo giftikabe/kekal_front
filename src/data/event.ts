@@ -2,101 +2,208 @@ import type { Event } from "../types/event";
 
 export const events: Event[] = [
   {
-    id: "addis-fashion-week-2025",
+    id: "addis-creative-bazaar-2025",
 
-    title: "Addis Fashion Week 2025",
+    title: "Addis Creative Bazaar",
 
-    slug: "addis-fashion-week-2025",
+    slug: "addis-creative-bazaar-2025",
+
+    intro:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
     content:
-      "KeKal Studio presented a selection of garments exploring contemporary silhouettes through Ethiopian handmade fabrics. The presentation highlighted craftsmanship, comfort, and textile heritage.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
 
     featuredImage:
-      "/images/events/addis-fashion-week-2025/cover.jpg",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
 
     gallery: [
-      "/images/events/addis-fashion-week-2025/gallery-1.jpg",
-      "/images/events/addis-fashion-week-2025/gallery-2.jpg",
-      "/images/events/addis-fashion-week-2025/gallery-3.jpg",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
     ],
 
-    videoUrl:
-      "https://www.youtube.com/watch?v=example",
-
-    eventDate: "2025-10-15",
+    eventDate: "2025-06-15",
 
     location: "Addis Ababa, Ethiopia",
 
-    organizer: "Addis Fashion Week",
+    organizer: "Creative Hub Ethiopia",
 
     status: "past",
 
     featured: true,
 
     seo: {
-      metaTitle:
-        "Addis Fashion Week 2025 | KeKal Studio",
+      metaTitle: "Addis Creative Bazaar | KeKal Studio",
 
-      metaDescription:
-        "KeKal Studio at Addis Fashion Week 2025.",
+      metaDescription: "KeKal Studio participation at Addis Creative Bazaar.",
 
-      keywords: [
-        "fashion week",
-        "addis ababa",
-        "ethiopian fashion",
-        "kekal studio",
-      ],
+      keywords: ["kekal studio", "creative bazaar", "ethiopian fashion"],
 
       socialImage:
-        "/images/events/addis-fashion-week-2025/cover.jpg",
+        "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
     },
   },
 
   {
-    id: "textile-craft-exhibition",
+    id: "women-in-design-workshop",
 
-    title: "Textile Craft Exhibition",
+    title: "Women in Design Workshop",
 
-    slug: "textile-craft-exhibition",
+    slug: "women-in-design-workshop",
+
+    intro:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
     content:
-      "An exhibition showcasing the role of handmade textiles in contemporary garment design.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
 
     featuredImage:
-      "/images/events/textile-craft-exhibition/cover.jpg",
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
 
-    gallery: [
-      "/images/events/textile-craft-exhibition/gallery-1.jpg",
-      "/images/events/textile-craft-exhibition/gallery-2.jpg",
-    ],
+    gallery: ["https://images.unsplash.com/photo-1517048676732-d65bc937f952"],
 
-    videoUrl: "",
-
-    eventDate: "2026-09-10",
+    eventDate: "2025-08-12",
 
     location: "Addis Ababa, Ethiopia",
 
-    organizer: "Cultural Design Center",
+    organizer: "Women Entrepreneurs Network",
+
+    status: "past",
+
+    featured: true,
+
+    seo: {
+      metaTitle: "Women in Design Workshop | KeKal Studio",
+
+      metaDescription:
+        "Participation in a design and entrepreneurship workshop.",
+
+      keywords: ["design workshop", "women entrepreneurs", "kekal studio"],
+
+      socialImage:
+        "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
+    },
+  },
+
+  {
+    id: "african-textile-expo",
+
+    title: "African Textile Expo",
+
+    slug: "african-textile-expo",
+
+    intro:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+
+    featuredImage:
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518",
+
+    gallery: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518"],
+
+    eventDate: "2025-10-05",
+
+    location: "Nairobi, Kenya",
+
+    organizer: "African Textile Network",
+
+    status: "past",
+
+    featured: true,
+
+    seo: {
+      metaTitle: "African Textile Expo | KeKal Studio",
+
+      metaDescription:
+        "Showcasing Ethiopian handmade fabrics at an international textile event.",
+
+      keywords: ["textile expo", "ethiopian fabrics", "african fashion"],
+
+      socialImage:
+        "https://images.unsplash.com/photo-1521572267360-ee0c2909d518",
+    },
+  },
+
+  {
+    id: "emerging-designers-mentorship",
+
+    title: "Emerging Designers Mentorship",
+
+    slug: "emerging-designers-mentorship",
+
+    intro:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. .",
+
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+
+    featuredImage:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+
+    gallery: ["https://images.unsplash.com/photo-1522202176988-66273c2fd55f"],
+
+    eventDate: "2026-09-15",
+
+    location: "Addis Ababa, Ethiopia",
+
+    organizer: "KeKal Studio",
+
+    status: "upcoming",
+
+    featured: true,
+
+    seo: {
+      metaTitle: "Emerging Designers Mentorship | KeKal Studio",
+
+      metaDescription:
+        "A mentorship program supporting emerging fashion designers.",
+
+      keywords: ["fashion mentorship", "young designers", "kekal studio"],
+
+      socialImage:
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+    },
+  },
+
+  {
+    id: "makers-market-weekend",
+
+    title: "Makers Market Weekend",
+
+    slug: "makers-market-weekend",
+
+    intro:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+
+    featuredImage:
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+
+    gallery: ["https://images.unsplash.com/photo-1483985988355-763728e1935b"],
+
+    eventDate: "2026-11-08",
+
+    location: "Addis Ababa, Ethiopia",
+
+    organizer: "Local Makers Collective",
 
     status: "upcoming",
 
     featured: false,
 
     seo: {
-      metaTitle:
-        "Textile Craft Exhibition | KeKal Studio",
+      metaTitle: "Makers Market Weekend | KeKal Studio",
 
-      metaDescription:
-        "Upcoming exhibition featuring handmade textile traditions and contemporary design.",
+      metaDescription: "KeKal Studio at the Makers Market Weekend.",
 
-      keywords: [
-        "textile exhibition",
-        "ethiopian textiles",
-        "craftsmanship",
-      ],
+      keywords: ["makers market", "handmade fashion", "ethiopian design"],
 
       socialImage:
-        "/images/events/textile-craft-exhibition/cover.jpg",
+        "https://images.unsplash.com/photo-1483985988355-763728e1935b",
     },
   },
 ];

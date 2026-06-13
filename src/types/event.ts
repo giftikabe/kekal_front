@@ -7,13 +7,15 @@ export interface Event {
 
   slug: string;
 
+  intro: string;
+
   content: string;
 
   featuredImage: string;
 
   gallery: string[];
 
-  videoUrl: string;
+  videoUrl?: string;
 
   eventDate: string;
 

@@ -1,19 +1,24 @@
 import type { Collection } from "../types/collection";
 import styles from "./FeaturedCollections.module.css";
 
+import SectionHeader from "./SectionHeader";
+
 interface FeaturedCollectionsProps {
+    title: string;
+
   collections: Collection[];
 }
 
+
 export default function FeaturedCollections({
+  title,
   collections,
 }: FeaturedCollectionsProps) {
   return (
     <section className={styles.section}>
-      <div className={styles.header}>
-        <h2>Featured Collections</h2>
-      </div>
-
+<SectionHeader
+    title={title}
+/>
       <div className={styles.grid}>
         {collections.map((collection) => (
           <article
