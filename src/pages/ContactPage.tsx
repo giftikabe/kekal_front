@@ -1,35 +1,24 @@
 import ContactHero from "../components/ContactHero";
-import ContactInformationSection from "../components/ContactInformationSection";
-import ContactFormSection from "../components/ContactFormSection";
-import MapSection from "../components/MapSection";
-import ContactCTASection from "../components/ContactCTASection";
+import ContactSection from "../components/ContactSection";
 
 import { getContact } from "../services/contactService";
-import { getSiteSettings } from "../services/siteSettingsService";
+//import { getSiteSettings } from "../services/siteSettingsService";
 
 export default function ContactPage() {
   const contact = getContact();
 
-  const siteSettings = getSiteSettings();
+  //const siteSettings = getSiteSettings();
 
   return (
     <>
       <ContactHero
+        eyebrow={contact.hero.eyebrow}
         title={contact.hero.title}
         description={contact.hero.description}
+        image={contact.hero.image}
       />
 
-      <ContactInformationSection siteSettings={siteSettings} />
-
-      <ContactFormSection />
-
-      <MapSection siteSettings={siteSettings} />
-
-      <ContactCTASection
-        title={contact.cta.title}
-        description={contact.cta.description}
-        buttonText={contact.cta.buttonText}
-      />
+      <ContactSection />
     </>
   );
 }

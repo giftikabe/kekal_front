@@ -1,21 +1,22 @@
-import SectionHeader from "./SectionHeader";
-
 import styles from "./ContactFormSection.module.css";
+import SectionHeader from "./SectionHeader";
 
 export default function ContactFormSection() {
   return (
-    <section className={styles.section}>
-      <SectionHeader title="Send a Message" />
+    <div className={styles.container}>
+      <SectionHeader title="Contact Form" />
 
       <form className={styles.form}>
-        <input type="text" placeholder="Name" />
+        <input type="text" placeholder="Full Name" />
 
-        <input type="email" placeholder="Email" />
+        <input type="email" placeholder="Email Address" />
 
-        <textarea placeholder="Message" rows={6} />
+        <input type="text" placeholder="Subject" />
 
-        <button type="submit">Send Message</button>
+        <textarea placeholder="Your Message" rows={6} />
+
+        <button type="submit">Send</button>
       </form>
-    </section>
+    </div>
   );
 }

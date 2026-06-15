@@ -1,0 +1,25 @@
+.container {
+  display: grid;
+
+  gap: 2rem;
+}
+
+.item h3 {
+  margin: 0 0 0.5rem;
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+.item p {
+  margin: 0;
+
+  line-height: 1.8;
+
+  color: #666;
+}

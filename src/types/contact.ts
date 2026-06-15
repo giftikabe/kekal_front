@@ -1,15 +1,11 @@
-export interface ContactPage {
+export interface Contact {
   hero: {
-    title: string;
+    eyebrow: string;
 
-    description: string;
-  };
-
-  cta: {
     title: string;
 
     description: string;
 
-    buttonText: string;
+    image: string;
   };
 }

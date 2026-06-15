@@ -1,18 +1,14 @@
-import type { ContactPage } from "../types/contact";
+import type { Contact } from "../types/contact";
 
-export const contact: ContactPage = {
+export const contact: Contact = {
   hero: {
+    eyebrow: "Get in Touch",
+
     title: "Contact",
 
     description:
-      "Whether you're interested in collaborations, custom work, events, mentorship, or simply learning more about the studio, we'd love to hear from you.",
-  },
+      "For inquiries, collaborations, custom projects, appointments, or partnerships, we would love to hear from you.",
 
-  cta: {
-    title: "Let's Start a Conversation",
-
-    description: "Reach out and we'll get back to you as soon as possible.",
-
-    buttonText: "Send Message",
+    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
   },
 };
