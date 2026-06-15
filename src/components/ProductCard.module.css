@@ -1,0 +1,29 @@
+.card {
+  display: block;
+
+  text-decoration: none;
+
+  color: inherit;
+}
+
+.image {
+  width: 100%;
+
+  aspect-ratio: 4 / 5;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.content {
+  padding-top: 1rem;
+}
+
+.content h2 {
+  margin: 0;
+
+  font-size: 1rem;
+
+  font-weight: 400;
+}

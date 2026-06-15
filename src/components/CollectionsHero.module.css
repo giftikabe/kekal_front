@@ -1,0 +1,39 @@
+.section {
+  padding: 3rem 1.5rem;
+
+  text-align: center;
+
+  max-width: 900px;
+
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.12em;
+
+  font-size: 0.85rem;
+
+  color: #666;
+}
+
+.section h1 {
+  margin: 0 0 1rem;
+
+  font-size: clamp(3rem, 8vw, 6rem);
+
+  font-weight: 300;
+
+  line-height: 1;
+}
+
+.description {
+  margin: 0 auto;
+
+  max-width: 650px;
+
+  line-height: 1.8;
+}
