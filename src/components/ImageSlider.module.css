@@ -1,0 +1,49 @@
+.slider {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+
+  aspect-ratio: 14 / 9;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.dots {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  margin-top: 1rem;
+}
+
+.dot {
+  width: 8px;
+
+  height: 8px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #cfcfcf;
+
+  cursor: pointer;
+
+  padding: 0;
+}
+
+.active {
+  background: #666;
+}
+
+@media (min-width: 900px) {
+  .image {
+    aspect-ratio: 4 / 5;
+  }
+}

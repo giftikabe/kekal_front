@@ -1,23 +1,40 @@
 .section {
-  padding: 5rem 1.5rem;
+  padding: 4rem 1.5rem;
 
-  display: flex;
+  max-width: 900px;
 
-  justify-content: center;
+  margin: 0 auto;
 }
 
-.section blockquote {
-  max-width: 800px;
+.quote {
+  margin: 0;
+
+  font-size: clamp(2rem, 4vw, 3.5rem);
+
+  line-height: 1.4;
 
   text-align: center;
 
-  font-size: clamp(
-    1.5rem,
-    3vw,
-    2.5rem
-  );
+  font-style: italic;
 
-  font-weight: 300;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-  line-height: 1.5;
+  color: #444;
+}
+
+.author {
+  margin-top: 2rem;
+
+  text-align: right;
+
+  font-size: 0.95rem;
+
+  color: #777;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
 }

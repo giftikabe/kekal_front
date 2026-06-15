@@ -1,27 +1,17 @@
+export interface AboutSection {
+  title: string;
+
+  content: string;
+
+  images: string[];
+}
+
 export interface About {
-  brandStory: {
-    title: string;
+  brandStory: AboutSection;
 
-    content: string;
+  craftProcess: AboutSection;
 
-    image: string;
-  };
-
-  craftProcess: {
-    title: string;
-
-    content: string;
-
-    image: string;
-  };
-
-  visionImpact: {
-    title: string;
-
-    content: string;
-
-    image: string;
-  };
+  visionImpact: AboutSection;
 
   closingImage: {
     image: string;

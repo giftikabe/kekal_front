@@ -1,11 +1,15 @@
 .section {
-  padding: 5rem 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .layout {
   display: grid;
 
   gap: 2rem;
+}
+
+.imageContainer {
+  display: none;
 }
 
 .image {
@@ -18,8 +22,18 @@
   display: block;
 }
 
+.content {
+  display: grid;
+
+  gap: 2.5rem;
+
+  text-align: justify;
+}
+
 .content p {
-  line-height: 1.8;
+  margin: 0;
+
+  line-height: 1.9;
 }
 
 @media (min-width: 900px) {
@@ -33,5 +47,13 @@
     align-items: center;
 
     gap: 4rem;
+  }
+
+  .imageContainer {
+    display: block;
+  }
+
+  .content {
+    gap: 2rem;
   }
 }

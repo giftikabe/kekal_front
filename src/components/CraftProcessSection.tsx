@@ -1,5 +1,7 @@
 import SectionHeader from "./SectionHeader";
 
+import ImageSlider from "./ImageSlider";
+
 import styles from "./CraftProcessSection.module.css";
 
 interface CraftProcessSectionProps {
@@ -7,13 +9,13 @@ interface CraftProcessSectionProps {
 
   content: string;
 
-  image: string;
+  images: string[];
 }
 
 export default function CraftProcessSection({
   title,
   content,
-  image,
+  images,
 }: CraftProcessSectionProps) {
   return (
     <section className={styles.section}>
@@ -21,7 +23,7 @@ export default function CraftProcessSection({
 
       <div className={styles.layout}>
         <div className={styles.imageContainer}>
-          <img src={image} alt={title} className={styles.image} />
+          <ImageSlider images={images} />
         </div>
 
         <div className={styles.content}>

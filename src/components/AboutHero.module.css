@@ -1,5 +1,5 @@
 .section {
-  padding: 4rem 1.5rem;
+  padding: 3rem 1.5rem;
 
   display: grid;
 
@@ -7,11 +7,11 @@
 }
 
 .section h1 {
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: clamp(2.25rem, 6vw, 5rem);
 
   font-weight: 700;
 
-  color: #666;
+  color: #969191;
 
   line-height: 1;
 
@@ -28,26 +28,9 @@
   overflow: hidden;
 }
 
+/* No fade on mobile */
 .imageContainer::before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: 0;
-
-  width: 80px;
-  height: 100%;
-
-  background: linear-gradient(
-    to right,
-    #f8f6f2,
-    transparent
-  );
-
-  z-index: 1;
-
-  pointer-events: none;
+  display: none;
 }
 
 .image {
@@ -74,6 +57,33 @@
   }
 
   .section h1 {
+  font-size: clamp(2.25rem, 4.5vw, 5rem);
+
     text-align: left;
+  }
+
+  /* Fade only on desktop */
+  .imageContainer::before {
+    content: "";
+
+    display: block;
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 80px;
+    height: 100%;
+
+    background: linear-gradient(
+      to right,
+      #f8f6f2,
+      transparent
+    );
+
+    z-index: 1;
+
+    pointer-events: none;
   }
 }

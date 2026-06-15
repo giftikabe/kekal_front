@@ -7,13 +7,16 @@ interface DesignerStorySectionProps {
 
   image: string;
 
-  bio: string;
+  introduction: string;
+
+  journey: string;
 }
 
 export default function DesignerStorySection({
   title,
   image,
-  bio,
+  introduction,
+  journey,
 }: DesignerStorySectionProps) {
   return (
     <section className={styles.section}>
@@ -25,7 +28,9 @@ export default function DesignerStorySection({
         </div>
 
         <div className={styles.content}>
-          <p>{bio}</p>
+          <p>{introduction}</p>
+
+          <p>{journey}</p>
         </div>
       </div>
     </section>

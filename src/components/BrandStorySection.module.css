@@ -1,5 +1,5 @@
 .section {
-  padding: 5rem 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .layout {
@@ -9,21 +9,17 @@
 }
 
 .content p {
-  line-height: 1.8;
-}
+  margin: 0;
 
-.image {
-  width: 100%;
+  line-height: 1.9;
 
-  aspect-ratio: 4 / 5;
-
-  object-fit: cover;
-
-  display: block;
+  text-align: justify;
 }
 
 @media (min-width: 900px) {
   .layout {
+    display: grid;
+
     grid-template-columns:
       minmax(320px, 600px)
       minmax(280px, 420px);
@@ -32,6 +28,16 @@
 
     align-items: center;
 
-    gap: 4rem;
+    gap: 3rem;
+  }
+
+  .imageContainer {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .content {
+    grid-column: 1;
+    grid-row: 1;
   }
 }
