@@ -13,6 +13,15 @@ export const products: Product[] = [
       "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
       "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
       "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
     ],
     colors: [
       {

@@ -1,0 +1,54 @@
+.section {
+  padding: 3rem 1.5rem;
+}
+
+.grid {
+  display: flex;
+
+  gap: 1rem;
+
+  overflow-x: auto;
+
+  padding-bottom: 0.5rem;
+}
+
+.grid > * {
+  flex: 0 0 260px;
+}
+
+.viewCollectionWrapper {
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: 2rem;
+}
+
+.viewCollection {
+  text-decoration: none;
+
+  color: inherit;
+
+  font-weight: 600;
+
+  transition: opacity 0.2s ease;
+}
+
+.viewCollection:hover {
+  opacity: 0.7;
+}
+
+@media (min-width: 992px) {
+  .grid {
+    display: grid;
+
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    overflow: visible;
+  }
+
+  .grid > * {
+    min-width: 0;
+  }
+}

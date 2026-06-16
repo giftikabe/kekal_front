@@ -1,0 +1,17 @@
+.section {
+  padding: 3rem 1.5rem;
+
+  display: grid;
+
+  gap: 2rem;
+}
+
+@media (min-width: 900px) {
+  .section {
+    grid-template-columns:
+      1.85fr
+      1fr;
+
+    align-items: start;
+  }
+}
