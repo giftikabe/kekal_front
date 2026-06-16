@@ -1,5 +1,15 @@
 import type { SEO } from "./collection";
 
+export type EventCategory =
+  | "exhibition"
+  | "bazaar"
+  | "workshop"
+  | "talk"
+  | "collaboration"
+  | "other";
+
+export type EventType = "event" | "community-impact";
+
 export interface Event {
   id: string;
 
@@ -16,6 +26,10 @@ export interface Event {
   gallery: string[];
 
   videoUrl?: string;
+
+  category: EventCategory;
+
+  type: EventType;
 
   eventDate: string;
 

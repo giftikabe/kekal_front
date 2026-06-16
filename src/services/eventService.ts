@@ -15,3 +15,13 @@ export function getFeaturedEvents() {
 export function getUpcomingEvents() {
   return events.filter((event) => event.status === "upcoming");
 }
+
+export function getPastEvents() {
+  return events.filter(
+    (event) => event.type === "event" && event.status === "past",
+  );
+}
+
+export function getCommunityImpactItems() {
+  return events.filter((event) => event.type === "community-impact");
+}

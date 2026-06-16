@@ -22,6 +22,10 @@ export const events: Event[] = [
       "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
     ],
 
+    category: "bazaar",
+
+    type: "event",
+
     eventDate: "2025-06-15",
 
     location: "Addis Ababa, Ethiopia",
@@ -61,6 +65,10 @@ export const events: Event[] = [
       "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
 
     gallery: ["https://images.unsplash.com/photo-1517048676732-d65bc937f952"],
+
+    category: "workshop",
+
+    type: "event",
 
     eventDate: "2025-08-12",
 
@@ -103,6 +111,10 @@ export const events: Event[] = [
 
     gallery: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518"],
 
+    category: "exhibition",
+
+    type: "community-impact",
+
     eventDate: "2025-10-05",
 
     location: "Nairobi, Kenya",
@@ -133,8 +145,7 @@ export const events: Event[] = [
 
     slug: "emerging-designers-mentorship",
 
-    intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. .",
+    intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -143,6 +154,10 @@ export const events: Event[] = [
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
 
     gallery: ["https://images.unsplash.com/photo-1522202176988-66273c2fd55f"],
+
+    category: "collaboration",
+
+    type: "event",
 
     eventDate: "2026-09-15",
 
@@ -184,6 +199,10 @@ export const events: Event[] = [
       "https://images.unsplash.com/photo-1483985988355-763728e1935b",
 
     gallery: ["https://images.unsplash.com/photo-1483985988355-763728e1935b"],
+
+    category: "bazaar",
+
+    type: "event",
 
     eventDate: "2026-11-08",
 
