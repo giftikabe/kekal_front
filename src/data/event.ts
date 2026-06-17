@@ -9,7 +9,7 @@ export const events: Event[] = [
     slug: "addis-creative-bazaar-2025",
 
     intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -20,7 +20,10 @@ export const events: Event[] = [
     gallery: [
       "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
       "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
     ],
+
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
 
     category: "bazaar",
 

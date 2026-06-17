@@ -25,3 +25,7 @@ export function getPastEvents() {
 export function getCommunityImpactItems() {
   return events.filter((event) => event.type === "community-impact");
 }
+
+export function getRelatedEvents(currentEventId: string, limit = 3) {
+  return events.filter((event) => event.id !== currentEventId).slice(0, limit);
+}

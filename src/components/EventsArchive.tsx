@@ -43,7 +43,7 @@ export default function EventArchive({ events }: EventArchiveProps) {
         {filteredEvents.map((event) => (
           <a
             key={event.id}
-            href={`/community-events/${event.slug}`}
+            href={`/events/${event.slug}`}
             className={styles.card}
           >
             <img

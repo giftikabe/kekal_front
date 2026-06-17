@@ -1,0 +1,15 @@
+.section {
+  padding: 3rem 1.5rem;
+}
+
+.section p {
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  text-align: justify;
+
+  line-height: 1.8;
+
+  font-size: 1.125rem;
+}
