@@ -40,10 +40,8 @@ export default function CommunityImpact({ items }: CommunityImpactProps) {
 
               <p>{item.intro}</p>
 
-              <a
-                href={`/community-events/${item.slug}`}
-                className={styles.link}
-              >
+              
+              <a href={`/events/${item.slug}`} className={styles.link}>
                 View Story
               </a>
             </div>

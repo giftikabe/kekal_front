@@ -39,9 +39,7 @@ export default function UpcomingEventSection({
 
           <p className={styles.intro}>{event.intro}</p>
 
-          <a href={`/community-events/${event.slug}`} className={styles.link}>
-            {ctaText}
-          </a>
+          <span className={styles.link}>{ctaText}</span>
         </div>
       </div>
     </section>

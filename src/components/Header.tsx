@@ -8,15 +8,14 @@ import { getNavigation } from "../services/navigationService";
 
 import type { NavigationItem } from "../types/navigation";
 
+import logo from "../assets/logo.jpeg";
+
 import styles from "./Header.module.css";
 
 export default function Header() {
-  const [navigation, setNavigation] = useState<
-    NavigationItem[]
-  >([]);
+  const [navigation, setNavigation] = useState<NavigationItem[]>([]);
 
-  const [isMenuOpen, setIsMenuOpen] =
-    useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     async function loadNavigation() {
@@ -31,38 +30,32 @@ export default function Header() {
   return (
     <>
       <header className={styles.header}>
+        <div className={styles.logo}>
+          <Link to="/">
+            <img src={logo} alt="KeKal" className={styles.logoImage} />
+          </Link>
+        </div>
 
-<div className={styles.logo}>
-  <Link to="/">KK</Link>
-</div>
+        <nav className={styles.navigation}>
+          {navigation.map((item) => (
+            <Link key={item.id} to={item.href}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-<nav className={styles.navigation}>
-  {navigation.map((item) => (
-    <Link
-      key={item.id}
-      to={item.href}
-    >
-      {item.label}
-    </Link>
-  ))}
-</nav>
-
-<button
-  className={styles.menuButton}
-  onClick={() =>
-    setIsMenuOpen(true)
-  }
->
-  ☰
-</button>
+        <button
+          className={styles.menuButton}
+          onClick={() => setIsMenuOpen(true)}
+        >
+          ☰
+        </button>
       </header>
 
       <MobileMenu
         isOpen={isMenuOpen}
         navigation={navigation}
-        onClose={() =>
-          setIsMenuOpen(false)
-        }
+        onClose={() => setIsMenuOpen(false)}
       />
     </>
   );

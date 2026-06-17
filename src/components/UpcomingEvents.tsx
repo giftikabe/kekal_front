@@ -57,9 +57,7 @@ export default function UpcomingEvents({ events }: UpcomingEventsProps) {
 
           <p className={styles.intro}>{event.intro}</p>
 
-          <a href={`/community-events/${event.slug}`} className={styles.link}>
-            Learn More
-          </a>
+          <span className={styles.link}>Learn More</span>
         </div>
       </div>
 

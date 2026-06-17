@@ -6,11 +6,9 @@ interface EventCardProps {
   event: Event;
 }
 
-export default function EventCard({
-  event,
-}: EventCardProps) {
+export default function EventCard({ event }: EventCardProps) {
   return (
-    <article className={styles.card}>
+    <a href={`/events/${event.slug}`} className={styles.card}>
       <img
         src={event.featuredImage}
         alt={event.title}
@@ -20,12 +18,8 @@ export default function EventCard({
       <div className={styles.content}>
         <h3>{event.title}</h3>
 
-        <span className={styles.date}>
-          {event.eventDate}
-        </span>
-
-        <p>{event.intro}</p>
+        <span className={styles.date}>{event.eventDate}</span>
       </div>
-    </article>
+    </a>
   );
 }

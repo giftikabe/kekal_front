@@ -7,7 +7,7 @@
 
 border-top: 1px solid rgba(0, 0, 0, 0.12);
 
-background: #e0dfdb;
+background: #f8f7f3;
 
 }
 
@@ -17,11 +17,23 @@ background: #e0dfdb;
 }
 
 .logo {
-  font-size: 2rem;
-
-  font-weight: 600;
-
   margin-bottom: 1rem;
+}
+
+.logo a {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.logoImage {
+  height: 64px;
+
+  width: auto;
+
+  display: block;
 }
 
 .brand h2 {
