@@ -3,16 +3,18 @@ import UpcomingEvents from "../components/UpcomingEvents";
 import EventArchive from "../components/EventsArchive";
 import CommunityImpact from "../components/CommunityImpact";
 
-
 import {
-  getUpcomingEvents,
   getPastEvents,
   getCommunityImpactItems,
 } from "../services/eventService";
 
-export default function EventsPage() {
-  const upcomingEvents = getUpcomingEvents();
+import { getUpcomingEvents } from "../services/upcomingEventService";
+import { getEventsPageContent } from "../services/eventsPageService";
 
+export default function EventsPage() {
+  const pageContent = getEventsPageContent();
+
+  const upcomingEvents = getUpcomingEvents();
 
   const pastEvents = getPastEvents();
 
@@ -20,13 +22,26 @@ export default function EventsPage() {
 
   return (
     <>
-      <CommunityEventsHero />
+      <CommunityEventsHero
+        title={pageContent.hero.title}
+        description={pageContent.hero.description}
+      />
 
-      <UpcomingEvents events={upcomingEvents} />
+      <UpcomingEvents
+        title={pageContent.upcomingEvents.title}
+        events={upcomingEvents}
+      />
 
-      <EventArchive events={pastEvents} />
+      <EventArchive
+        title={pageContent.eventArchive.title}
+        events={pastEvents}
+      />
 
-      <CommunityImpact items={communityImpactItems} />
+      <CommunityImpact
+        title={pageContent.communityImpact.title}
+        ctaText={pageContent.communityImpact.ctaText}
+        items={communityImpactItems}
+      />
     </>
   );
 }

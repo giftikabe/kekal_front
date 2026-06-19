@@ -1,0 +1,45 @@
+.section {
+  padding: 0 1.5rem 4rem;
+}
+
+.grid {
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  gap: 2rem;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+  padding-top: 2rem;
+}
+
+.grid h3 {
+  font-size: 0.85rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+
+  margin-bottom: 0.5rem;
+
+  opacity: 0.6;
+}
+
+.grid p {
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .section {
+    padding: 0 3rem 6rem;
+  }
+}

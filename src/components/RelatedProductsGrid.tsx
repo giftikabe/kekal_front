@@ -8,12 +8,18 @@ import ProductCard from "./ProductCard";
 import styles from "./RelatedProductsGrid.module.css";
 
 interface RelatedProductsGridProps {
+  title: string;
+
+  viewCollectionText: string;
+
   products: Product[];
 
   collectionSlug: string;
 }
 
 export default function RelatedProductsGrid({
+  title,
+  viewCollectionText,
   products,
   collectionSlug,
 }: RelatedProductsGridProps) {
@@ -23,7 +29,7 @@ export default function RelatedProductsGrid({
 
   return (
     <section className={styles.section}>
-      <SectionHeader title="Related Products" />
+      <SectionHeader title={title} />
 
       <div className={styles.grid}>
         {products.map((product) => (
@@ -36,7 +42,7 @@ export default function RelatedProductsGrid({
           to={`/collections/${collectionSlug}`}
           className={styles.viewCollection}
         >
-          View Entire Collection →
+          {viewCollectionText}
         </Link>
       </div>
     </section>

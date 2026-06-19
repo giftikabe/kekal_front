@@ -12,14 +12,8 @@ export function getFeaturedEvents() {
   return events.filter((event) => event.featured);
 }
 
-export function getUpcomingEvents() {
-  return events.filter((event) => event.status === "upcoming");
-}
-
 export function getPastEvents() {
-  return events.filter(
-    (event) => event.type === "event" && event.status === "past",
-  );
+  return events.filter((event) => event.type === "event");
 }
 
 export function getCommunityImpactItems() {

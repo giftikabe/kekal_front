@@ -10,6 +10,7 @@ import ProductDetailPage from "../pages/ProductDetailPage";
 import EventsPage from "../pages/EventsPage";
 import EventDetailPage from "../pages/EventDetailPage";
 import ContactPage from "../pages/ContactPage";
+import UpcomingEventDetailsPage from "../pages/UpcomingEventDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,12 @@ export const router = createBrowserRouter([
         path: "events/:slug",
 
         element: <EventDetailPage />,
+      },
+
+      {
+        path: "upcoming-events/:slug",
+
+        element: <UpcomingEventDetailsPage />,
       },
 
       {

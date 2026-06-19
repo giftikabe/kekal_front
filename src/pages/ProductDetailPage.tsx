@@ -7,9 +7,12 @@ import RelatedProductsGrid from "../components/RelatedProductsGrid";
 import { getProductBySlug } from "../services/productService";
 import { getCollectionById } from "../services/collectionService";
 import { getProductsByCollection } from "../services/productService";
+import { getProductDetailsPageContent } from "../services/productDetailsPage";
 
 export default function ProductDetailsPage() {
   const { slug } = useParams();
+
+  const pageContent = getProductDetailsPageContent();
 
   const product = getProductBySlug(slug ?? "");
 
@@ -33,6 +36,8 @@ export default function ProductDetailsPage() {
       <ProductBody product={product} />
 
       <RelatedProductsGrid
+        title={pageContent.relatedProducts.title}
+        viewCollectionText={pageContent.relatedProducts.viewCollectionText}
         products={relatedProducts}
         collectionSlug={collection?.slug ?? ""}
       />

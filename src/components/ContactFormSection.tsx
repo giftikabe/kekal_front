@@ -1,10 +1,19 @@
 import styles from "./ContactFormSection.module.css";
 import SectionHeader from "./SectionHeader";
 
-export default function ContactFormSection() {
+interface ContactFormSectionProps {
+  title: string;
+
+  buttonText: string;
+}
+
+export default function ContactFormSection({
+  title,
+  buttonText,
+}: ContactFormSectionProps) {
   return (
     <div className={styles.container}>
-      <SectionHeader title="Contact Form" />
+      <SectionHeader title={title} />
 
       <form className={styles.form}>
         <input type="text" placeholder="Full Name" />
@@ -15,7 +24,7 @@ export default function ContactFormSection() {
 
         <textarea placeholder="Your Message" rows={6} />
 
-        <button type="submit">Send</button>
+        <button type="submit">{buttonText}</button>
       </form>
     </div>
   );

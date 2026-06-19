@@ -5,13 +5,15 @@ import CollectionStorySection from "../components/CollectionStorySection";
 import ProductsGrid from "../components/ProductsGrid";
 
 import { getCollectionBySlug } from "../services/collectionService";
-
 import { getProductsByCollection } from "../services/productService";
+import { getCollectionDetailsPageContent } from "../services/collectionDetailsPageService";
 
 export default function CollectionDetailsPage() {
   const { slug } = useParams();
 
   const collection = getCollectionBySlug(slug ?? "");
+
+  const pageContent = getCollectionDetailsPageContent();
 
   if (!collection) {
     return <p>Collection not found.</p>;
@@ -23,9 +25,12 @@ export default function CollectionDetailsPage() {
     <>
       <CollectionHero collection={collection} />
 
-      <CollectionStorySection description={collection.description} />
+      <CollectionStorySection
+        title={pageContent.collectionStory.title}
+        description={collection.description}
+      />
 
-      <ProductsGrid products={products} />
+      <ProductsGrid title={pageContent.products.title} products={products} />
     </>
   );
 }

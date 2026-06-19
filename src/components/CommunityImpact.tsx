@@ -7,17 +7,25 @@ import styles from "./CommunityImpact.module.css";
 import { Link } from "react-router-dom";
 
 interface CommunityImpactProps {
+  title: string;
+
+  ctaText: string;
+
   items: Event[];
 }
 
-export default function CommunityImpact({ items }: CommunityImpactProps) {
+export default function CommunityImpact({
+  title,
+  ctaText,
+  items,
+}: CommunityImpactProps) {
   if (items.length === 0) {
     return null;
   }
 
   return (
     <section className={styles.section}>
-      <SectionHeader title="Community Impact" />
+      <SectionHeader title={title} />
 
       <div className={styles.list}>
         {items.map((item, index) => (
@@ -43,7 +51,7 @@ export default function CommunityImpact({ items }: CommunityImpactProps) {
               <p>{item.intro}</p>
 
               <Link to={`/events/${item.slug}`} className={styles.link}>
-                View Story
+                {ctaText}
               </Link>
             </div>
           </article>

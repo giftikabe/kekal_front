@@ -1,16 +1,8 @@
 import type { SEO } from "./collection";
 
-export type EventCategory =
-  | "exhibition"
-  | "bazaar"
-  | "workshop"
-  | "talk"
-  | "collaboration"
-  | "other";
+import type { EventCategory } from "./event";
 
-export type EventType = "event" | "community-impact";
-
-export interface Event {
+export interface UpcomingEvent {
   id: string;
 
   title: string;
@@ -23,19 +15,17 @@ export interface Event {
 
   featuredImage: string;
 
-  gallery: string[];
-
-  videoUrl?: string;
-
   category: EventCategory;
-
-  type: EventType;
 
   eventDate: string;
 
   location: string;
 
   organizer: string;
+
+  registrationUrl?: string;
+
+  ctaText: string;
 
   featured: boolean;
 

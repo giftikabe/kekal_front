@@ -37,7 +37,7 @@ export default function EventDetailsPage() {
 
       <EventGallery images={event.gallery} />
 
-      <RelatedEvents events={relatedEvents} />
+      <RelatedEvents title="Related Events" events={relatedEvents} />
     </>
   );
 }

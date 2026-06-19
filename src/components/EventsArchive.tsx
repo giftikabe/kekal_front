@@ -9,10 +9,12 @@ import styles from "./EventsArchive.module.css";
 import { Link } from "react-router-dom";
 
 interface EventArchiveProps {
+  title: string;
+
   events: Event[];
 }
 
-export default function EventArchive({ events }: EventArchiveProps) {
+export default function EventArchive({ title, events }: EventArchiveProps) {
   const [activeCategory, setActiveCategory] = useState("all");
 
   const categories = ["all", ...new Set(events.map((event) => event.category))];
@@ -24,7 +26,7 @@ export default function EventArchive({ events }: EventArchiveProps) {
 
   return (
     <section className={styles.section}>
-      <SectionHeader title="Event Archive" />
+      <SectionHeader title={title} />
 
       <div className={styles.filters}>
         {categories.map((category) => (
@@ -48,12 +50,12 @@ export default function EventArchive({ events }: EventArchiveProps) {
             to={`/events/${event.slug}`}
             className={styles.card}
           >
-            {" "}
             <img
               src={event.featuredImage}
               alt={event.title}
               className={styles.image}
             />
+
             <div className={styles.content}>
               <span className={styles.category}>{event.category}</span>
 

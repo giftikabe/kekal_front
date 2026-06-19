@@ -2,17 +2,17 @@ import type { Event } from "../types/event";
 
 export const events: Event[] = [
   {
-    id: "addis-creative-bazaar-2025",
+    id: "addis-creative-bazaar",
 
     title: "Addis Creative Bazaar",
 
-    slug: "addis-creative-bazaar-2025",
+    slug: "addis-creative-bazaar",
 
     intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "KeKal participated in a city-wide creative market bringing together designers, artisans, and independent makers.",
 
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "The Addis Creative Bazaar brought together creative entrepreneurs from across Ethiopia. KeKal showcased selected pieces, connected with customers, and participated in conversations about the future of local design and craftsmanship.",
 
     featuredImage:
       "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
@@ -35,16 +35,14 @@ export const events: Event[] = [
 
     organizer: "Creative Hub Ethiopia",
 
-    status: "past",
-
     featured: true,
 
     seo: {
-      metaTitle: "Addis Creative Bazaar | KeKal Studio",
+      metaTitle: "Addis Creative Bazaar | KeKal",
 
-      metaDescription: "KeKal Studio participation at Addis Creative Bazaar.",
+      metaDescription: "KeKal participation at the Addis Creative Bazaar.",
 
-      keywords: ["kekal studio", "creative bazaar", "ethiopian fashion"],
+      keywords: ["kekal", "creative bazaar", "ethiopian design"],
 
       socialImage:
         "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
@@ -59,19 +57,22 @@ export const events: Event[] = [
     slug: "women-in-design-workshop",
 
     intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "A workshop focused on entrepreneurship, design thinking, and creative leadership for women.",
 
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "The workshop gathered women working across fashion, design, and creative industries. Participants shared experiences, discussed business challenges, and explored opportunities for collaboration.",
 
     featuredImage:
       "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
 
-    gallery: ["https://images.unsplash.com/photo-1517048676732-d65bc937f952"],
+    gallery: [
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+    ],
 
     category: "workshop",
 
-    type: "event",
+    type: "community-impact",
 
     eventDate: "2025-08-12",
 
@@ -79,17 +80,15 @@ export const events: Event[] = [
 
     organizer: "Women Entrepreneurs Network",
 
-    status: "past",
-
     featured: true,
 
     seo: {
-      metaTitle: "Women in Design Workshop | KeKal Studio",
+      metaTitle: "Women in Design Workshop | KeKal",
 
       metaDescription:
         "Participation in a design and entrepreneurship workshop.",
 
-      keywords: ["design workshop", "women entrepreneurs", "kekal studio"],
+      keywords: ["design workshop", "women entrepreneurs", "kekal"],
 
       socialImage:
         "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
@@ -104,19 +103,22 @@ export const events: Event[] = [
     slug: "african-textile-expo",
 
     intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "An international exhibition celebrating textile traditions and contemporary African design.",
 
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "The African Textile Expo welcomed designers, manufacturers, and cultural institutions from across the continent. KeKal presented selected work inspired by Ethiopian craftsmanship and contemporary design.",
 
     featuredImage:
       "https://images.unsplash.com/photo-1521572267360-ee0c2909d518",
 
-    gallery: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518"],
+    gallery: [
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518",
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+    ],
 
     category: "exhibition",
 
-    type: "community-impact",
+    type: "event",
 
     eventDate: "2025-10-05",
 
@@ -124,108 +126,18 @@ export const events: Event[] = [
 
     organizer: "African Textile Network",
 
-    status: "past",
-
-    featured: true,
-
-    seo: {
-      metaTitle: "African Textile Expo | KeKal Studio",
-
-      metaDescription:
-        "Showcasing Ethiopian handmade fabrics at an international textile event.",
-
-      keywords: ["textile expo", "ethiopian fabrics", "african fashion"],
-
-      socialImage:
-        "https://images.unsplash.com/photo-1521572267360-ee0c2909d518",
-    },
-  },
-
-  {
-    id: "emerging-designers-mentorship",
-
-    title: "Emerging Designers Mentorship",
-
-    slug: "emerging-designers-mentorship",
-
-    intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-
-    featuredImage:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
-
-    gallery: ["https://images.unsplash.com/photo-1522202176988-66273c2fd55f"],
-
-    category: "collaboration",
-
-    type: "event",
-
-    eventDate: "2026-09-15",
-
-    location: "Addis Ababa, Ethiopia",
-
-    organizer: "KeKal Studio",
-
-    status: "upcoming",
-
-    featured: true,
-
-    seo: {
-      metaTitle: "Emerging Designers Mentorship | KeKal Studio",
-
-      metaDescription:
-        "A mentorship program supporting emerging fashion designers.",
-
-      keywords: ["fashion mentorship", "young designers", "kekal studio"],
-
-      socialImage:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
-    },
-  },
-
-  {
-    id: "makers-market-weekend",
-
-    title: "Makers Market Weekend",
-
-    slug: "makers-market-weekend",
-
-    intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-
-    featuredImage:
-      "https://images.unsplash.com/photo-1483985988355-763728e1935b",
-
-    gallery: ["https://images.unsplash.com/photo-1483985988355-763728e1935b"],
-
-    category: "bazaar",
-
-    type: "event",
-
-    eventDate: "2026-11-08",
-
-    location: "Addis Ababa, Ethiopia",
-
-    organizer: "Local Makers Collective",
-
-    status: "upcoming",
-
     featured: false,
 
     seo: {
-      metaTitle: "Makers Market Weekend | KeKal Studio",
+      metaTitle: "African Textile Expo | KeKal",
 
-      metaDescription: "KeKal Studio at the Makers Market Weekend.",
+      metaDescription:
+        "Showcasing Ethiopian handmade textiles at an international exhibition.",
 
-      keywords: ["makers market", "handmade fashion", "ethiopian design"],
+      keywords: ["textile expo", "african design", "ethiopian textiles"],
 
       socialImage:
-        "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+        "https://images.unsplash.com/photo-1521572267360-ee0c2909d518",
     },
   },
 ];

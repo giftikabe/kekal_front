@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 
-import type { Event } from "../types/event";
+import { Link } from "react-router-dom";
+
+import type { UpcomingEvent } from "../types/upcomingEvent";
 
 import SectionHeader from "./SectionHeader";
 
 import styles from "./UpcomingEvents.module.css";
 
 interface UpcomingEventsProps {
-  events: Event[];
+  events: UpcomingEvent[];
+
+  title: string;
 }
 
-export default function UpcomingEvents({ events }: UpcomingEventsProps) {
+export default function UpcomingEvents({ events, title }: UpcomingEventsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -35,7 +39,7 @@ export default function UpcomingEvents({ events }: UpcomingEventsProps) {
 
   return (
     <section className={styles.section}>
-      <SectionHeader title="Upcoming Events" />
+      <SectionHeader title={title} />
 
       <div className={styles.banner}>
         <img
@@ -57,23 +61,27 @@ export default function UpcomingEvents({ events }: UpcomingEventsProps) {
 
           <p className={styles.intro}>{event.intro}</p>
 
-          <span className={styles.link}>Learn More</span>
+          <Link to={`/upcoming-events/${event.slug}`} className={styles.link}>
+            {event.ctaText}
+          </Link>
         </div>
       </div>
 
-      <div className={styles.dots}>
-        {events.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            aria-label={`Event ${index + 1}`}
-            onClick={() => setActiveIndex(index)}
-            className={`${styles.dot} ${
-              activeIndex === index ? styles.active : ""
-            }`}
-          />
-        ))}
-      </div>
+      {events.length > 1 && (
+        <div className={styles.dots}>
+          {events.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              aria-label={`Event ${index + 1}`}
+              onClick={() => setActiveIndex(index)}
+              className={`${styles.dot} ${
+                activeIndex === index ? styles.active : ""
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

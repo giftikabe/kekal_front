@@ -2,12 +2,13 @@ import Hero from "../components/Hero";
 import FeaturedCollections from "../components/FeaturedCollections";
 import DesignerSection from "../components/DesignerSection";
 import CommunityEventsSection from "../components/CommunityEventsSection";
-import UpcomingEventSection from "../components/UpcomingEventSection";
+import UpcomingEvents from "../components/UpcomingEvents";
 
 import { getHomePageContent } from "../services/homeService";
 import { getFeaturedCollections } from "../services/collectionService";
 import { getDesigner } from "../services/designerService";
-import { getFeaturedEvents, getUpcomingEvents } from "../services/eventService";
+import { getFeaturedEvents } from "../services/eventService";
+import { getUpcomingEvents } from "../services/upcomingEventService";
 
 export default function HomePage() {
   const homePageContent = getHomePageContent();
@@ -40,13 +41,10 @@ export default function HomePage() {
         designer={designer}
       />
 
-      {upcomingEvents.length > 0 && (
-        <UpcomingEventSection
-          title={homePageContent.upcomingEventSection.title}
-          ctaText={homePageContent.upcomingEventSection.ctaText ?? ""}
-          event={upcomingEvents[0]}
-        />
-      )}
+      <UpcomingEvents
+  title={homePageContent.upcomingEventSection.title}
+  events={upcomingEvents}
+/>
 
       <CommunityEventsSection
         title={homePageContent.communityEventsSection.title}

@@ -2,31 +2,42 @@ import SectionHeader from "./SectionHeader";
 
 import styles from "./ContactDetailsSection.module.css";
 
-export default function ContactDetailsSection() {
+interface ContactDetailsSectionProps {
+  title: string;
+
+  address: string;
+
+  phone: string;
+
+  email: string;
+}
+
+export default function ContactDetailsSection({
+  title,
+  address,
+  phone,
+  email,
+}: ContactDetailsSectionProps) {
   return (
     <div className={styles.container}>
-      <SectionHeader title="Direct Contact" />
+      <SectionHeader title={title} />
 
       <div className={styles.item}>
         <h3>Address</h3>
 
-        <p>
-          123 Avenue Montaigne
-          <br />
-          Paris, France
-        </p>
+        <p>{address}</p>
       </div>
 
       <div className={styles.item}>
         <h3>Phone</h3>
 
-        <p>+33 (01) 23 45 67 89</p>
+        <p>{phone}</p>
       </div>
 
       <div className={styles.item}>
         <h3>Email</h3>
 
-        <p>info@emmalangford.com</p>
+        <p>{email}</p>
       </div>
     </div>
   );
