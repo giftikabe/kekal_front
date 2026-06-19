@@ -6,6 +6,8 @@ import SectionHeader from "./SectionHeader";
 
 import styles from "./EventsArchive.module.css";
 
+import { Link } from "react-router-dom";
+
 interface EventArchiveProps {
   events: Event[];
 }
@@ -41,17 +43,17 @@ export default function EventArchive({ events }: EventArchiveProps) {
 
       <div className={styles.grid}>
         {filteredEvents.map((event) => (
-          <a
+          <Link
             key={event.id}
-            href={`/events/${event.slug}`}
+            to={`/events/${event.slug}`}
             className={styles.card}
           >
+            {" "}
             <img
               src={event.featuredImage}
               alt={event.title}
               className={styles.image}
             />
-
             <div className={styles.content}>
               <span className={styles.category}>{event.category}</span>
 
@@ -61,7 +63,7 @@ export default function EventArchive({ events }: EventArchiveProps) {
 
               <p>{event.location}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </section>

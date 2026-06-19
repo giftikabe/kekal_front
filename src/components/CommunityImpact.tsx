@@ -4,6 +4,8 @@ import SectionHeader from "./SectionHeader";
 
 import styles from "./CommunityImpact.module.css";
 
+import { Link } from "react-router-dom";
+
 interface CommunityImpactProps {
   items: Event[];
 }
@@ -40,10 +42,9 @@ export default function CommunityImpact({ items }: CommunityImpactProps) {
 
               <p>{item.intro}</p>
 
-              
-              <a href={`/events/${item.slug}`} className={styles.link}>
+              <Link to={`/events/${item.slug}`} className={styles.link}>
                 View Story
-              </a>
+              </Link>
             </div>
           </article>
         ))}
