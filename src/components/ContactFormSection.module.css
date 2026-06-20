@@ -1,9 +1,17 @@
+.container {
+  max-width: 720px;
+}
+
 .container h2 {
   margin: 0 0 2rem;
 
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 
   font-weight: 300;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
 }
 
 .form {
@@ -16,43 +24,74 @@
 .form textarea {
   width: 100%;
 
-  padding: 1rem;
+  padding: 1rem 1.25rem;
 
-  border: 1px solid #ddd;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 
   font: inherit;
 
   background: transparent;
+
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+
+  border-color: #222;
 }
 
 .form textarea {
   resize: vertical;
 
-  min-height: 180px;
+  min-height: 220px;
+
+  line-height: 1.8;
 }
 
 .form button {
-  display: block;
+  display: inline-flex;
 
-  width: 220px;
+  align-items: center;
 
-  margin: 1rem auto 0;
+  justify-content: center;
 
-  padding: 1rem;
+  width: 240px;
 
-  border: none;
+  margin-top: 1rem;
 
-  background: #222;
+  padding: 1rem 2rem;
 
-  color: #fff;
+  border: 1px solid #222;
+
+  background: transparent;
+
+  color: #222;
 
   font: inherit;
 
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
   cursor: pointer;
 
-  transition: opacity 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .form button:hover {
-  opacity: 0.9;
+  background: #222;
+
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .form button {
+    width: 100%;
+  }
 }

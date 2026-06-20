@@ -1,23 +1,23 @@
 .section {
-  padding: 3rem 1.5rem;
+  padding: 4rem 1rem;
 
   display: grid;
 
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .section h1 {
-  font-size: clamp(2.25rem, 6vw, 5rem);
+  font-size: clamp(2.5rem, 8vw, 5rem);
 
-  font-weight: 700;
-
-  color: #969191;
+  font-weight: 300;
 
   line-height: 1;
 
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 
   text-align: center;
+
+  color: #969191;
 }
 
 .imageContainer {
@@ -28,7 +28,6 @@
   overflow: hidden;
 }
 
-/* No fade on mobile */
 .imageContainer::before {
   display: none;
 }
@@ -43,26 +42,31 @@
   display: block;
 }
 
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 5rem;
+  }
+}
+
 @media (min-width: 900px) {
   .section {
     grid-template-columns:
-      minmax(280px, 500px)
-      minmax(280px, 420px);
+      minmax(320px, 520px)
+      minmax(320px, 420px);
 
     justify-content: center;
 
     align-items: center;
 
-    gap: 3rem;
+    gap: 5rem;
   }
 
   .section h1 {
-  font-size: clamp(2.25rem, 4.5vw, 5rem);
+    font-size: clamp(3rem, 5vw, 5rem);
 
     text-align: left;
   }
 
-  /* Fade only on desktop */
   .imageContainer::before {
     content: "";
 

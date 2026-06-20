@@ -1,5 +1,5 @@
 .section {
-  padding: 4rem 1.5rem;
+  padding: 4rem 1rem;
 
   max-width: 900px;
 
@@ -28,13 +28,19 @@
 .author {
   margin-top: 2rem;
 
-  text-align: right;
+  text-align: center;
 
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 
   color: #777;
 
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
 
   text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 5rem;
+  }
 }

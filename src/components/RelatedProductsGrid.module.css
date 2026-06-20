@@ -1,5 +1,5 @@
 .section {
-  padding: 3rem 1.5rem;
+  padding: 4rem 1rem;
 }
 
 .grid {
@@ -29,13 +29,23 @@
 
   color: inherit;
 
-  font-weight: 600;
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+
+  font-size: 0.9rem;
 
   transition: opacity 0.2s ease;
 }
 
 .viewCollection:hover {
   opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 5rem;
+  }
 }
 
 @media (min-width: 992px) {
@@ -46,6 +56,8 @@
       repeat(4, minmax(0, 1fr));
 
     overflow: visible;
+
+    gap: 2rem;
   }
 
   .grid > * {

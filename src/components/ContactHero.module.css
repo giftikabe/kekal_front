@@ -1,5 +1,5 @@
 .section {
-  padding: 2rem 1.5rem;
+  padding: 2rem 1rem;
 }
 
 .hero {
@@ -12,7 +12,6 @@
   overflow: hidden;
 }
 
-
 .image {
   width: 100%;
 
@@ -22,7 +21,6 @@
 
   object-fit: cover;
 }
-
 
 .overlay {
   position: absolute;
@@ -46,8 +44,19 @@
   color: white;
 }
 
+.overlay::before {
+  content: "";
+
+  width: 120px;
+  height: 1px;
+
+  background: rgba(255, 255, 255, 0.75);
+
+  margin-bottom: 1.5rem;
+}
+
 .eyebrow {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
 
   text-transform: uppercase;
 
@@ -64,6 +73,8 @@
   font-weight: 300;
 
   line-height: 1;
+
+  letter-spacing: 0.04em;
 }
 
 .description {
@@ -75,7 +86,15 @@
 }
 
 @media (min-width: 900px) {
+  .section {
+    padding: 2rem 5rem;
+  }
+
   .image {
     aspect-ratio: 16 / 6;
+  }
+
+  .overlay::before {
+    width: 160px;
   }
 }

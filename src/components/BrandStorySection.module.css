@@ -1,5 +1,5 @@
 .section {
-  padding: 2rem 1.5rem;
+  padding: 4rem 1rem;
 }
 
 .layout {
@@ -16,19 +16,23 @@
   text-align: justify;
 }
 
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 5rem;
+  }
+}
+
 @media (min-width: 900px) {
   .layout {
-    display: grid;
-
     grid-template-columns:
       minmax(320px, 600px)
-      minmax(280px, 420px);
+      minmax(320px, 420px);
 
     justify-content: center;
 
     align-items: center;
 
-    gap: 3rem;
+    gap: 5rem;
   }
 
   .imageContainer {

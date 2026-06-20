@@ -36,6 +36,7 @@ export default function DesignerSection({
           <p className={styles.role}>{designer.title}</p>
 
           <p className={styles.bio}>{designer.shortBio}</p>
+          
 
           <a href="/about" className={styles.link}>
             {ctaText}

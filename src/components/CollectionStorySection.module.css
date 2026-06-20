@@ -1,7 +1,5 @@
 .section {
-  padding: 3rem 1.5rem;
-
-  max-width: 900px;
+  padding: 4rem 1rem;
 
   margin: 0 auto;
 }
@@ -12,4 +10,10 @@
   line-height: 1.9;
 
   text-align: justify;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 3rem 5rem;
+  }
 }

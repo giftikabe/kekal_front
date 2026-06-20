@@ -3,13 +3,13 @@
 
   flex-direction: column;
 
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .description {
   margin: 0;
 
-  line-height: 1.8;
+  line-height: 1.9;
 
   text-align: justify;
 }
@@ -25,9 +25,15 @@
 .group h3 {
   margin: 0;
 
-  font-size: 1rem;
+  font-size: 0.85rem;
 
   font-weight: 500;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.12em;
+
+  color: #666;
 }
 
 .colors {
@@ -70,4 +76,12 @@
   padding: 0.5rem 0.9rem;
 
   border: 1px solid #ddd;
+
+  font-size: 0.9rem;
+}
+
+.group p {
+  margin: 0;
+
+  line-height: 1.7;
 }

@@ -1,17 +1,25 @@
 .section {
-  padding: 3rem 1.5rem;
+  padding: 4rem 1rem;
 
   display: grid;
 
-  gap: 2rem;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 4rem 5rem;
+  }
 }
 
 @media (min-width: 900px) {
   .section {
     grid-template-columns:
-      1.85fr
-      1fr;
+      minmax(0, 1.85fr)
+      minmax(280px, 1fr);
 
     align-items: start;
+
+    gap: 5rem;
   }
 }

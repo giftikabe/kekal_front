@@ -1,5 +1,5 @@
 .section {
-  padding: 4em 1.5rem;
+  padding: 4rem 1rem;
 
   text-align: center;
 
@@ -13,25 +13,33 @@
 
   font-weight: 300;
 
+  line-height: 1.2;
+
   margin-bottom: 1rem;
 }
 
 .section p {
   line-height: 1.8;
 
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .button {
   display: inline-block;
 
-  padding: 0.9rem 2rem;
+  padding: 1rem 2.5rem;
 
   border: 1px solid #222;
 
   text-decoration: none;
 
   color: inherit;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+
+  font-size: 0.9rem;
 
   transition:
     background-color 0.3s ease,
@@ -42,4 +50,10 @@
   background: #222;
 
   color: #fff;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 5rem;
+  }
 }

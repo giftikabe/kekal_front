@@ -8,55 +8,11 @@
 
 .image {
   width: 100%;
-  height: 75vh;
+  height: 70vh;
 
   object-fit: cover;
 
   display: block;
-}
-
-.content {
-  position: absolute;
-
-  left: 1.5rem;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  color: white;
-
-  max-width: 500px;
-}
-
-.content h1 {
-  font-size: 3rem;
-  font-weight: 300;
-
-  margin-bottom: 0.75rem;
-
-  letter-spacing: 0.05em;
-}
-
-.content h2 {
-  font-size: 1.25rem;
-
-  font-weight: 300;
-
-  margin-bottom: 1.5rem;
-
-  letter-spacing: 0.08em;
-
-  text-transform: uppercase;
-}
-
-.content p {
-  line-height: 1.6;
-}
-
-.content h1,
-.content h2,
-.content p {
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .hero::after {
@@ -65,19 +21,92 @@
   position: absolute;
   inset: 0;
 
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.content {
+  position: absolute;
+
+  top: 50%;
+  left: 1rem;
+  right: 1rem;
+
+  transform: translateY(-50%);
+
+  color: white;
+
+  max-width: 34rem;
+
+  z-index: 1;
+}
+
+.content::before {
+  content: "";
+
+  width: 120px;
+  height: 1px;
+
+  background: currentColor;
+
+  opacity: 0.7;
+
+  display: block;
+
+  margin-bottom: 1.5rem;
+}
+
+.content h1 {
+  font-size: 3.5rem;
+  font-weight: 300;
+}
+
+.content h2 {
+  font-size: 1.1rem;
+
+  font-weight: 300;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  margin-bottom: 1.5rem;
+
+  opacity: 0.9;
+}
+
+.content p {
+  line-height: 1.7;
+
+  max-width: 30rem;
+}
+
+.content h1,
+.content h2,
+.content p {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 @media (max-width: 767px) {
+  .image {
+    height: 65vh;
+  }
+
   .content {
-    left: 1rem;
-
     top: 55%;
-
-    max-width: 80%;
   }
 
   .content h1 {
     font-size: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .content {
+    left: 5rem;
+    right: auto;
+  }
+
+  .content h1 {
+    font-size: 3.5rem;
   }
 }

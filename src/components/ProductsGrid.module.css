@@ -1,11 +1,17 @@
 .section {
-  padding: 3rem 1.5rem;
+  padding: 4rem 1rem;
 }
 
 .grid {
   display: grid;
 
   gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 5rem;
+  }
 }
 
 @media (min-width: 700px) {

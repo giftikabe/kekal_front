@@ -4,6 +4,14 @@
   text-decoration: none;
 
   color: inherit;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
 }
 
 .image {
@@ -25,5 +33,9 @@
 
   font-size: 1rem;
 
-  font-weight: 400;
+  font-weight: 300;
+
+  letter-spacing: 0.04em;
+
+  line-height: 1.5;
 }

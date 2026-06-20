@@ -42,7 +42,6 @@
   position: absolute;
 
   left: 0;
-
   right: 0;
 
   top: 50%;
@@ -72,6 +71,16 @@
   font-size: 1.25rem;
 
   pointer-events: auto;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.controls button:hover {
+  background: white;
+
+  transform: scale(1.05);
 }
 
 .thumbnailButton {
@@ -85,7 +94,13 @@
 
   flex: 0 0 calc(33.333% - 0.5rem);
 
-  transition: border-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.thumbnailButton:hover {
+  opacity: 0.8;
 }
 
 .thumbnail {
@@ -117,7 +132,7 @@
 
   padding: 2rem;
 
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .lightboxImage {
@@ -158,9 +173,11 @@
   .container {
     display: grid;
 
-    grid-template-columns: 120px minmax(0, 1fr);
+    grid-template-columns:
+      120px
+      minmax(0, 1fr);
 
-    gap: 1.5rem;
+    gap: 2rem;
 
     align-items: start;
   }

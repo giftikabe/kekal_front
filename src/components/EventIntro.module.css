@@ -1,5 +1,5 @@
 .section {
-  padding: 3rem 1.5rem;
+  padding: 4rem 1rem;
 }
 
 .section p {
@@ -9,7 +9,13 @@
 
   text-align: justify;
 
-  line-height: 1.8;
+  line-height: 1.9;
 
   font-size: 1.125rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 5rem;
+  }
 }
