@@ -1,54 +1,82 @@
 .header {
   position: fixed;
 
-  top: 0;
+  top: 40px;
   left: 0;
   right: 0;
 
   z-index: 1000;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 1rem;
-
   background: white;
 
   border-bottom: 1px solid #e5e5e5;
+
+  padding: 1rem 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.logo {
+
+
+.brand {
+  flex: 1;
+
   display: flex;
+
+  justify-content: center;
+}
+
+.brandLink {
+  text-decoration: none;
+
+  color: inherit;
+
+  display: flex;
+  flex-direction: column;
 
   align-items: center;
 }
 
-.logo a {
-  display: flex;
 
-  align-items: center;
+.brand h1 {
+  margin: 0;
+
+  font-size: 1.5rem;
+
+  font-weight: 400;
+
+  letter-spacing: 0.12em;
+
+  line-height: 1;
 }
 
-.logoImage {
-  height: 48px;
+.brand span {
+  margin-top: 0.35rem;
 
-  width: auto;
+  font-size: 0.6rem;
 
-  display: block;
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  opacity: 0.7;
 }
 
-.navigation {
+.navigationLeft,
+.navigationRight {
   display: none;
 }
 
 .menuButton {
   border: none;
+
   background: none;
 
   cursor: pointer;
 
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 
   width: 40px;
   height: 40px;
@@ -58,15 +86,21 @@
   justify-content: center;
 }
 
-.navigation a {
+.navigationLeft a,
+.navigationRight a {
+  text-decoration: none;
+
+  color: inherit;
+
   transition: opacity 0.2s ease;
 }
 
-.navigation a:hover {
+.navigationLeft a:hover,
+.navigationRight a:hover {
   opacity: 0.6;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .header {
     display: grid;
 
@@ -74,21 +108,52 @@
 
     align-items: center;
 
-    padding: 1.5rem 5rem;
+    padding: 1.5rem 4rem;
   }
 
-  .logo {
-    justify-self: start;
-  }
-
-  .navigation {
+  .navigationLeft {
     display: flex;
 
-    justify-content: center;
+    justify-content: flex-end;
 
     gap: 2rem;
+  }
 
-    justify-self: center;
+  .navigationRight {
+    display: flex;
+
+    justify-content: flex-start;
+
+    gap: 2rem;
+  }
+
+  .navigationLeft a,
+  .navigationRight a {
+    font-size: 0.85rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+
+    white-space: nowrap;
+  }
+
+  .brand {
+    text-align: center;
+
+    padding: 0 3rem;
+  }
+
+  .brandLink {
+    align-items: center;
+  }
+
+  .brand h1 {
+    font-size: 2.25rem;
+  }
+
+  .brand span {
+    font-size: 0.65rem;
   }
 
   .menuButton {

@@ -1,4 +1,6 @@
 export interface HeroContent {
+  name: string;
+
   title: string;
 
   tagline: string;
@@ -6,6 +8,14 @@ export interface HeroContent {
   description: string;
 
   image: string;
+}
+
+export interface HomeValue {
+  icon: string;
+
+  title: string;
+
+  description: string;
 }
 
 export interface SectionContent {
@@ -16,6 +26,8 @@ export interface SectionContent {
 
 export interface HomePageContent {
   hero: HeroContent;
+
+  values: HomeValue[];
 
   featuredCollections: SectionContent;
 

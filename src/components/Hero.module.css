@@ -1,24 +1,22 @@
 .hero {
   position: relative;
-}
 
-.imageContainer {
   width: 100%;
 }
 
 .image {
   width: 100%;
-  height: 70vh;
+
+  height: calc(100vh - 140px);
 
   object-fit: cover;
 
   display: block;
 }
 
-.hero::after {
-  content: "";
-
+.overlay {
   position: absolute;
+
   inset: 0;
 
   background: rgba(0, 0, 0, 0.35);
@@ -28,85 +26,116 @@
   position: absolute;
 
   top: 50%;
-  left: 1rem;
-  right: 1rem;
+
+  left: 8%;
 
   transform: translateY(-50%);
 
+  z-index: 2;
+
+  max-width: 650px;
+
   color: white;
-
-  max-width: 34rem;
-
-  z-index: 1;
 }
 
-.content::before {
-  content: "";
+.decorativeLine {
+  width: 80px;
 
-  width: 120px;
   height: 1px;
 
-  background: currentColor;
+  background: rgba(255, 255, 255, 0.8);
 
-  opacity: 0.7;
-
-  display: block;
-
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .content h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+
   font-weight: 300;
+
+  line-height: 1.15;
+
+  margin-bottom: 2rem;
 }
 
-.content h2 {
-  font-size: 1.1rem;
+.content p {
+  max-width: 500px;
 
-  font-weight: 300;
+  line-height: 1.8;
 
-  letter-spacing: 0.12em;
+  margin-bottom: 2.5rem;
+
+  font-size: 1.05rem;
+}
+
+.actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 1rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  text-decoration: none;
+
+  padding: 1rem 2rem;
+
+  font-size: 0.9rem;
 
   text-transform: uppercase;
 
-  margin-bottom: 1.5rem;
+  letter-spacing: 0.08em;
 
+  transition: all 0.25s ease;
+}
+
+.primaryButton {
+  background: white;
+
+  color: black;
+}
+
+.secondaryButton {
+  border: 1px solid white;
+
+  color: white;
+}
+
+.primaryButton:hover {
   opacity: 0.9;
 }
 
-.content p {
-  line-height: 1.7;
+.secondaryButton:hover {
+  background: white;
 
-  max-width: 30rem;
+  color: black;
 }
 
-.content h1,
-.content h2,
-.content p {
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-@media (max-width: 767px) {
+@media (max-width: 900px) {
   .image {
-    height: 65vh;
+    height: 75vh;
   }
 
   .content {
-    top: 55%;
+    left: 1.5rem;
+
+    right: 1.5rem;
+
+    max-width: none;
   }
 
   .content h1 {
-    font-size: 2rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .content {
-    left: 5rem;
-    right: auto;
+    font-size: 2.5rem;
   }
 
-  .content h1 {
-    font-size: 3.5rem;
+  .actions {
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    text-align: center;
   }
 }

@@ -9,6 +9,7 @@ import { getFeaturedCollections } from "../services/collectionService";
 import { getDesigner } from "../services/designerService";
 import { getFeaturedEvents } from "../services/eventService";
 import { getUpcomingEvents } from "../services/upcomingEventService";
+import HomeValueCards from "../components/HomeValueCards";
 
 export default function HomePage() {
   const homePageContent = getHomePageContent();
@@ -24,11 +25,12 @@ export default function HomePage() {
   return (
     <>
       <Hero
-        title={homePageContent.hero.title}
         tagline={homePageContent.hero.tagline}
         description={homePageContent.hero.description}
         image={homePageContent.hero.image}
       />
+
+      <HomeValueCards values={homePageContent.values} />
 
       <FeaturedCollections
         title={homePageContent.featuredCollections.title}
@@ -42,9 +44,9 @@ export default function HomePage() {
       />
 
       <UpcomingEvents
-  title={homePageContent.upcomingEventSection.title}
-  events={upcomingEvents}
-/>
+        title={homePageContent.upcomingEventSection.title}
+        events={upcomingEvents}
+      />
 
       <CommunityEventsSection
         title={homePageContent.communityEventsSection.title}
