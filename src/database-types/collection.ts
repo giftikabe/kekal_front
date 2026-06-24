@@ -1,3 +1,15 @@
+/**
+ * Product collections.
+ *
+ * Examples:
+ * - Lounge Collection
+ * - Heritage Collection
+ *
+ * status:
+ * - current
+ * - archive
+ */
+
 export interface Collection {
   id: string;
 

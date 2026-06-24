@@ -1,4 +1,4 @@
-import type { Event } from "../types/event";
+import type { Event } from "../database-types/event";
 
 import styles from "./EventCard.module.css";
 

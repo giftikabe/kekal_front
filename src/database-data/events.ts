@@ -2,67 +2,65 @@ import type { Event } from "../database-types/event";
 
 export const events: Event[] = [
   {
-    id: "1",
-
-    title: "Addis Handmade Fashion Showcase",
-
-    slug: "addis-handmade-fashion-showcase",
-
+    id: "addis-creative-bazaar",
+    title: "Addis Creative Bazaar",
+    slug: "addis-creative-bazaar",
     intro:
-      "Celebrating Ethiopian craftsmanship through contemporary fashion.",
-
+      "KeKal participated in a city-wide creative market bringing together designers, artisans, and independent makers.",
     content:
-      "A showcase bringing together designers, artisans, and textile enthusiasts.",
-
-    featuredImage: "https://landing.com/event-1.jpg",
-
+      "The Addis Creative Bazaar brought together creative entrepreneurs from across Ethiopia. KeKal showcased selected pieces, connected with customers, and participated in conversations about the future of local design and craftsmanship.",
+    featuredImage: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
     gallery: [
-      "https://landing.com/event-1a.jpg",
-      "https://landing.com/event-1b.jpg",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
     ],
-
-    category: "exhibition",
-
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    category: "bazaar",
     type: "event",
-
-    eventDate: "2026-03-15",
-
-    location: "Addis Ababa",
-
-    organizer: "KEKAL",
-
+    eventDate: "2025-06-15",
+    location: "Addis Ababa, Ethiopia",
+    organizer: "Creative Hub Ethiopia",
     featured: true,
   },
-
   {
-    id: "2",
-
-    title: "Women Artisan Training Program",
-
-    slug: "women-artisan-training-program",
-
+    id: "women-in-design-workshop",
+    title: "Women in Design Workshop",
+    slug: "women-in-design-workshop",
     intro:
-      "Supporting local artisans through practical skill development.",
-
+      "A workshop focused on entrepreneurship, design thinking, and creative leadership for women.",
     content:
-      "Community initiative focused on creating sustainable opportunities.",
-
-    featuredImage: "https://landing.com/event-2.jpg",
-
+      "The workshop gathered women working across fashion, design, and creative industries. Participants shared experiences, discussed business challenges, and explored opportunities for collaboration.",
+    featuredImage: "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
     gallery: [
-      "https://landing.com/event-2a.jpg",
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
     ],
-
-    category: "other",
-
+    category: "workshop",
     type: "community-impact",
-
-    eventDate: "2026-01-10",
-
-    location: "Addis Ababa",
-
-    organizer: "KEKAL",
-
+    eventDate: "2025-08-12",
+    location: "Addis Ababa, Ethiopia",
+    organizer: "Women Entrepreneurs Network",
     featured: true,
+  },
+  {
+    id: "african-textile-expo",
+    title: "African Textile Expo",
+    slug: "african-textile-expo",
+    intro:
+      "An international exhibition celebrating textile traditions and contemporary African design.",
+    content:
+      "The African Textile Expo welcomed designers, manufacturers, and cultural institutions from across the continent. KeKal presented selected work inspired by Ethiopian craftsmanship and contemporary design.",
+    featuredImage: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518",
+    gallery: [
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518",
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+    ],
+    category: "exhibition",
+    type: "event",
+    eventDate: "2025-10-05",
+    location: "Nairobi, Kenya",
+    organizer: "African Textile Network",
+    featured: false,
   },
 ];

@@ -1,92 +1,59 @@
 import type { BrandIdentity } from "../database-types/brandIdentity";
 
-import heroImage from "../assets/hero.png";
-
 export const brandIdentity: BrandIdentity[] = [
   {
-    id: "1",
+    id: "brand-identity-1",
     key: "name",
     label: "Brand Name",
-    value: "KEKAL",
+    value: "KeKal Studio",
   },
-
   {
-    id: "2",
-    key: "title",
-    label: "Brand Title",
-    value: "EVERYDAY LIFE. RELAXED.",
-  },
-
-  {
-    id: "3",
+    id: "brand-identity-2",
     key: "tagline",
     label: "Tagline",
     value: "Handmade for restful living",
   },
-
   {
-    id: "4",
-    key: "description",
-    label: "Brand Description",
-    value:
-      "KEKAL creates modern garments using Ethiopian handmade fabrics and timeless craftsmanship.",
+    id: "brand-identity-3",
+    key: "title",
+    label: "Hero Title",
+    value: "EVERYDAY LIFE. RELAXED",
   },
-
+  {
+    id: "brand-identity-4",
+    key: "description",
+    label: "Hero Description",
+    value: "Relaxed pieces handcrafted by Ethiopian artisans, inspired by heritage and made for modern living.",
+  },
+  {
+    id: "brand-identity-5",
+    key: "logo",
+    label: "Logo",
+    value: "/images/logo.svg",
+  },
   {
     id: "5",
     key: "announcement_text",
     label: "Announcement Text",
     value: "Free nationwide delivery on selected collections",
   },
-
+  
   {
-    id: "6",
+    id: "brand-identity-6",
     key: "copyright_text",
     label: "Copyright Text",
-    value: "© 2026 KEKAL. All rights reserved.",
+    value: "© KeKal Studio. All rights reserved.",
   },
-
   {
-    id: "7",
+    id: "brand-identity-7",
     key: "home_hero_image",
     label: "Home Hero Image",
-    value: heroImage,
+    value: "/assets/hero.png",
   },
-
   {
-    id: "8",
+    id: "brand-identity-8",
     key: "contact_hero_image",
     label: "Contact Hero Image",
-    value: "",
-  },
-
-  {
-    id: "9",
-    key: "contact_cta_title",
-    label: "Contact CTA Title",
-    value: "Let's Create Something Together",
-  },
-
-  {
-    id: "10",
-    key: "contact_cta_description",
-    label: "Contact CTA Description",
-    value:
-      "Reach out to discuss collections, collaborations, or custom opportunities.",
-  },
-
-  {
-    id: "11",
-    key: "about_cta_title",
-    label: "About CTA Title",
-    value: "Discover The Story Behind KEKAL",
-  },
-
-  {
-    id: "12",
-    key: "about_cta_description",
-    label: "About CTA Description",
-    value:
-      "Learn about the people, values, and craftsmanship that shape every collection.",
+    value: "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
   },
 ];

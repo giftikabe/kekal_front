@@ -2,62 +2,36 @@ import type { UpcomingEvent } from "../database-types/upcomingEvent";
 
 export const upcomingEvents: UpcomingEvent[] = [
   {
-    id: "1",
-
-    title: "Spring Artisan Bazaar",
-
-    slug: "spring-artisan-bazaar",
-
-    intro:
-      "A gathering of artisans, makers, and textile enthusiasts.",
-
+    id: "emerging-designers-mentorship",
+    title: "Emerging Designers Mentorship",
+    slug: "emerging-designers-mentorship",
+    intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     content:
-      "Join us for a day of exhibitions, networking, and celebration of handmade craftsmanship.",
-
-    featuredImage: "https://landing.com/upcoming-event-1.jpg",
-
-    category: "bazaar",
-
-    eventDate: "2026-08-15",
-
-    location: "Addis Ababa",
-
-    organizer: "KEKAL",
-
-    registrationUrl: "https://landing.com",
-
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. This upcoming event will bring together designers, makers, and creative entrepreneurs for a day of learning, networking, and collaboration.",
+    featuredImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+    category: "collaboration",
+    eventDate: "2026-09-15",
+    location: "Addis Ababa, Ethiopia",
+    organizer: "KeKal Studio",
+    registrationUrl: "#",
     ctaText: "Register Now",
-
     featured: true,
   },
-
   {
-    id: "2",
-
-    title: "Textile Workshop",
-
-    slug: "textile-workshop",
-
+    id: "makers-market-weekend",
+    title: "Makers Market Weekend",
+    slug: "makers-market-weekend",
     intro:
-      "Hands-on learning experience with traditional textile techniques.",
-
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     content:
-      "Explore weaving, fabric selection, and contemporary applications of handmade textiles.",
-
-    featuredImage: "https://landing.com/upcoming-event-2.jpg",
-
-    category: "workshop",
-
-    eventDate: "2026-09-10",
-
-    location: "Addis Ababa",
-
-    organizer: "KEKAL",
-
-    registrationUrl: "https://landing.com",
-
-    ctaText: "Reserve Your Seat",
-
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam. Participants will have the opportunity to explore new ideas, engage with industry professionals, and discover the latest creative projects being developed within the local design community.",
+    featuredImage: "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+    category: "bazaar",
+    eventDate: "2026-11-08",
+    location: "Addis Ababa, Ethiopia",
+    organizer: "Local Makers Collective",
+    registrationUrl: "#",
+    ctaText: "Learn More",
     featured: false,
   },
 ];

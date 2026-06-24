@@ -1,4 +1,4 @@
-import type { Event } from "../types/event";
+import type { Event } from "../database-types/event";
 
 import SectionHeader from "./SectionHeader";
 import EventCard from "./EventCard";

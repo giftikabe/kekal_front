@@ -10,7 +10,7 @@ interface ContactDetailsSectionProps {
   phone: string;
 
   email: string;
-}
+} 
 
 export default function ContactDetailsSection({
   title,

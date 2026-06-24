@@ -16,7 +16,7 @@ export default function ContactPage() {
         title={contact.hero.title}
         description={contact.hero.description}
         image={contact.hero.image}
-      />
+      /> 
 
       <ContactSection />
     </>

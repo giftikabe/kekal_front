@@ -1,107 +1,143 @@
 import type { PageSection } from "../database-types/pageSection";
 
 export const pageSections: PageSection[] = [
+  // ─── Home Page ────────────────────────────────────────────────────────────────
   {
-    id: "1",
-    pageId: "1",
+    id: "section-home-hero",
+    pageId: "page-home",
     sectionName: "hero",
     sectionHeader: "",
     buttonLabels: ["Explore Collection", "Our Story"],
   },
-
+  
   {
-    id: "2",
-    pageId: "1",
+    id: "section-home-featured-collections",
+    pageId: "page-home",
     sectionName: "featured_collections",
     sectionHeader: "Featured Collections",
     buttonLabels: [],
   },
-
   {
-    id: "3",
-    pageId: "1",
+    id: "section-home-designer",
+    pageId: "page-home",
     sectionName: "designer_section",
     sectionHeader: "Meet The Designer",
     buttonLabels: ["Read More →"],
   },
-
   {
-    id: "4",
-    pageId: "1",
+    id: "section-home-community-events",
+    pageId: "page-home",
     sectionName: "community_events",
     sectionHeader: "Community & Events",
     buttonLabels: [],
   },
-
   {
-    id: "5",
-    pageId: "1",
+    id: "section-home-upcoming-event",
+    pageId: "page-home",
     sectionName: "upcoming_event",
     sectionHeader: "Upcoming Event",
     buttonLabels: ["Learn More →"],
   },
 
+  // ─── About Page ───────────────────────────────────────────────────────────────
+ {
+    id: "section-about-designer-story",
+    pageId: "page-about",
+    sectionName: "designer_story",
+    sectionHeader: "The Designer",
+    buttonLabels: [],
+  },
+  
   {
-    id: "6",
-    pageId: "2",
+    id: "section-about-brand-story",
+    pageId: "page-about",
+    sectionName: "brand_story",
+    sectionHeader: "Brand Story",
+    buttonLabels: [],
+  },
+  {
+    id: "section-about-craft-process",
+    pageId: "page-about",
+    sectionName: "craft_process",
+    sectionHeader: "Craft Process",
+    buttonLabels: [],
+  },
+  {
+    id: "section-about-vision-impact",
+    pageId: "page-about",
+    sectionName: "vision_impact",
+    sectionHeader: "Vision & Impact",
+    buttonLabels: [],
+  },
+  {
+    id: "section-about-contact-cta",
+    pageId: "page-about",
+    sectionName: "contact_cta",
+    sectionHeader: "Let's Create Together",
+    buttonLabels: ["Contact"],
+  },
+
+  // ─── Collections Page ─────────────────────────────────────────────────────────
+  {
+    id: "section-collections-hero",
+    pageId: "page-collections",
     sectionName: "hero",
     sectionHeader: "Collections",
     buttonLabels: [],
   },
 
+  // ─── Collection Details Page ──────────────────────────────────────────────────
   {
-    id: "7",
-    pageId: "3",
-    sectionName: "designer_story",
-    sectionHeader: "Designer Story",
+    id: "section-collection-details-story",
+    pageId: "page-collection-details",
+    sectionName: "collection_story",
+    sectionHeader: "Collection Story",
+    buttonLabels: [],
+  },
+  {
+    id: "section-collection-details-products",
+    pageId: "page-collection-details",
+    sectionName: "products",
+    sectionHeader: "Products",
     buttonLabels: [],
   },
 
+  // ─── Product Details Page ─────────────────────────────────────────────────────
   {
-    id: "8",
-    pageId: "3",
-    sectionName: "brand_story",
-    sectionHeader: "Brand Story",
-    buttonLabels: [],
+    id: "section-product-details-related",
+    pageId: "page-product-details",
+    sectionName: "related_products",
+    sectionHeader: "Related Products",
+    buttonLabels: ["View Entire Collection →"],
   },
 
+  // ─── Events Page ──────────────────────────────────────────────────────────────
   {
-    id: "9",
-    pageId: "3",
-    sectionName: "craft_process",
-    sectionHeader: "Craft Process",
-    buttonLabels: [],
-  },
-
-  {
-    id: "10",
-    pageId: "3",
-    sectionName: "vision_impact",
-    sectionHeader: "Vision & Impact",
-    buttonLabels: [],
-  },
-
-  {
-    id: "11",
-    pageId: "3",
-    sectionName: "contact_cta",
-    sectionHeader: "",
-    buttonLabels: ["Contact Us"],
-  },
-
-  {
-    id: "12",
-    pageId: "4",
+    id: "section-events-hero",
+    pageId: "page-events",
     sectionName: "hero",
-    sectionHeader: "Events",
+    sectionHeader: "Fashion Beyond the Studio",
     buttonLabels: [],
   },
-
   {
-    id: "13",
-    pageId: "5",
-    sectionName: "hero",
-    sectionHeader: "Contact",
+    id: "section-events-upcoming",
+    pageId: "page-events",
+    sectionName: "upcoming_events",
+    sectionHeader: "Upcoming Event",
     buttonLabels: [],
+  },
+  {
+    id: "section-events-archive",
+    pageId: "page-events",
+    sectionName: "event_archive",
+    sectionHeader: "Event Archive",
+    buttonLabels: [],
+  },
+  {
+    id: "section-events-community-impact",
+    pageId: "page-events",
+    sectionName: "community_impact",
+    sectionHeader: "Community Impact",
+    buttonLabels: ["View Story"],
   },
 ];

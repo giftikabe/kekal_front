@@ -1,63 +1,56 @@
 import AboutHero from "../components/AboutHero";
 import DesignerStorySection from "../components/DesignerStorySection";
 import QuoteSection from "../components/QuoteSection";
-import BrandStorySection from "../components/BrandStorySection";
-import CraftProcessSection from "../components/CraftProcessSection";
-import VisionImpactSection from "../components/VisionImpactSection";
+import AboutContentSection from "../components/Aboutcontentsection";
 import ContactCTASection from "../components/ContactCTASection";
 
-import { getDesigner } from "../services/designerService";
-import { getAbout } from "../services/aboutService";
-import { getAboutPageContent } from "../services/aboutPageService";
+import { getDesignerProfileByKey } from "../database-services/designerProfileService";
+import { getAboutContentBlocks } from "../database-services/aboutContentBlockService";
+import { getBrandMessageByKey } from "../database-services/brandMessageService";
+import { getSectionByPageAndName } from "../database-services/pageSectionService";
 
 export default function AboutPage() {
-  const designer = getDesigner();
+  // ─── Designer ──────────────────────────────────────────────────────────────
+  const designerName = getDesignerProfileByKey("name");
+  const designerPortrait = getDesignerProfileByKey("portrait");
+  const designerShortBio = getDesignerProfileByKey("short_bio");
+  const designerFullBio = getDesignerProfileByKey("full_bio");
+  const designerQuote = getDesignerProfileByKey("quote");
 
-  const about = getAbout();
+  // ─── About Content Blocks (brand_story, craft_process, vision_impact) ──────
+  const aboutBlocks = getAboutContentBlocks();
 
-  const aboutPageContent = getAboutPageContent();
+  // ─── Contact CTA ───────────────────────────────────────────────────────────
+  const contactCta = getBrandMessageByKey("contact_cta");
+
+  // ─── Page Sections (titles) ────────────────────────────────────────────────
+  const designerStorySection = getSectionByPageAndName("page-about", "designer_story");
 
   return (
     <>
       <AboutHero
-        name={designer.name}
-        image={designer.portrait}
+        name={designerName}
+        image={designerPortrait}
       />
 
       <DesignerStorySection
-        title={aboutPageContent.designerStory.title}
-        image={designer.portrait}
-        introduction={designer.shortBio}
-        journey={designer.fullBio}
+        title={designerStorySection?.sectionHeader ?? "The Designer"}
+        image={designerPortrait}
+        introduction={designerShortBio}
+        journey={designerFullBio}
       />
 
       <QuoteSection
-        quote={designer.quote}
-        author={designer.name}
+        quote={designerQuote}
+        author={designerName}
       />
 
-      <BrandStorySection
-        title={aboutPageContent.brandStory.title}
-        content={about.brandStory.content}
-        images={about.brandStory.images}
-      />
-
-      <CraftProcessSection
-        title={aboutPageContent.craftProcess.title}
-        content={about.craftProcess.content}
-        images={about.brandStory.images}
-      />
-
-      <VisionImpactSection
-        title={aboutPageContent.visionImpact.title}
-        content={about.visionImpact.content}
-        images={about.brandStory.images}
-      />
+      <AboutContentSection blocks={aboutBlocks} />
 
       <ContactCTASection
-        title={aboutPageContent.contactCta.title}
-        description={aboutPageContent.contactCta.description}
-        buttonText={aboutPageContent.contactCta.buttonText}
+        title={contactCta?.title ?? "Let's Create Together"}
+        description={contactCta?.description ?? ""}
+        buttonText="Contact"
       />
     </>
   );

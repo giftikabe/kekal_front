@@ -3,64 +3,38 @@ import type { AboutContentBlock } from "../database-types/aboutContentBlock";
 export const aboutContentBlocks: AboutContentBlock[] = [
   {
     id: "1",
-
     key: "brand_story",
-
-    title: "Brand Story",
-
+    title: "The Brand",
     content:
-      "KEKAL was founded to celebrate Ethiopian handmade textiles through contemporary garments that bring comfort, simplicity, and meaning into everyday life.",
-
+      "KeKal Studio was created from a desire to celebrate Ethiopian craftsmanship through contemporary clothing. The brand combines traditional textile heritage with modern silhouettes, creating pieces that feel timeless, practical, and deeply connected to culture. Every collection is an exploration of identity, craftsmanship, and the stories woven into handmade fabrics.",
     images: [
-      "https://landing.com/image-1.jpg",
-      "https://landing.com/image-2.jpg",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+      "https://images.unsplash.com/photo-1445205170230-053b83016050",
     ],
   },
-
   {
-    id: "2",
-
+    id: "about-block-2",
     key: "craft_process",
-
-    title: "Craft Process",
-
+    title: "Craft & Process",
     content:
-      "Every piece begins with carefully selected handmade fabrics and is crafted through a thoughtful process that respects both tradition and quality.",
-
+      "Each piece begins with research, sketching, and material exploration. Special attention is given to handmade Ethiopian fabrics, texture, comfort, and construction. The process values quality over quantity, focusing on thoughtful design decisions that allow each garment to feel both functional and meaningful. From concept to final stitch, craftsmanship remains at the center of the work.",
     images: [
-      "https://landing.com/image-3.jpg",
-      "https://landing.com/image-4.jpg",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae",
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
     ],
   },
-
   {
-    id: "3",
-
+    id: "about-block-3",
     key: "vision_impact",
-
     title: "Vision & Impact",
-
     content:
-      "Through collaboration with artisans and communities, KEKAL aims to create opportunities while preserving valuable textile traditions.",
-
+      "Beyond creating clothing, KeKal Studio aims to contribute to a stronger creative community. Through participation in exhibitions, fashion events, markets, and future mentorship initiatives, the vision is to support emerging designers, promote Ethiopian textiles internationally, and create opportunities for collaboration, learning, and cultural exchange.",
     images: [
-      "https://landing.com/image-5.jpg",
-      "https://landing.com/image-6.jpg",
-    ],
-  },
-
-  {
-    id: "4",
-
-    key: "designer_story",
-
-    title: "Designer Story",
-
-    content:
-      "The founder's journey is rooted in a passion for craftsmanship, culture, and creating meaningful products that connect people with heritage.",
-
-    images: [
-      "https://landing.com/image-7.jpg",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
+      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2",
     ],
   },
 ];

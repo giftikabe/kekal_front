@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import type { Collection } from "../types/collection";
+import type { Collection } from "../database-types/collection";
 
 import SectionHeader from "./SectionHeader";
 

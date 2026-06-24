@@ -2,65 +2,57 @@ import type { ContactInfo } from "../database-types/contactInfo";
 
 export const contactInfo: ContactInfo[] = [
   {
-    id: "1",
+    id: "contact-info-1",
     key: "email",
     label: "Email",
-    value: "hello@kekal.com",
+    value: "info@kekalstudio.com",
   },
-
   {
-    id: "2",
+    id: "contact-info-2",
     key: "phone",
     label: "Phone",
     value: "+251900000000",
   },
-
   {
-    id: "3",
+    id: "contact-info-3",
     key: "whatsapp",
     label: "WhatsApp",
     value: "+251900000000",
   },
-
   {
-    id: "4",
+    id: "contact-info-4",
     key: "address",
     label: "Address",
     value: "Addis Ababa, Ethiopia",
   },
-
   {
-    id: "5",
+    id: "contact-info-5",
     key: "google_map",
     label: "Google Map",
-    value: "https://google.com",
+    value: "",
   },
-
   {
-    id: "6",
+    id: "contact-info-6",
     key: "instagram",
     label: "Instagram",
-    value: "https://landing.com",
+    value: "https://instagram.com/kekalstudio",
   },
-
   {
-    id: "7",
-    key: "facebook",
-    label: "Facebook",
-    value: "https://landing.com",
-  },
-
-  {
-    id: "8",
+    id: "contact-info-7",
     key: "tiktok",
     label: "TikTok",
-    value: "https://landing.com",
+    value: "https://tiktok.com/@kekalstudio",
   },
-
   {
-    id: "9",
+    id: "contact-info-8",
+    key: "facebook",
+    label: "Facebook",
+    value: "https://facebook.com/kekalstudio",
+  },
+  {
+    id: "contact-info-9",
     key: "linkedin",
     label: "LinkedIn",
-    value: "https://landing.com",
+    value: "https://linkedin.com",
   },
 ];

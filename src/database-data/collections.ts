@@ -2,48 +2,133 @@ import type { Collection } from "../database-types/collection";
 
 export const collections: Collection[] = [
   {
-    id: "1",
-
-    name: "Lounge Collection",
-
-    slug: "lounge-collection",
-
+    id: "restful-living-2025",
+    name: "Restful Living",
+    slug: "restful-living-2025",
     description:
-      "Relaxed silhouettes designed for comfort and everyday living.",
-
-    coverImage: "https://landing.com/lounge-collection.jpg",
-
-    releaseYear: 2026,
-
-    createdAt: "2026-01-01",
-
+      "A collection exploring comfort, simplicity, and contemporary silhouettes using Ethiopian handmade fabrics.",
+    coverImage: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
+    releaseYear: 2025,
+    createdAt: "2026-06-12",
     status: "current",
-
     inStock: true,
-
     featured: true,
   },
-
   {
-    id: "2",
-
-    name: "Heritage Collection",
-
-    slug: "heritage-collection",
-
+    id: "woven-futures",
+    name: "Woven Futures",
+    slug: "woven-futures",
     description:
-      "Contemporary garments inspired by Ethiopian textile traditions.",
-
-    coverImage: "https://landing.com/heritage-collection.jpg",
-
-    releaseYear: 2025,
-
-    createdAt: "2025-01-01",
-
+      "A design exploration combining traditional textile techniques with modern forms.",
+    coverImage: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+    releaseYear: 2024,
+    createdAt: "2026-05-20",
     status: "archive",
-
+    inStock: true,
+    featured: false,
+  },
+  {
+    id: "highland-mist",
+    name: "Highland Mist",
+    slug: "highland-mist",
+    description:
+      "Inspired by the cool mornings of the Ethiopian highlands, featuring soft textures and muted earth tones.",
+    coverImage: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b",
+    releaseYear: 2025,
+    createdAt: "2026-04-15",
+    status: "current",
+    inStock: true,
+    featured: true,
+  },
+  {
+    id: "sunset-sheger",
+    name: "Sunset Sheger",
+    slug: "sunset-sheger",
+    description:
+      "Capturing the vibrant golden hour hues of Addis Ababa through premium hand-woven cotton silhouettes.",
+    coverImage: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d",
+    releaseYear: 2025,
+    createdAt: "2026-03-10",
+    status: "current",
     inStock: false,
-
+    featured: false,
+  },
+  {
+    id: "rift-valley-clay",
+    name: "Rift Valley Clay",
+    slug: "rift-valley-clay",
+    description:
+      "A minimalist exploration of structured shapes and deep terracotta tones native to the Great Rift Valley landscape.",
+    coverImage: "https://images.unsplash.com/photo-1509631179647-0177331693ae",
+    releaseYear: 2024,
+    createdAt: "2026-02-18",
+    status: "archive",
+    inStock: true,
+    featured: true,
+  },
+  {
+    id: "blue-nile-threads",
+    name: "Blue Nile Threads",
+    slug: "blue-nile-threads",
+    description:
+      "Flowing indigo dyes and fluid garments that celebrate the majestic journey of the Nile River.",
+    coverImage: "https://images.unsplash.com/photo-1549298916-b41d501d3772",
+    releaseYear: 2024,
+    createdAt: "2026-01-05",
+    status: "archive",
+    inStock: true,
+    featured: false,
+  },
+  {
+    id: "monolithic-echoes",
+    name: "Monolithic Echoes",
+    slug: "monolithic-echoes",
+    description:
+      "Sharp lines, pleating details, and heavy structural handlooms drawing deep inspiration from the rock-hewn architecture of Lalibela.",
+    coverImage: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e",
+    releaseYear: 2023,
+    createdAt: "2025-12-22",
+    status: "archive",
+    inStock: false,
+    featured: true,
+  },
+  {
+    id: "axumite-gold",
+    name: "Axumite Gold",
+    slug: "axumite-gold",
+    description:
+      "An elegant evening capsule elevated with delicate, metallic tilet patterns and refined heritage embroidery work.",
+    coverImage: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    releaseYear: 2023,
+    createdAt: "2025-11-14",
+    status: "archive",
+    inStock: true,
+    featured: false,
+  },
+  {
+    id: "urban-habesha-2025",
+    name: "Urban Habesha",
+    slug: "urban-habesha-2025",
+    description:
+      "Casual, modular, every-day street staples remixed gracefully using handspun, native Ethiopian organic cotton threads.",
+    coverImage: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b",
+    releaseYear: 2025,
+    createdAt: "2025-10-01",
+    status: "current",
+    inStock: true,
+    featured: false,
+  },
+  {
+    id: "timeless-tilet",
+    name: "Timeless Tilet",
+    slug: "timeless-tilet",
+    description:
+      "An open, continuous capsule piece celebrating the geometric complexity of traditional decorative border weaving artistry.",
+    coverImage: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105",
+    releaseYear: 2022,
+    createdAt: "2025-09-08",
+    status: "archive",
+    inStock: true,
     featured: false,
   },
 ];

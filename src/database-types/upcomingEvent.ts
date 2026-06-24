@@ -1,5 +1,13 @@
 import type { EventCategory } from "./event";
 
+
+/**
+ * Future events accepting registrations or promotion.
+ *
+ * registrationUrl = external registration link
+ * ctaText = button label shown on frontend
+ */
+
 export interface UpcomingEvent {
   id: string;
 

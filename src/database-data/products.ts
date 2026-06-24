@@ -2,58 +2,102 @@ import type { Product } from "../database-types/product";
 
 export const products: Product[] = [
   {
-    id: "1",
-
-    collectionId: "1",
-
-    name: "Lounge Robe",
-
-    slug: "lounge-robe",
-
+    id: "restful-living-coat",
+    collectionId: "restful-living-2025",
+    name: "Restful Living Coat",
+    slug: "restful-living-coat",
     description:
-      "A relaxed robe crafted from Ethiopian handmade textiles.",
-
-    mainImage: "https://landing.com/lounge-robe.jpg",
-
+      "A relaxed outer layer crafted for comfort and everyday elegance.",
+    mainImage: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
     gallery: [
-      "https://landing.com/lounge-robe-1.jpg",
-      "https://landing.com/lounge-robe-2.jpg",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
     ],
-
-    colors: ["Natural", "Black"],
-
-    sizes: ["S", "M", "L", "XL"],
-
+    colors: ["#F5F1E8"],
+    sizes: ["S", "M", "L"],
     inStock: true,
-
     featured: true,
   },
-
   {
-    id: "2",
-
-    collectionId: "1",
-
-    name: "Comfort Top",
-
-    slug: "comfort-top",
-
-    description:
-      "Designed for everyday comfort and effortless styling.",
-
-    mainImage: "https://landing.com/comfort-top.jpg",
-
+    id: "restful-living-dress",
+    collectionId: "restful-living-2025",
+    name: "Restful Living Dress",
+    slug: "restful-living-dress",
+    description: "A flowing dress designed around movement and simplicity.",
+    mainImage: "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
     gallery: [
-      "https://landing.com/comfort-top-1.jpg",
-      "https://landing.com/comfort-top-2.jpg",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae",
     ],
-
-    colors: ["Natural"],
-
-    sizes: ["S", "M", "L"],
-
+    colors: ["#F5F1E8", "#3A3A3A"],
+    sizes: ["XS", "S", "M", "L", "XL"],
     inStock: true,
-
     featured: false,
+  },
+  {
+    // collectionId FIXED: was "restful-living-2025", corrected to "woven-futures"
+    id: "woven-futures-jacket",
+    collectionId: "woven-futures",
+    name: "Woven Futures Jacket",
+    slug: "woven-futures-jacket",
+    description:
+      "Traditional weaving inspiration translated into modern tailoring.",
+    mainImage: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b",
+    gallery: [
+      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b",
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772",
+      "https://images.unsplash.com/photo-1485968579580-b6d095142e6e",
+    ],
+    colors: ["#264B73"],
+    sizes: ["S", "M", "L"],
+    inStock: true,
+    featured: false,
+  },
+  {
+    // collectionId FIXED: was "restful-living-2025", corrected to "woven-futures"
+    id: "woven-futures-trousers",
+    collectionId: "woven-futures",
+    name: "Woven Futures Trousers",
+    slug: "woven-futures-trousers",
+    description: "Relaxed tailoring with strong textile character.",
+    mainImage: "https://images.unsplash.com/photo-1549298916-b41d501d3772",
+    gallery: [
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772",
+      "https://images.unsplash.com/photo-1485968579580-b6d095142e6e",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
+    ],
+    colors: ["#264B73", "#D8C3A5"],
+    sizes: ["S", "M", "L", "XL"],
+    inStock: true,
+    featured: false,
+  },
+  {
+    id: "highland-mist-coat",
+    collectionId: "highland-mist",
+    name: "Highland Mist Coat",
+    slug: "highland-mist-coat",
+    description:
+      "Soft structured outerwear inspired by Ethiopian highland mornings.",
+    mainImage: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d",
+    gallery: [
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d",
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    ],
+    colors: ["#B7B7B7"],
+    sizes: ["M", "L"],
+    inStock: true,
+    featured: true,
   },
 ];

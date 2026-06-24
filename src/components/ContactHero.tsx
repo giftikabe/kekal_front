@@ -7,7 +7,7 @@ interface ContactHeroProps {
 
   description: string;
 
-  image: string;
+  image: string; 
 }
 
 export default function ContactHero({

@@ -15,7 +15,7 @@ export default function ContactFormSection({
     <div className={styles.container}>
       <SectionHeader title={title} />
 
-      <form className={styles.form}>
+      <form className={styles.form}> 
         <input type="text" placeholder="Full Name" />
 
         <input type="email" placeholder="Email Address" />

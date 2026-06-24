@@ -5,7 +5,7 @@ import styles from "./ContactSection.module.css";
 
 import { getSiteSettings } from "../services/siteSettingsService";
 
-export default function ContactSection() {
+export default function ContactSection() { 
   const siteSettings = getSiteSettings();
 
   return (

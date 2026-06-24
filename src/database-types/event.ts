@@ -9,6 +9,15 @@ export type EventCategory =
 export type EventType =
   | "event"
   | "community-impact";
+/**
+ * Past events and community impact activities.
+ *
+ * type:
+ * - event
+ * - community-impact
+ *
+ * gallery supports multiple images.
+ */
 
 export interface Event {
   id: string;

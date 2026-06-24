@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
-import type { UpcomingEvent } from "../types/upcomingEvent";
+import type { UpcomingEvent } from "../database-types/upcomingEvent";
 
 import SectionHeader from "./SectionHeader";
 

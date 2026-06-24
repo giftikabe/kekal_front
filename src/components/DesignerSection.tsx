@@ -1,15 +1,18 @@
-import type { Designer } from "../types/designer";
-
 import SectionHeader from "./SectionHeader";
 
 import styles from "./DesignerSection.module.css";
 
+export interface DesignerSummary {
+  name: string;
+  title: string;
+  portrait: string;
+  shortBio: string;
+}
+
 interface DesignerSectionProps {
   title: string;
-
   ctaText: string;
-
-  designer: Designer;
+  designer: DesignerSummary;
 }
 
 export default function DesignerSection({
@@ -36,7 +39,6 @@ export default function DesignerSection({
           <p className={styles.role}>{designer.title}</p>
 
           <p className={styles.bio}>{designer.shortBio}</p>
-          
 
           <a href="/about" className={styles.link}>
             {ctaText}

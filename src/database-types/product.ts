@@ -1,3 +1,11 @@
+/**
+ * Products belonging to collections.
+ *
+ * gallery = additional product images
+ * colors = available colors
+ * sizes = available sizes
+ */
+
 export interface Product {
   id: string;
 
