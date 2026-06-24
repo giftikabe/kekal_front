@@ -1,5 +1,4 @@
-import type { Product } from "../types/product";
-
+import type { Product } from "../database-types/product";
 
 import styles from "./ProductInfo.module.css";
 
@@ -16,16 +15,14 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <h3>Colors</h3>
 
         <div className={styles.colors}>
-          {product.colors.map((color) => (
-            <div key={color.name} className={styles.colorItem}>
+          {product.colors.map((hex) => (
+            <div key={hex} className={styles.colorItem}>
               <span
                 className={styles.colorSwatch}
-                style={{
-                  backgroundColor: color.code,
-                }}
+                style={{ backgroundColor: hex }}
               />
 
-              <span>{color.name}</span>
+              <span>{hex}</span>
             </div>
           ))}
         </div>

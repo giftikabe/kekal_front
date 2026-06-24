@@ -2,7 +2,7 @@ import SectionHeader from "./SectionHeader";
 
 import styles from "./CollectionStorySection.module.css";
 
-interface CollectionStorySectionProps {
+interface CollectionStorySectionProps { 
   title: string;
 
   description: string;

@@ -1,41 +1,31 @@
-import { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
 
-import { getNavigation } from "../services/navigationService";
-import { getSiteSettings } from "../services/siteSettingsService";
+import { getNavigation } from "../database-services/navigationService";
+import { getBrandIdentityByKey } from "../database-services/brandIdentityService";
+import { getContactInfoByKey } from "../database-services/contactInfoService";
 
-import type { NavigationItem } from "../types/navigation";
-import type { SiteSettings } from "../types/siteSettings";
+import type { Navigation } from "../database-types/navigation";
 
 import logo from "../assets/logo.jpeg";
 
 import styles from "./Footer.module.css";
 
 export default function Footer() {
-  const [navigation, setNavigation] = useState<NavigationItem[]>([]);
+  // ─── Navigation ────────────────────────────────────────────────────────────
+  const navigation: Navigation[] = getNavigation();
 
-  const [siteSettings, setSiteSettings] =
-    useState<SiteSettings | null>(null);
+  // ─── Brand ─────────────────────────────────────────────────────────────────
+  const siteName = getBrandIdentityByKey("name");
+  const tagline = getBrandIdentityByKey("tagline");
+  const copyright = getBrandIdentityByKey("copyright_text");
 
-  useEffect(() => {
-    async function loadFooterData() {
-      const navigationData = await getNavigation();
-
-      const siteSettingsData =
-        await getSiteSettings();
-
-      setNavigation(navigationData);
-
-      setSiteSettings(siteSettingsData);
-    }
-
-    loadFooterData();
-  }, []);
-
-  if (!siteSettings) {
-    return null;
-  }
+  // ─── Contact & Socials ─────────────────────────────────────────────────────
+  const instagram = getContactInfoByKey("instagram");
+  const tiktok = getContactInfoByKey("tiktok");
+  const facebook = getContactInfoByKey("facebook");
+  const address = getContactInfoByKey("address");
+  const phone = getContactInfoByKey("phone");
+  const email = getContactInfoByKey("email");
 
   return (
     <footer className={styles.footer}>
@@ -50,18 +40,15 @@ export default function Footer() {
           </Link>
         </div>
 
-        <h2>{siteSettings.siteName}</h2>
+        <h2>{siteName}</h2>
 
-        <p>{siteSettings.tagline}</p>
+        <p>{tagline}</p>
       </div>
 
       <div className={styles.right}>
         <nav className={styles.navigation}>
           {navigation.map((item) => (
-            <Link
-              key={item.id}
-              to={item.href}
-            >
+            <Link key={item.id} to={item.href}>
               {item.label}
             </Link>
           ))}
@@ -71,27 +58,15 @@ export default function Footer() {
           <div className={styles.socials}>
             <h3>Social</h3>
 
-            <a
-              href={siteSettings.instagram}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={instagram} target="_blank" rel="noreferrer">
               Instagram
             </a>
 
-            <a
-              href={siteSettings.tiktok}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={tiktok} target="_blank" rel="noreferrer">
               TikTok
             </a>
 
-            <a
-              href={siteSettings.facebook}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={facebook} target="_blank" rel="noreferrer">
               Facebook
             </a>
           </div>
@@ -99,22 +74,20 @@ export default function Footer() {
           <div className={styles.address}>
             <h3>Address</h3>
 
-            <p>{siteSettings.address}</p>
+            <p>{address}</p>
           </div>
 
           <div className={styles.contact}>
             <h3>Contact</h3>
 
-            <p>{siteSettings.phone}</p>
+            <p>{phone}</p>
 
-            <p>{siteSettings.email}</p>
+            <p>{email}</p>
           </div>
         </div>
       </div>
 
-      <p className={styles.copyright}>
-        {siteSettings.copyright}
-      </p>
+      <p className={styles.copyright}>{copyright}</p>
     </footer>
   );
 }

@@ -7,7 +7,7 @@ import EventContent from "../components/EventContent";
 import EventGallery from "../components/EventGallery";
 import RelatedEvents from "../components/RelatedEvents";
 
-import { getEventBySlug, getRelatedEvents } from "../services/eventService";
+import { getEventBySlug, getRelatedEvents } from "../database-services/eventService";
 
 export default function EventDetailsPage() {
   const { slug } = useParams();
@@ -20,7 +20,6 @@ export default function EventDetailsPage() {
 
   const relatedEvents = getRelatedEvents(event.id, 3);
 
-  
   return (
     <>
       <EventHero event={event} />

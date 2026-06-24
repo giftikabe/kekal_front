@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import type { Collection } from "../types/collection";
+import type { Collection } from "../database-types/collection";
 
 import styles from "./CollectionCard.module.css";
 
@@ -14,7 +14,7 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
       <img
         src={collection.coverImage}
         alt={collection.name}
-        className={styles.image}
+        className={styles.image} 
       />
 
       <div className={styles.content}>

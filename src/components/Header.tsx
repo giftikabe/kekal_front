@@ -1,41 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
 import MobileMenu from "./MobileMenu";
 
-import { getNavigation } from "../services/navigationService";
+import { getNavigation } from "../database-services/navigationService";
+import { getBrandIdentityByKey } from "../database-services/brandIdentityService";
 
-import type { NavigationItem } from "../types/navigation";
+import type { Navigation } from "../database-types/navigation";
 
 import styles from "./Header.module.css";
 
-import { getHomePageContent } from "../services/homeService";
-
 export default function Header() {
-  const [navigation, setNavigation] = useState<NavigationItem[]>([]);
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const homePageContent = getHomePageContent();
-
-  const { name, title } = homePageContent.hero;
-
-  useEffect(() => {
-    async function loadNavigation() {
-      const data = await getNavigation();
-
-      setNavigation(data);
-    }
-
-    loadNavigation();
-  }, []);
+  // ─── Navigation ────────────────────────────────────────────────────────────
+  const navigation: Navigation[] = getNavigation();
 
   const midpoint = Math.ceil(navigation.length / 2);
-
   const leftNavigation = navigation.slice(0, midpoint);
-
   const rightNavigation = navigation.slice(midpoint);
+
+  // ─── Brand ─────────────────────────────────────────────────────────────────
+  const name = getBrandIdentityByKey("name");
+  const title = getBrandIdentityByKey("title");
 
   return (
     <>

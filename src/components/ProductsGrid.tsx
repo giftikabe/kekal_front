@@ -1,7 +1,6 @@
-import type { Product } from "../types/product";
+import type { Product } from "../database-types/product";
 
 import ProductCard from "./ProductCard";
-
 import SectionHeader from "./SectionHeader";
 
 import styles from "./ProductsGrid.module.css";

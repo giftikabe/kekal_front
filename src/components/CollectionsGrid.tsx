@@ -1,6 +1,6 @@
 import CollectionCard from "./CollectionCard";
 
-import type { Collection } from "../types/collection";
+import type { Collection } from "../database-types/collection";
 
 import styles from "./CollectionsGrid.module.css";
 
@@ -14,7 +14,7 @@ export default function CollectionsGrid({ collections }: CollectionsGridProps) {
       <div className={styles.grid}>
         {collections.map((collection) => (
           <CollectionCard key={collection.id} collection={collection} />
-        ))}
+        ))} 
       </div>
     </section>
   );

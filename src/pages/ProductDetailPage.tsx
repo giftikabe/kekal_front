@@ -4,17 +4,17 @@ import ProductHero from "../components/ProductHero";
 import ProductBody from "../components/ProductBody";
 import RelatedProductsGrid from "../components/RelatedProductsGrid";
 
-import { getProductBySlug } from "../services/productService";
-import { getCollectionById } from "../services/collectionService";
-import { getProductsByCollection } from "../services/productService";
-import { getProductDetailsPageContent } from "../services/productDetailsPage";
+import { getProductBySlug, getProductsByCollection } from "../database-services/productService";
+import { getCollectionById } from "../database-services/collectionService";
+import { getSectionByPageAndName } from "../database-services/pageSectionService";
 
 export default function ProductDetailsPage() {
   const { slug } = useParams();
 
-  const pageContent = getProductDetailsPageContent();
-
   const product = getProductBySlug(slug ?? "");
+
+  // ─── Page Sections ─────────────────────────────────────────────────────────
+  const relatedSection = getSectionByPageAndName("page-product-details", "related_products");
 
   if (!product) {
     return <p>Product not found.</p>;
@@ -36,8 +36,8 @@ export default function ProductDetailsPage() {
       <ProductBody product={product} />
 
       <RelatedProductsGrid
-        title={pageContent.relatedProducts.title}
-        viewCollectionText={pageContent.relatedProducts.viewCollectionText}
+        title={relatedSection?.sectionHeader ?? "Related Products"}
+        viewCollectionText={relatedSection?.buttonLabels[0] ?? "View Entire Collection →"}
         products={relatedProducts}
         collectionSlug={collection?.slug ?? ""}
       />

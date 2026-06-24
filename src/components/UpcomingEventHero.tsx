@@ -1,4 +1,4 @@
-import type { UpcomingEvent } from "../types/upcomingEvent";
+import type { UpcomingEvent } from "../database-types/upcomingEvent";
 
 import styles from "./UpcomingEventHero.module.css";
 

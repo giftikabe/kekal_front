@@ -3,43 +3,44 @@ import UpcomingEvents from "../components/UpcomingEvents";
 import EventArchive from "../components/EventsArchive";
 import CommunityImpact from "../components/CommunityImpact";
 
-import {
-  getPastEvents,
-  getCommunityImpactItems,
-} from "../services/eventService";
-
-import { getUpcomingEvents } from "../services/upcomingEventService";
-import { getEventsPageContent } from "../services/eventsPageService";
+import { getPastEvents, getCommunityImpactItems } from "../database-services/eventService";
+import { getUpcomingEvents } from "../database-services/upcomingEventService";
+import { getBrandMessageByKey } from "../database-services/brandMessageService";
+import { getSectionByPageAndName } from "../database-services/pageSectionService";
 
 export default function EventsPage() {
-  const pageContent = getEventsPageContent();
-
   const upcomingEvents = getUpcomingEvents();
-
   const pastEvents = getPastEvents();
-
   const communityImpactItems = getCommunityImpactItems();
+
+  // ─── Hero ──────────────────────────────────────────────────────────────────
+  const eventsHero = getBrandMessageByKey("events_hero");
+
+  // ─── Page Sections ─────────────────────────────────────────────────────────
+  const upcomingSection = getSectionByPageAndName("page-events", "upcoming_events");
+  const archiveSection = getSectionByPageAndName("page-events", "event_archive");
+  const communitySection = getSectionByPageAndName("page-events", "community_impact");
 
   return (
     <>
       <CommunityEventsHero
-        title={pageContent.hero.title}
-        description={pageContent.hero.description}
+        title={eventsHero?.title ?? "Fashion Beyond the Studio"}
+        description={eventsHero?.description ?? ""}
       />
 
       <UpcomingEvents
-        title={pageContent.upcomingEvents.title}
+        title={upcomingSection?.sectionHeader ?? "Upcoming Event"}
         events={upcomingEvents}
       />
 
       <EventArchive
-        title={pageContent.eventArchive.title}
+        title={archiveSection?.sectionHeader ?? "Event Archive"}
         events={pastEvents}
       />
 
       <CommunityImpact
-        title={pageContent.communityImpact.title}
-        ctaText={pageContent.communityImpact.ctaText}
+        title={communitySection?.sectionHeader ?? "Community Impact"}
+        ctaText={communitySection?.buttonLabels[0] ?? "View Story"}
         items={communityImpactItems}
       />
     </>

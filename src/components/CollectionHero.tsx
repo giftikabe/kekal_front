@@ -1,4 +1,4 @@
-import type { Collection } from "../types/collection";
+import type { Collection } from "../database-types/collection";
 
 import styles from "./CollectionHero.module.css";
 
@@ -11,9 +11,9 @@ export default function CollectionHero({ collection }: CollectionHeroProps) {
     <section className={styles.section}>
       <img
         src={collection.coverImage}
-        alt={collection.name}
+        alt={collection.name} 
         className={styles.image}
-      />
+      /> 
 
       <div className={styles.overlay}>
         <p>{collection.releaseYear}</p>

@@ -3,7 +3,7 @@ import styles from "./CollectionsHero.module.css";
 interface CollectionsHeroProps {
   eyebrow: string;
 
-  title: string;
+  title: string; 
 
   description: string;
 }

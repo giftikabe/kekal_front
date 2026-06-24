@@ -21,7 +21,7 @@ export default function AboutPage() {
   const aboutBlocks = getAboutContentBlocks();
 
   // ─── Contact CTA ───────────────────────────────────────────────────────────
-  const contactCta = getBrandMessageByKey("contact_cta");
+  const contactCta = getBrandMessageByKey("about_cta");
 
   // ─── Page Sections (titles) ────────────────────────────────────────────────
   const designerStorySection = getSectionByPageAndName("page-about", "designer_story");

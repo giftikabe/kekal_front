@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import type { Product } from "../types/product";
+import type { Product } from "../database-types/product";
 
 import styles from "./ProductCard.module.css";
 
@@ -14,7 +14,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <img
         src={product.mainImage}
         alt={product.name}
-        className={styles.image}
+        className={styles.image} 
       />
 
       <div className={styles.content}>

@@ -5,7 +5,7 @@ export const brandIdentity: BrandIdentity[] = [
     id: "brand-identity-1",
     key: "name",
     label: "Brand Name",
-    value: "KeKal Studio",
+    value: "KEKAL",
   },
   {
     id: "brand-identity-2",
@@ -32,13 +32,6 @@ export const brandIdentity: BrandIdentity[] = [
     value: "/images/logo.svg",
   },
   {
-    id: "5",
-    key: "announcement_text",
-    label: "Announcement Text",
-    value: "Free nationwide delivery on selected collections",
-  },
-  
-  {
     id: "brand-identity-6",
     key: "copyright_text",
     label: "Copyright Text",
@@ -55,5 +48,23 @@ export const brandIdentity: BrandIdentity[] = [
     key: "contact_hero_image",
     label: "Contact Hero Image",
     value: "https://images.unsplash.com/photo-1517048676732-d65bc937f952",
+  },
+  {
+    id: "brand-identity-9",
+    key: "contact_hero_eyebrow",
+    label: "Contact Hero Eyebrow",
+    value: "Get in Touch",
+  },
+  {
+    id: "brand-identity-10",
+    key: "contact_hero_description",
+    label: "Contact Hero Description",
+    value: "For inquiries, collaborations, custom projects, appointments, or partnerships, we would love to hear from you.",
+  },
+  {
+    id: "brand-identity-11",
+    key: "announcement_text",
+    label: "Announcement Text",
+    value: "Free nationwide delivery on selected collections",
   },
 ];

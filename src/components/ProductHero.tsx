@@ -1,4 +1,3 @@
-//import type { Product } from "../types/product";
 
 import styles from "./ProductHero.module.css";
 
@@ -6,7 +5,7 @@ interface ProductHeroProps {
   productName: string;
 
   collectionName: string;
-}
+} 
 
 export default function ProductHero({
   productName,

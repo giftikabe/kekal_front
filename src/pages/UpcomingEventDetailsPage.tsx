@@ -5,7 +5,7 @@ import UpcomingEventContent from "../components/UpcomingEventContent";
 import UpcomingEventInformation from "../components/UpcomingEventInformation";
 import UpcomingEventCTA from "../components/UpcomingEventCTA";
 
-import { getUpcomingEventBySlug } from "../services/upcomingEventService";
+import { getUpcomingEventBySlug } from "../database-services/upcomingEventService";
 
 export default function UpcomingEventDetailPage() {
   const { slug } = useParams();

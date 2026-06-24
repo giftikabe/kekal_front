@@ -111,6 +111,30 @@ export const pageSections: PageSection[] = [
     buttonLabels: ["View Entire Collection →"],
   },
 
+  
+  // ─── Contact Page ─────────────────────────────────────────────────────────────
+  {
+    id: "section-contact-hero",
+    pageId: "page-contact",
+    sectionName: "hero",
+    sectionHeader: "Contact",
+    buttonLabels: [],
+  },
+  {
+    id: "section-contact-form",
+    pageId: "page-contact",
+    sectionName: "contact_form",
+    sectionHeader: "Contact Form",
+    buttonLabels: ["Send"],
+  },
+  {
+    id: "section-contact-details",
+    pageId: "page-contact",
+    sectionName: "contact_details",
+    sectionHeader: "Direct Contact",
+    buttonLabels: [],
+  },
+ 
   // ─── Events Page ──────────────────────────────────────────────────────────────
   {
     id: "section-events-hero",

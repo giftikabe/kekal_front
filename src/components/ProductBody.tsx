@@ -1,5 +1,4 @@
-import type { Product } from "../types/product";
-
+import type { Product } from "../database-types/product";
 import ProductGallery from "./ProductGallery";
 import ProductInfo from "./ProductInfo";
 
@@ -15,6 +14,6 @@ export default function ProductBody({ product }: ProductBodyProps) {
       <ProductGallery product={product} />
 
       <ProductInfo product={product} />
-    </section>
+    </section> 
   );
 }
