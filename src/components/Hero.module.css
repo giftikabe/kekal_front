@@ -1,141 +1,119 @@
 .hero {
   position: relative;
-
   width: 100%;
 }
 
 .image {
   width: 100%;
-
-  height: calc(100vh - 140px);
-
+  height: 75vh;
   object-fit: cover;
-
   display: block;
 }
 
 .overlay {
   position: absolute;
-
   inset: 0;
-
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--color-overlay);
 }
 
 .content {
   position: absolute;
-
   top: 50%;
-
-  left: 8%;
-
+  left: var(--space-sm);
+  right: var(--space-sm);
   transform: translateY(-50%);
-
   z-index: 2;
-
-  max-width: 650px;
-
-  color: white;
+  max-width: none;
+  color: var(--color-paper);
 }
 
 .decorativeLine {
   width: 80px;
-
   height: 1px;
-
   background: rgba(255, 255, 255, 0.8);
-
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-lg);
 }
 
 .content h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-
-  font-weight: 300;
-
-  line-height: 1.15;
-
-  margin-bottom: 2rem;
+  font-family: var(--font-display);
+  font-weight: var(--weight-light);
+  font-size: clamp(2.25rem, 1.8rem + 3vw, 3rem);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-lg);
 }
 
 .content p {
   max-width: 500px;
-
-  line-height: 1.8;
-
-  margin-bottom: 2.5rem;
-
-  font-size: 1.05rem;
+  line-height: var(--leading-body);
+  margin-bottom: var(--space-lg);
+  font-size: var(--text-body-lg);
+  opacity: 0.92;
 }
 
 .actions {
   display: flex;
-
+  flex-direction: column;
   flex-wrap: wrap;
-
-  gap: 1rem;
+  gap: var(--space-sm);
 }
 
 .primaryButton,
 .secondaryButton {
   text-decoration: none;
-
+  text-align: center;
   padding: 1rem 2rem;
-
-  font-size: 0.9rem;
-
+  font-size: var(--text-label);
   text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-
-  transition: all 0.25s ease;
+  letter-spacing: var(--tracking-wide);
+  border: 1px solid transparent;
+  transition: background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease);
 }
 
 .primaryButton {
-  background: white;
-
-  color: black;
-}
-
-.secondaryButton {
-  border: 1px solid white;
-
-  color: white;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-paper);
 }
 
 .primaryButton:hover {
-  opacity: 0.9;
+  background: transparent;
+  color: var(--color-paper);
+}
+
+.secondaryButton {
+  border-color: var(--color-paper);
+  color: var(--color-paper);
 }
 
 .secondaryButton:hover {
-  background: white;
-
-  color: black;
+  background: var(--color-paper);
+  color: var(--color-ink);
 }
 
-@media (max-width: 900px) {
+@media (min-width: 900px) {
   .image {
-    height: 75vh;
+    height: calc(100vh - var(--announcement-height) - var(--header-height-desktop) - var(--value-cards-height));
   }
 
   .content {
-    left: 1.5rem;
-
-    right: 1.5rem;
-
-    max-width: none;
+    left: 8%;
+    right: auto;
+    max-width: 650px;
   }
 
   .content h1 {
-    font-size: 2.5rem;
+    font-size: var(--text-display-xl);
   }
 
   .actions {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .primaryButton,
   .secondaryButton {
-    text-align: center;
+    text-align: left;
   }
 }

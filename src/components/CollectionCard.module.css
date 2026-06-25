@@ -1,13 +1,8 @@
 .card {
   display: block;
-
   text-decoration: none;
-
   color: inherit;
-
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform var(--duration-base) var(--ease);
 }
 
 .card:hover {
@@ -16,38 +11,27 @@
 
 .image {
   width: 100%;
-
   aspect-ratio: 16 / 9;
-
   object-fit: cover;
-
   display: block;
 }
 
 .content {
-  padding-top: 1rem;
+  padding-top: var(--space-sm);
 }
 
 .content h2 {
   margin: 0;
-
   font-size: 1.1rem;
-
-  font-weight: 300;
-
-  letter-spacing: 0.04em;
-
-  line-height: 1.4;
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-heading);
 }
 
 .content p {
   margin: 0.5rem 0 0;
-
-  color: #666;
-
-  font-size: 0.85rem;
-
-  letter-spacing: 0.12em;
-
+  color: var(--color-mute);
+  font-size: var(--text-body-sm);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }

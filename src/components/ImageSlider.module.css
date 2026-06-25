@@ -1,47 +1,33 @@
 .slider {
   width: 100%;
-
   max-width: 420px;
-
   margin: 0 auto;
 }
 
 .image {
   width: 100%;
-
   aspect-ratio: 4 / 5;
-
   object-fit: cover;
-
   display: block;
 }
 
 .dots {
   display: flex;
-
   justify-content: center;
-
-  gap: 0.75rem;
-
-  margin-top: 1.5rem;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
 }
 
 .dot {
-  width: 10px;
-
-  height: 10px;
-
+  width: 8px;
+  height: 8px;
   border: none;
-
   border-radius: 50%;
-
   background: currentColor;
-
   opacity: 0.35;
-
   cursor: pointer;
-
   padding: 0;
+  transition: opacity var(--duration-fast) var(--ease);
 }
 
 .active {

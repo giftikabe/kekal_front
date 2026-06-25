@@ -1,44 +1,31 @@
 .section {
-  padding: 0 1rem 6rem;
-
+  padding: 0 var(--space-sm) var(--space-2xl);
   display: flex;
-
   justify-content: center;
 }
 
 .button {
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
-
   min-width: 240px;
-
   padding: 1rem 2.5rem;
-
   text-decoration: none;
-
-  border: 1px solid black;
-
-  color: black;
-
-  letter-spacing: 0.08em;
-
+  border: 1px solid var(--color-ink);
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease;
+  font-size: var(--text-label);
+  transition: background-color var(--duration-base) var(--ease), color var(--duration-base) var(--ease);
 }
 
 .button:hover {
-  background: black;
-
-  color: white;
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 0 5rem 8rem;
+    padding: 0 var(--section-pad-inline) calc(var(--space-2xl) + var(--space-sm));
   }
 }

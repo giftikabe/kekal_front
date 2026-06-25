@@ -1,0 +1,9 @@
+.main {
+  padding-top: calc(var(--announcement-height) + var(--header-height-mobile));
+}
+
+@media (min-width: 900px) {
+  .main {
+    padding-top: calc(var(--announcement-height) + var(--header-height-desktop));
+  }
+}

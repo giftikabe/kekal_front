@@ -1,59 +1,43 @@
 .section {
-  padding: 4rem 1rem;
-
+  padding: var(--section-pad-block) var(--space-sm);
   text-align: center;
-
-  max-width: 700px;
-
+  max-width: var(--content-max-prose);
   margin: 0 auto;
 }
 
 .section h2 {
-  font-size: clamp(2rem, 4vw, 2.8rem);
-
-  font-weight: 300;
-
-  line-height: 1.2;
-
-  margin-bottom: 1rem;
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-heading);
+  margin-bottom: var(--space-sm);
 }
 
 .section p {
-  line-height: 1.8;
-
-  margin-bottom: 2.5rem;
+  line-height: var(--leading-body);
+  color: var(--color-mute);
+  margin-bottom: var(--space-lg);
 }
 
 .button {
   display: inline-block;
-
   padding: 1rem 2.5rem;
-
-  border: 1px solid #222;
-
+  border: 1px solid var(--color-ink);
   text-decoration: none;
-
-  color: inherit;
-
+  color: var(--color-ink);
   text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-
-  font-size: 0.9rem;
-
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  letter-spacing: var(--tracking-wide);
+  font-size: var(--text-label);
+  transition: background-color var(--duration-base) var(--ease), color var(--duration-base) var(--ease);
 }
 
 .button:hover {
-  background: #222;
-
-  color: #fff;
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 6rem 5rem;
+    padding: var(--section-pad-block) var(--section-pad-inline);
   }
 }

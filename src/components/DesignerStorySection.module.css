@@ -1,11 +1,12 @@
 .section {
-  padding: 4rem 1rem;
+  padding: var(--section-pad-block) var(--space-sm);
 }
 
 .layout {
   display: grid;
-
-  gap: 2rem;
+  gap: var(--space-lg);
+  max-width: var(--content-max);
+  margin: 0 auto;
 }
 
 .imageContainer {
@@ -14,31 +15,25 @@
 
 .image {
   width: 100%;
-
   aspect-ratio: 4 / 5;
-
   object-fit: cover;
-
   display: block;
 }
 
 .content {
   display: grid;
-
-  gap: 2.5rem;
-
+  gap: var(--space-lg);
   text-align: justify;
 }
 
 .content p {
   margin: 0;
-
-  line-height: 1.9;
+  line-height: var(--leading-body-loose);
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 6rem 5rem;
+    padding: var(--section-pad-block) var(--section-pad-inline);
   }
 }
 
@@ -47,12 +42,9 @@
     grid-template-columns:
       minmax(320px, 420px)
       minmax(320px, 600px);
-
     justify-content: center;
-
     align-items: center;
-
-    gap: 5rem;
+    gap: var(--space-2xl);
   }
 
   .imageContainer {
@@ -60,6 +52,6 @@
   }
 
   .content {
-    gap: 2rem;
+    gap: var(--space-md);
   }
 }

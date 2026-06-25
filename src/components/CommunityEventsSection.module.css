@@ -1,16 +1,12 @@
 .section {
-  padding: 4rem 1rem;
+  padding: var(--section-pad-block-tight) var(--space-sm);
 }
 
 .grid {
   display: flex;
-
-  gap: 1.5rem;
-
+  gap: var(--space-sm);
   overflow-x: auto;
-
   scrollbar-width: none;
-
   -ms-overflow-style: none;
 }
 
@@ -30,7 +26,7 @@
 
 @media (min-width: 768px) {
   .section {
-    padding: 2rem 5rem;
+    padding: var(--space-lg) var(--section-pad-inline);
   }
 }
 
@@ -43,10 +39,8 @@
 @media (min-width: 1200px) {
   .grid {
     justify-content: center;
-
     overflow: visible;
-
-    gap: 2.5rem;
+    gap: var(--space-xl);
   }
 
   .grid > * {

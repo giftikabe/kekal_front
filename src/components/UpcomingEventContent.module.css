@@ -1,29 +1,25 @@
 .section {
-  padding: 4rem 1rem;
+  padding: var(--section-pad-block) var(--space-sm);
 }
 
 .container {
-  max-width: 900px;
-
+  max-width: var(--content-max-narrow);
   margin: 0 auto;
 }
 
 .container p {
   margin: 0;
-
-  font-size: 1.125rem;
-
-  line-height: 1.9;
-
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body-loose);
   text-align: justify;
 }
 
 .container p + p {
-  margin-top: 2rem;
+  margin-top: var(--space-md);
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 6rem 5rem;
+    padding: var(--section-pad-block) var(--section-pad-inline);
   }
 }

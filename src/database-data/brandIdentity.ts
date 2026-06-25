@@ -1,4 +1,6 @@
 import type { BrandIdentity } from "../database-types/brandIdentity";
+import heroImage from "../assets/hero.png";
+
 
 export const brandIdentity: BrandIdentity[] = [
   {
@@ -23,7 +25,8 @@ export const brandIdentity: BrandIdentity[] = [
     id: "brand-identity-4",
     key: "description",
     label: "Hero Description",
-    value: "Relaxed pieces handcrafted by Ethiopian artisans, inspired by heritage and made for modern living.",
+    value:
+      "Relaxed pieces handcrafted by Ethiopian artisans, inspired by heritage and made for modern living.",
   },
   {
     id: "brand-identity-5",
@@ -41,7 +44,7 @@ export const brandIdentity: BrandIdentity[] = [
     id: "brand-identity-7",
     key: "home_hero_image",
     label: "Home Hero Image",
-    value: "/assets/hero.png",
+    value: heroImage,
   },
   {
     id: "brand-identity-8",
@@ -59,7 +62,8 @@ export const brandIdentity: BrandIdentity[] = [
     id: "brand-identity-10",
     key: "contact_hero_description",
     label: "Contact Hero Description",
-    value: "For inquiries, collaborations, custom projects, appointments, or partnerships, we would love to hear from you.",
+    value:
+      "For inquiries, collaborations, custom projects, appointments, or partnerships, we would love to hear from you.",
   },
   {
     id: "brand-identity-11",

@@ -1,15 +1,9 @@
 .card {
   display: flex;
-
   flex-direction: column;
-
   text-decoration: none;
-
   color: inherit;
-
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform var(--duration-base) var(--ease);
 }
 
 .card:hover {
@@ -18,44 +12,32 @@
 
 .image {
   width: 100%;
-
   aspect-ratio: 16 / 9;
-
   object-fit: cover;
-
   display: block;
 }
 
 .content {
-  padding-top: 1rem;
+  padding-top: var(--space-sm);
 }
 
 .content h3 {
   margin: 0;
-
   font-size: 1.25rem;
-
-  font-weight: 300;
-
-  letter-spacing: 0.04em;
-
-  line-height: 1.4;
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-heading);
 }
 
 .date {
   display: block;
-
   margin-top: 0.5rem;
-
-  font-size: 0.85rem;
-
+  font-size: var(--text-body-sm);
   text-transform: uppercase;
-
-  letter-spacing: 0.12em;
-
-  opacity: 0.7;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-mute);
 }
 
 .content p {
-  line-height: 1.6;
+  line-height: var(--leading-body);
 }

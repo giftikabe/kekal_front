@@ -1,0 +1,95 @@
+/* ==========================================================================
+   KEKAL DESIGN TOKENS
+   Editorial minimal · black on white · mobile-first · fluid responsive
+   ========================================================================== */
+
+:root {
+  /* ---------- Color ---------- */
+  --color-ink: #141414;          /* primary text — near-black, not pure black */
+  --color-paper: #ffffff;        /* primary background */
+  --color-bone: #f7f5f1;         /* warm off-white — alt section bg, footer */
+  --color-mute: #6b6b6b;         /* secondary text — labels, captions, meta */
+  --color-faint: #9a9a9a;        /* tertiary text — lightest readable gray */
+  --color-line: #e2dfd9;         /* hairline rules, borders, dividers */
+  --color-line-strong: rgba(20, 20, 20, 0.4);
+  --color-overlay: rgba(20, 20, 20, 0.45);   /* image overlays on hero/banner */
+  --color-overlay-soft: rgba(20, 20, 20, 0.2);
+
+  /* ---------- Type families ---------- */
+  --font-display: "Playfair Display", "Times New Roman", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* ---------- Fluid type scale ----------
+     clamp(min, fluid, max) — scales smoothly from 360px to 1440px viewport.
+     Naming follows role, not size, so usage stays semantic. */
+  --text-display-xl: clamp(2.75rem, 1.7rem + 6vw, 6rem);     /* hero H1 */
+  --text-display-lg: clamp(2.25rem, 1.5rem + 4.5vw, 4.5rem); /* page/section H1 */
+  --text-display-md: clamp(1.75rem, 1.3rem + 2.5vw, 2.75rem);/* H2 large */
+  --text-display-sm: clamp(1.375rem, 1.1rem + 1.2vw, 1.75rem);/* H3 / card title large */
+
+  --text-body-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem); /* lead paragraph */
+  --text-body: 1rem;                                          /* base body */
+  --text-body-sm: 0.9375rem;                                  /* secondary body */
+
+  --text-label: 0.8125rem;       /* uppercase tracked labels/eyebrows */
+  --text-label-sm: 0.75rem;      /* smallest uppercase — bar, meta */
+
+  /* ---------- Weights ---------- */
+  --weight-light: 300;   /* all display serif + light sans headings */
+  --weight-regular: 400; /* body copy */
+  --weight-medium: 500;  /* emphasis, nav links on hover state, labels */
+
+  /* ---------- Letter spacing ---------- */
+  --tracking-tight: 0.02em;   /* display headlines */
+  --tracking-normal: 0.04em;  /* card titles */
+  --tracking-wide: 0.08em;    /* buttons, nav links */
+  --tracking-label: 0.12em;   /* uppercase eyebrows/labels */
+  --tracking-wider: 0.18em;   /* announcement bar, smallest caps */
+
+  /* ---------- Line height ---------- */
+  --leading-display: 1.05;
+  --leading-heading: 1.2;
+  --leading-body: 1.7;
+  --leading-body-loose: 1.85; /* long-form editorial paragraphs */
+
+  /* ---------- Fluid spacing scale ----------
+     One scale, used everywhere. Replaces the per-file 4rem/6rem/3rem drift. */
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --space-lg: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  --space-xl: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+  --space-2xl: clamp(5rem, 3rem + 8vw, 9rem);
+
+  /* ---------- Section padding (the single most-repeated pattern) ----------
+     Inline padding flows from mobile gutter to generous desktop margin.
+     Block padding flows independently so hero vs. body sections can differ. */
+  --section-pad-inline: clamp(1.25rem, 0.8rem + 2.2vw, 5rem);
+  --section-pad-block: clamp(3rem, 2.4rem + 3vw, 6rem);
+  --section-pad-block-tight: clamp(2rem, 1.7rem + 1.5vw, 3rem);
+
+  /* ---------- Layout ---------- */
+  --content-max: 1400px;
+  --content-max-narrow: 900px;
+  --content-max-prose: 720px;
+
+  /* ---------- Motion ---------- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 0.2s;
+  --duration-base: 0.3s;
+
+  /* ---------- Chrome heights (referenced, not hardcoded, across files) ---------- */
+  --announcement-height: 30px;
+ --header-height-mobile: 72px;   /* try a bit taller than 64px */
+--header-height-desktop: 96px;  /* try a bit taller than 88px */
+
+--value-cards-height: 100px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.001ms;
+    --duration-base: 0.001ms;
+  }
+}

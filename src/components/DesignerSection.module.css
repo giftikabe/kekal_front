@@ -1,83 +1,61 @@
 .section {
-  padding: 2rem 1rem;
-
+  padding: var(--space-md) var(--space-sm);
   display: grid;
-
-  gap: 2rem;
+  gap: var(--space-md);
 }
 
 .layout {
   display: grid;
-
-  gap: 2rem;
+  gap: var(--space-md);
+  max-width: var(--content-max);
+  margin: 0 auto;
 }
 
 .imageContainer {
   width: 100%;
-
   display: flex;
-
   justify-content: center;
 }
 
 .image {
   width: 100%;
-
   max-width: 320px;
-
   aspect-ratio: 4 / 5;
-
   object-fit: cover;
-
   display: block;
 }
 
 .content h3 {
-  font-size: 2rem;
-
-  font-weight: 300;
-
-  line-height: 1.2;
-
-  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-heading);
+  margin: 0 0 var(--space-xs);
 }
 
 .role {
-  margin: 0 0 1rem;
-
+  margin: 0 0 var(--space-sm);
   text-transform: uppercase;
-
-  letter-spacing: 0.12em;
-
-  font-size: 0.85rem;
-
-  opacity: 0.6;
+  letter-spacing: var(--tracking-label);
+  font-size: var(--text-label);
+  color: var(--color-mute);
 }
 
 .bio {
-  line-height: 1.8;
-
+  line-height: var(--leading-body-loose);
   margin: 0;
-
   text-align: justify;
 }
 
 .link {
   display: inline-block;
-
-  margin-top: 1.5rem;
-
+  margin-top: var(--space-md);
   text-decoration: none;
-
   color: inherit;
-
   text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-
-  font-size: 0.9rem;
-
-  transition: opacity 0.2s ease;
+  letter-spacing: var(--tracking-wide);
+  font-size: var(--text-body-sm);
+  transition: opacity var(--duration-fast) var(--ease);
 }
 
 .link:hover {
@@ -86,7 +64,7 @@
 
 @media (min-width: 768px) {
   .section {
-    padding: 2rem 5rem;
+    padding: var(--space-md) var(--section-pad-inline);
   }
 }
 
@@ -95,12 +73,9 @@
     grid-template-columns:
       320px
       minmax(320px, 560px);
-
     justify-content: center;
-
     align-items: center;
-
-    gap: 4rem;
+    gap: var(--space-xl);
   }
 
   .imageContainer {

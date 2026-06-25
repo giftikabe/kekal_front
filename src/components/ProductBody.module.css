@@ -1,14 +1,14 @@
 .section {
-  padding: 4rem 1rem;
-
+  padding: var(--section-pad-block) var(--space-sm);
   display: grid;
-
-  gap: 3rem;
+  gap: var(--space-xl);
+  max-width: var(--content-max);
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 4rem 5rem;
+    padding: var(--section-pad-block) var(--section-pad-inline);
   }
 }
 
@@ -17,9 +17,7 @@
     grid-template-columns:
       minmax(0, 1.85fr)
       minmax(280px, 1fr);
-
     align-items: start;
-
-    gap: 5rem;
+    gap: var(--space-2xl);
   }
 }

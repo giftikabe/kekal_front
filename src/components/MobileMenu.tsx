@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
-import type { NavigationItem } from "../types/navigation";
+
+import type { Navigation } from "../database-types/navigation";
+
+import styles from "./MobileMenu.module.css";
 
 interface MobileMenuProps {
   isOpen: boolean;
-  navigation: NavigationItem[];
+  navigation: Navigation[];
   onClose: () => void;
 }
 
@@ -17,42 +20,21 @@ export default function MobileMenu({
   }
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        background: "#ffffff",
-        zIndex: 1000,
-        display: "flex",
-        flexDirection: "column",
-        padding: "24px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <button onClick={onClose}>
-          ✕
+    <div className={styles.overlay} role="dialog" aria-modal="true">
+      <div className={styles.topRow}>
+        <button
+          type="button"
+          className={styles.closeButton}
+          onClick={onClose}
+          aria-label="Close menu"
+        >
+          ×
         </button>
       </div>
 
-      <nav
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "24px",
-          marginTop: "48px",
-        }}
-      >
+      <nav className={styles.nav}>
         {navigation.map((item) => (
-          <Link
-            key={item.id}
-            to={item.href}
-            onClick={onClose}
-          >
+          <Link key={item.id} to={item.href} onClick={onClose}>
             {item.label}
           </Link>
         ))}

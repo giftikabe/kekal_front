@@ -1,15 +1,14 @@
 .section {
-  padding: 4rem 1rem;
+  padding: var(--section-pad-block) var(--space-sm);
 }
 
 .grid {
   display: flex;
-
-  gap: 1rem;
-
+  gap: var(--space-sm);
   overflow-x: auto;
-
   padding-bottom: 0.5rem;
+  max-width: var(--content-max);
+  margin: 0 auto;
 }
 
 .grid > * {
@@ -18,24 +17,18 @@
 
 .viewCollectionWrapper {
   display: flex;
-
   justify-content: flex-end;
-
-  margin-top: 2rem;
+  max-width: var(--content-max);
+  margin: var(--space-md) auto 0;
 }
 
 .viewCollection {
   text-decoration: none;
-
   color: inherit;
-
   text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-
-  font-size: 0.9rem;
-
-  transition: opacity 0.2s ease;
+  letter-spacing: var(--tracking-wide);
+  font-size: var(--text-body-sm);
+  transition: opacity var(--duration-fast) var(--ease);
 }
 
 .viewCollection:hover {
@@ -44,20 +37,16 @@
 
 @media (min-width: 768px) {
   .section {
-    padding: 6rem 5rem;
+    padding: var(--section-pad-block) var(--section-pad-inline);
   }
 }
 
 @media (min-width: 992px) {
   .grid {
     display: grid;
-
-    grid-template-columns:
-      repeat(4, minmax(0, 1fr));
-
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     overflow: visible;
-
-    gap: 2rem;
+    gap: var(--space-lg);
   }
 
   .grid > * {

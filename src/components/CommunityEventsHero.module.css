@@ -1,39 +1,31 @@
 .section {
-  padding: 4rem 1rem;
+  padding: var(--section-pad-block) var(--space-sm);
 }
 
 .container {
-  max-width: 1000px;
-
+  max-width: var(--content-max-narrow);
   margin: 0 auto;
-
   text-align: center;
 }
 
 .title {
-  font-size: clamp(2rem, 5vw, 4rem);
-
-  font-weight: 300;
-
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-light);
   line-height: 1.1;
-
-  letter-spacing: 0.03em;
-
-  margin-bottom: 1.5rem;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-md);
 }
 
 .description {
-  max-width: 800px;
-
+  max-width: var(--content-max-prose);
   margin: 0 auto;
-
-  line-height: 1.8;
-
-  opacity: 0.8;
+  line-height: var(--leading-body-loose);
+  color: var(--color-mute);
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 6rem 5rem;
+    padding: var(--section-pad-block) var(--section-pad-inline);
   }
 }

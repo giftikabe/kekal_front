@@ -1,93 +1,69 @@
 .container {
-  max-width: 720px;
+  max-width: var(--content-max-prose);
 }
 
 .container h2 {
-  margin: 0 0 2rem;
-
-  font-size: 1.75rem;
-
-  font-weight: 300;
-
-  letter-spacing: 0.08em;
-
+  margin: 0 0 var(--space-lg);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
 }
 
 .form {
   display: grid;
-
-  gap: 1rem;
+  gap: var(--space-sm);
 }
 
 .form input,
 .form textarea {
   width: 100%;
-
-  padding: 1rem 1.25rem;
-
-  border: 1px solid rgba(0, 0, 0, 0.15);
-
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-line-strong);
   font: inherit;
-
   background: transparent;
+  color: var(--color-ink);
+  transition: border-color var(--duration-base) var(--ease);
+}
 
-  transition:
-    border-color 0.3s ease,
-    background-color 0.3s ease;
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--color-faint);
 }
 
 .form input:focus,
 .form textarea:focus {
   outline: none;
-
-  border-color: #222;
+  border-color: var(--color-ink);
 }
 
 .form textarea {
   resize: vertical;
-
   min-height: 220px;
-
-  line-height: 1.8;
+  line-height: var(--leading-body-loose);
 }
 
 .form button {
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
   width: 240px;
-
-  margin-top: 1rem;
-
+  margin-top: var(--space-sm);
   padding: 1rem 2rem;
-
-  border: 1px solid #222;
-
+  border: 1px solid var(--color-ink);
   background: transparent;
-
-  color: #222;
-
+  color: var(--color-ink);
   font: inherit;
-
-  letter-spacing: 0.08em;
-
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-
+  font-size: var(--text-label);
   cursor: pointer;
-
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color var(--duration-base) var(--ease), color var(--duration-base) var(--ease);
 }
 
 .form button:hover {
-  background: #222;
-
-  color: #fff;
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 @media (max-width: 767px) {

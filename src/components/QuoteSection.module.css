@@ -1,46 +1,31 @@
 .section {
-  padding: 4rem 1rem;
-
-  max-width: 900px;
-
+  padding: var(--section-pad-block) var(--space-sm);
+  max-width: var(--content-max-narrow);
   margin: 0 auto;
+  text-align: center;
 }
 
 .quote {
   margin: 0;
-
-  font-size: clamp(2rem, 4vw, 3.5rem);
-
-  line-height: 1.4;
-
-  text-align: center;
-
+  font-family: var(--font-display);
   font-style: italic;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  color: #444;
+  font-weight: var(--weight-regular);
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem);
+  line-height: 1.45;
+  color: var(--color-ink);
 }
 
 .author {
-  margin-top: 2rem;
-
+  margin-top: var(--space-md);
   text-align: center;
-
-  font-size: 0.9rem;
-
-  color: #777;
-
-  letter-spacing: 0.12em;
-
+  font-size: var(--text-label-sm);
+  color: var(--color-mute);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: 6rem 5rem;
+    padding: var(--section-pad-block) var(--section-pad-inline);
   }
 }

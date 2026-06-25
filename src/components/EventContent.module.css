@@ -1,17 +1,13 @@
 .section {
-  padding: 4rem 1rem;
+  padding: var(--section-pad-block) var(--space-sm);
 }
 
 .section p {
-  max-width: 900px;
-
-  margin: 0 auto 2rem;
-
+  max-width: var(--content-max-narrow);
+  margin: 0 auto var(--space-md);
   text-align: justify;
-
-  line-height: 1.9;
-
-  font-size: 1.125rem;
+  line-height: var(--leading-body-loose);
+  font-size: var(--text-body-lg);
 }
 
 .section p:last-child {
@@ -20,6 +16,6 @@
 
 @media (min-width: 768px) {
   .section {
-    padding: 6rem 5rem;
+    padding: var(--section-pad-block) var(--section-pad-inline);
   }
 }

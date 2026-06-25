@@ -1,118 +1,83 @@
 .section {
-  padding: 4rem 1rem;
+  padding: var(--section-pad-block-tight) var(--space-sm);
 }
 
 .banner {
   position: relative;
-
   height: 400px;
-
-  overflow: hidden; 
-
-  border-radius: 12px;
+  overflow: hidden;
+  max-width: var(--content-max);
+  margin: 0 auto;
 }
 
 .image {
   position: absolute;
-
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
 .overlay {
   position: absolute;
-
   inset: 0;
-
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-overlay);
 }
 
 .content {
   position: relative;
-
   z-index: 1;
-
   height: 100%;
-
   display: flex;
-
   flex-direction: column;
-
   justify-content: center;
-
   align-items: center;
-
   text-align: center;
-
-  color: white;
-
-  padding: 2rem;
-
-  max-width: 900px;
-
+  color: var(--color-paper);
+  padding: var(--space-md);
+  max-width: var(--content-max-narrow);
   margin: 0 auto;
 }
 
 .category {
   text-transform: uppercase;
-
-  letter-spacing: 0.15em;
-
-  font-size: 0.8rem;
-
-  margin-bottom: 1rem;
-
-  opacity: 0.85;
+  letter-spacing: var(--tracking-label);
+  font-size: var(--text-label);
+  margin-bottom: var(--space-sm);
+  opacity: 0.9;
 }
 
 .content h3 {
-  font-size: 2rem;
-
-  font-weight: 300;
-
+  font-family: var(--font-display);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-light);
   line-height: 1.2;
-
-  margin-bottom: 1rem;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-sm);
 }
 
 .meta {
-  margin-bottom: 1rem;
-
-  opacity: 0.8;
-
-  letter-spacing: 0.03em;
+  margin-bottom: var(--space-sm);
+  opacity: 0.85;
+  letter-spacing: var(--tracking-normal);
 }
 
 .intro {
-  line-height: 1.8;
-
-  margin-bottom: 2rem;
-
+  line-height: var(--leading-body);
+  margin-bottom: var(--space-md);
   max-width: 700px;
 }
 
 .link {
   display: inline-block;
-
   color: inherit;
-
   text-decoration: none;
-
   text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-
-  font-size: 0.9rem;
-
+  letter-spacing: var(--tracking-wide);
+  font-size: var(--text-body-sm);
   border-bottom: 1px solid currentColor;
-
   padding-bottom: 0.2rem;
-
-  transition: opacity 0.2s ease;
+  transition: opacity var(--duration-fast) var(--ease);
 }
 
 .link:hover {
@@ -121,29 +86,20 @@
 
 .dots {
   display: flex;
-
   justify-content: center;
-
-  gap: 0.75rem;
-
-  margin-top: 1.5rem;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
-
+  width: 8px;
+  height: 8px;
   border: none;
-
   border-radius: 50%;
-
   background: currentColor;
-
   opacity: 0.35;
-
   cursor: pointer;
-
-  transition: opacity 0.2s ease;
+  transition: opacity var(--duration-fast) var(--ease);
 }
 
 .active {
@@ -152,7 +108,7 @@
 
 @media (min-width: 768px) {
   .section {
-    padding: 2rem 5rem;
+    padding: var(--space-md) var(--section-pad-inline);
   }
 
   .banner {
@@ -160,6 +116,6 @@
   }
 
   .content h3 {
-    font-size: 3rem;
+    font-size: var(--text-display-md);
   }
 }
