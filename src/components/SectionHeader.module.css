@@ -1,7 +1,7 @@
 .header {
   max-width: 40rem;
-  margin: 0 auto var(--space-xl);
-  padding-inline: var(--section-pad-inline);
+  margin: 0 auto var(--space-md);
+  padding-inline: 0;
   text-align: center;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .header p {
-  margin-top: var(--space-sm);
+  margin-top: var(--space-xs);
   max-width: 38rem;
   margin-left: auto;
   margin-right: auto;
@@ -25,6 +25,6 @@
 
 @media (min-width: 768px) {
   .header {
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-lg);
   }
 }

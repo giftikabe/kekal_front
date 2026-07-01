@@ -4,27 +4,29 @@ import QuoteSection from "../components/QuoteSection";
 import AboutContentSection from "../components/Aboutcontentsection";
 import ContactCTASection from "../components/ContactCTASection";
 
-import { getDesignerProfileByKey } from "../database-services/designerProfileService";
-import { getAboutContentBlocks } from "../database-services/aboutContentBlockService";
-import { getBrandMessageByKey } from "../database-services/brandMessageService";
-import { getSectionByPageAndName } from "../database-services/pageSectionService";
+import {
+  useDesignerProfileByKey,
+  useAboutContentBlocks,
+  useBrandMessageByKey,
+} from "../hooks/useBrand";
+import { useSectionByPageAndName } from "../hooks/usePages";
 
 export default function AboutPage() {
   // ─── Designer ──────────────────────────────────────────────────────────────
-  const designerName = getDesignerProfileByKey("name");
-  const designerPortrait = getDesignerProfileByKey("portrait");
-  const designerShortBio = getDesignerProfileByKey("short_bio");
-  const designerFullBio = getDesignerProfileByKey("full_bio");
-  const designerQuote = getDesignerProfileByKey("quote");
+  const { value: designerName } = useDesignerProfileByKey("name");
+  const { value: designerPortrait } = useDesignerProfileByKey("portrait");
+  const { value: designerShortBio } = useDesignerProfileByKey("short_bio");
+  const { value: designerFullBio } = useDesignerProfileByKey("full_bio");
+  const { value: designerQuote } = useDesignerProfileByKey("quote");
 
-  // ─── About Content Blocks (brand_story, craft_process, vision_impact) ──────
-  const aboutBlocks = getAboutContentBlocks();
+  // ─── About Content Blocks ──────────────────────────────────────────────────
+  const { data: aboutBlocks } = useAboutContentBlocks();
 
   // ─── Contact CTA ───────────────────────────────────────────────────────────
-  const contactCta = getBrandMessageByKey("about_cta");
+  const { data: contactCta } = useBrandMessageByKey("about_cta");
 
-  // ─── Page Sections (titles) ────────────────────────────────────────────────
-  const designerStorySection = getSectionByPageAndName("page-about", "designer_story");
+  // ─── Page Sections ─────────────────────────────────────────────────────────
+  const { data: designerStorySection } = useSectionByPageAndName("page-about", "designer_story");
 
   return (
     <>
@@ -34,7 +36,7 @@ export default function AboutPage() {
       />
 
       <DesignerStorySection
-        title={designerStorySection?.sectionHeader ?? "The Designer"}
+        title={(designerStorySection as any)?.sectionHeader ?? "The Designer"}
         image={designerPortrait}
         introduction={designerShortBio}
         journey={designerFullBio}
@@ -45,11 +47,11 @@ export default function AboutPage() {
         author={designerName}
       />
 
-      <AboutContentSection blocks={aboutBlocks} />
+      <AboutContentSection blocks={(aboutBlocks as any[]) ?? []} />
 
       <ContactCTASection
-        title={contactCta?.title ?? "Let's Create Together"}
-        description={contactCta?.description ?? ""}
+        title={(contactCta as any)?.title ?? "Let's Create Together"}
+        description={(contactCta as any)?.description ?? ""}
         buttonText="Contact"
       />
     </>

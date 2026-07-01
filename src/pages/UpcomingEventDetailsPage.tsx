@@ -5,28 +5,29 @@ import UpcomingEventContent from "../components/UpcomingEventContent";
 import UpcomingEventInformation from "../components/UpcomingEventInformation";
 import UpcomingEventCTA from "../components/UpcomingEventCTA";
 
-import { getUpcomingEventBySlug } from "../database-services/upcomingEventService";
+import { useUpcomingEventBySlug } from "../hooks/useUpcomingEvents";
 
 export default function UpcomingEventDetailPage() {
   const { slug } = useParams();
 
-  const event = slug ? getUpcomingEventBySlug(slug) : undefined;
+  const { data: event, loading } = useUpcomingEventBySlug(slug ?? "");
 
-  if (!event) {
-    return <div>Upcoming event not found.</div>;
-  }
+  if (loading) return null;
+  if (!event) return <div>Upcoming event not found.</div>;
+
+  const e = event as any;
 
   return (
     <>
-      <UpcomingEventHero event={event} />
+      <UpcomingEventHero event={e} />
 
-      <UpcomingEventContent content={event.content} />
+      <UpcomingEventContent content={e.content} />
 
-      <UpcomingEventInformation event={event} />
+      <UpcomingEventInformation event={e} />
 
       <UpcomingEventCTA
-        ctaText={event.ctaText}
-        registrationUrl={event.registrationUrl}
+        ctaText={e.ctaText}
+        registrationUrl={e.registrationUrl}
       />
     </>
   );

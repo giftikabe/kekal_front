@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-import { getNavigation } from "../database-services/navigationService";
-import { getBrandIdentityByKey } from "../database-services/brandIdentityService";
-import { getContactInfoByKey } from "../database-services/contactInfoService";
+import { useNavigation } from "../hooks/useNavigation";
+import { useBrandIdentityByKey } from "../hooks/useBrand";
+import { useContactInfoByKey } from "../hooks/useBrand";
 
 import type { Navigation } from "../database-types/navigation";
 
@@ -11,40 +11,40 @@ import logo from "../assets/logo.jpeg";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
-  // ─── Navigation ────────────────────────────────────────────────────────────
-  const navigation: Navigation[] = getNavigation();
+  const { data: navigationData } = useNavigation();
+  const navigation: Navigation[] = (navigationData as Navigation[]) ?? [];
 
-  // ─── Brand ─────────────────────────────────────────────────────────────────
-  const siteName = getBrandIdentityByKey("name");
-  const tagline = getBrandIdentityByKey("tagline");
-  const copyright = getBrandIdentityByKey("copyright_text");
+  const { value: siteName } = useBrandIdentityByKey("name");
+  const { value: siteTitle } = useBrandIdentityByKey("title");
+  const { value: tagline } = useBrandIdentityByKey("tagline");
+  const { value: copyright } = useBrandIdentityByKey("copyright_text");
 
-  // ─── Contact & Socials ─────────────────────────────────────────────────────
-  const instagram = getContactInfoByKey("instagram");
-  const tiktok = getContactInfoByKey("tiktok");
-  const facebook = getContactInfoByKey("facebook");
-  const address = getContactInfoByKey("address");
-  const phone = getContactInfoByKey("phone");
-  const email = getContactInfoByKey("email");
+  const { value: instagram } = useContactInfoByKey("instagram");
+  const { value: tiktok } = useContactInfoByKey("tiktok");
+  const { value: facebook } = useContactInfoByKey("facebook");
+  const { value: address } = useContactInfoByKey("address");
+  const { value: phone } = useContactInfoByKey("phone");
+  const { value: email } = useContactInfoByKey("email");
 
   return (
     <footer className={styles.footer}>
+      {/* ─── Column 1: logo + name + title + tagline ─── */}
       <div className={styles.brand}>
-        <div className={styles.logo}>
-          <Link to="/">
-            <img
-              src={logo}
-              alt="KeKal"
-              className={styles.logoImage}
-            />
-          </Link>
+        <Link to="/" className={styles.logoLink}>
+          <img
+            src={logo}
+            alt={siteName || "KEKAL"}
+            className={styles.logoImage}
+          />
+        </Link>
+        <div className={styles.brandText}>
+          <div className={styles.brandName}>{siteName}</div>
+          <div className={styles.brandTitle}>{siteTitle}</div>
+          <p className={styles.brandTagline}>{tagline}</p>
         </div>
-
-        <h2>{siteName}</h2>
-
-        <p>{tagline}</p>
       </div>
 
+      {/* ─── Column 2: nav + info grid ─── */}
       <div className={styles.right}>
         <nav className={styles.navigation}>
           {navigation.map((item) => (
@@ -57,32 +57,32 @@ export default function Footer() {
         <div className={styles.infoGrid}>
           <div className={styles.socials}>
             <h3>Social</h3>
-
-            <a href={instagram} target="_blank" rel="noreferrer">
-              Instagram
-            </a>
-
-            <a href={tiktok} target="_blank" rel="noreferrer">
-              TikTok
-            </a>
-
-            <a href={facebook} target="_blank" rel="noreferrer">
-              Facebook
-            </a>
+            {instagram && (
+              <a href={instagram} target="_blank" rel="noreferrer">
+                Instagram
+              </a>
+            )}
+            {tiktok && (
+              <a href={tiktok} target="_blank" rel="noreferrer">
+                TikTok
+              </a>
+            )}
+            {facebook && (
+              <a href={facebook} target="_blank" rel="noreferrer">
+                Facebook
+              </a>
+            )}
           </div>
 
           <div className={styles.address}>
             <h3>Address</h3>
-
             <p>{address}</p>
           </div>
 
           <div className={styles.contact}>
             <h3>Contact</h3>
-
-            <p>{phone}</p>
-
-            <p>{email}</p>
+            {phone && <p>{phone}</p>}
+            {email && <p>{email}</p>}
           </div>
         </div>
       </div>

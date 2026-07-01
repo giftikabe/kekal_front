@@ -5,43 +5,46 @@ import CommunityEventsSection from "../components/CommunityEventsSection";
 import UpcomingEvents from "../components/UpcomingEvents";
 import HomeValueCards from "../components/HomeValueCards";
 
-import { getBrandIdentityByKey } from "../database-services/brandIdentityService";
-import { getBrandValues } from "../database-services/brandValueService";
-import { getFeaturedCollections } from "../database-services/collectionService";
-import { getDesignerProfileByKey } from "../database-services/designerProfileService";
-import { getFeaturedEvents } from "../database-services/eventService";
-import { getUpcomingEvents } from "../database-services/upcomingEventService";
-import { getSectionByPageAndName } from "../database-services/pageSectionService";
+import { useBrandIdentityByKey, useBrandValues, useDesignerProfileByKey } from "../hooks/useBrand";
+import { useFeaturedCollections } from "../hooks/useCollections";
+import { useFeaturedEvents } from "../hooks/useEvents";
+import { useUpcomingEvents } from "../hooks/useUpcomingEvents";
+import { useSectionByPageAndName } from "../hooks/usePages";
 
 export default function HomePage() {
   // ─── Brand Identity ────────────────────────────────────────────────────────
-  const heroTagline = getBrandIdentityByKey("tagline");
-  const heroDescription = getBrandIdentityByKey("description");
-  const heroImage = getBrandIdentityByKey("home_hero_image");
+  const { value: heroTagline } = useBrandIdentityByKey("tagline");
+  const { value: heroDescription } = useBrandIdentityByKey("description");
+  const { value: heroImage } = useBrandIdentityByKey("home_hero_image");
 
   // ─── Brand Values ──────────────────────────────────────────────────────────
-  const brandValues = getBrandValues();
+  const { data: brandValues } = useBrandValues();
 
   // ─── Collections ───────────────────────────────────────────────────────────
-  const featuredCollections = getFeaturedCollections();
+  const { data: featuredCollections } = useFeaturedCollections();
 
   // ─── Designer ──────────────────────────────────────────────────────────────
-  const designer = {
-    name: getDesignerProfileByKey("name"),
-    title: getDesignerProfileByKey("title"),
-    portrait: getDesignerProfileByKey("portrait"),
-    shortBio: getDesignerProfileByKey("short_bio"),
-  };
+  const { value: designerName } = useDesignerProfileByKey("name");
+  const { value: designerTitle } = useDesignerProfileByKey("title");
+  const { value: designerPortrait } = useDesignerProfileByKey("portrait");
+  const { value: designerShortBio } = useDesignerProfileByKey("short_bio");
 
   // ─── Events ────────────────────────────────────────────────────────────────
-  const featuredEvents = getFeaturedEvents();
-  const upcomingEvents = getUpcomingEvents();
+  const { data: featuredEvents } = useFeaturedEvents();
+  const { data: upcomingEvents } = useUpcomingEvents();
 
-  // ─── Page Sections (titles & CTA labels) ──────────────────────────────────
-  const featuredCollectionsSection = getSectionByPageAndName("page-home", "featured_collections");
-  const designerSection = getSectionByPageAndName("page-home", "designer_section");
-  const upcomingEventSection = getSectionByPageAndName("page-home", "upcoming_event");
-  const communityEventsSection = getSectionByPageAndName("page-home", "community_events");
+  // ─── Page Sections ─────────────────────────────────────────────────────────
+  const { data: featuredCollectionsSection } = useSectionByPageAndName("page-home", "featured_collections");
+  const { data: designerSection } = useSectionByPageAndName("page-home", "designer_section");
+  const { data: upcomingEventSection } = useSectionByPageAndName("page-home", "upcoming_event");
+  const { data: communityEventsSection } = useSectionByPageAndName("page-home", "community_events");
+
+  const designer = {
+    name: designerName,
+    title: designerTitle,
+    portrait: designerPortrait,
+    shortBio: designerShortBio,
+  };
 
   return (
     <>
@@ -51,27 +54,27 @@ export default function HomePage() {
         image={heroImage}
       />
 
-      <HomeValueCards values={brandValues} />
+      <HomeValueCards values={(brandValues as any[]) ?? []} />
 
       <FeaturedCollections
-        title={featuredCollectionsSection?.sectionHeader ?? "Featured Collections"}
-        collections={featuredCollections} 
+        title={(featuredCollectionsSection as any)?.sectionHeader ?? "Featured Collections"}
+        collections={(featuredCollections as any[]) ?? []}
       />
 
       <DesignerSection
-        title={designerSection?.sectionHeader ?? "Meet The Designer"}
-        ctaText={designerSection?.buttonLabels[0] ?? "Read More →"}
+        title={(designerSection as any)?.sectionHeader ?? "Meet The Designer"}
+        ctaText={(designerSection as any)?.buttonLabels?.[0] ?? "Read More →"}
         designer={designer}
       />
 
       <UpcomingEvents
-        title={upcomingEventSection?.sectionHeader ?? "Upcoming Event"}
-        events={upcomingEvents}
+        title={(upcomingEventSection as any)?.sectionHeader ?? "Upcoming Event"}
+        events={(upcomingEvents as any[]) ?? []}
       />
 
       <CommunityEventsSection
-        title={communityEventsSection?.sectionHeader ?? "Community & Events"}
-        events={featuredEvents}
+        title={(communityEventsSection as any)?.sectionHeader ?? "Community & Events"}
+        events={(featuredEvents as any[]) ?? []}
       />
     </>
   );

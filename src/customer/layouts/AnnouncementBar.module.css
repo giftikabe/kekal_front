@@ -1,0 +1,20 @@
+.bar {
+  height: var(--announcement-height);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.text {
+  font-size: var(--text-label-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  text-align: center;
+  padding-inline: var(--section-pad-inline);
+}

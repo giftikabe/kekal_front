@@ -1,0 +1,38 @@
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.size {
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: #666;
+}
+
+.size:hover:not(:disabled) {
+  border-color: #000;
+  color: #000;
+}
+
+.selected {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.selected:hover:not(:disabled) {
+  background: #333;
+  color: #fff;
+}
+
+.size:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

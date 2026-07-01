@@ -1,0 +1,275 @@
+.hero {
+  padding: var(--section-pad-block) var(--section-pad-inline);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.heroInner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-heading);
+  color: var(--color-ink);
+  margin-bottom: var(--space-sm);
+}
+
+.heroDesc {
+  font-size: var(--text-body-lg);
+  color: var(--color-mute);
+  line-height: var(--leading-body);
+  max-width: 56ch;
+}
+
+/* Upcoming Banner */
+.upcomingBanner {
+  background: var(--color-ink);
+  padding: var(--section-pad-block) var(--section-pad-inline);
+}
+
+.upcomingInner {
+  max-width: var(--content-max-narrow);
+  margin-inline: auto;
+}
+
+.upcomingLabel {
+  font-size: var(--text-label-sm);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: var(--space-sm);
+}
+
+.upcomingCat {
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: var(--space-xs);
+}
+
+.upcomingTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-heading);
+  color: var(--color-paper);
+  margin-bottom: var(--space-sm);
+}
+
+.upcomingMeta {
+  font-size: var(--text-label);
+  color: rgba(255,255,255,0.5);
+  letter-spacing: var(--tracking-normal);
+  margin-bottom: var(--space-sm);
+}
+
+.upcomingIntro {
+  font-size: var(--text-body-sm);
+  color: rgba(255,255,255,0.65);
+  line-height: var(--leading-body);
+  max-width: 52ch;
+  margin-bottom: var(--space-lg);
+}
+
+.upcomingLink {
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-paper);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 2px;
+  transition: border-color var(--duration-fast) var(--ease);
+}
+
+.upcomingLink:hover { border-color: var(--color-paper); }
+
+.dots {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  border: none;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease);
+  padding: 0;
+}
+
+.dotActive { background: var(--color-paper); width: 20px; border-radius: 3px; }
+
+/* Events section */
+.section {
+  padding: var(--section-pad-block) var(--section-pad-inline);
+}
+
+.container {
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.sectionTop {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.filter {
+  font-size: var(--text-label-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid var(--color-line);
+  background: var(--color-paper);
+  color: var(--color-mute);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.filter:hover { border-color: var(--color-ink); color: var(--color-ink); }
+.filterActive { background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink); }
+
+/* Events grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.card {
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+.imgWrap {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--color-bone);
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.card:hover .img { transform: scale(1.03); }
+
+.cardMeta { display: flex; flex-direction: column; gap: 4px; }
+
+.cardCategory {
+  font-size: var(--text-label-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-light);
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-tight);
+}
+
+.cardDate {
+  font-size: var(--text-label);
+  color: var(--color-mute);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* Community */
+.communityGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.communityCard {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.communityImgWrap {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--color-line);
+}
+
+.communityImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.communityCard:hover .communityImg { transform: scale(1.02); }
+
+.communityText { display: flex; flex-direction: column; gap: var(--space-xs); }
+
+.communityTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-light);
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-tight);
+}
+
+.communityIntro {
+  font-size: var(--text-body-sm);
+  color: var(--color-mute);
+  line-height: var(--leading-body);
+  max-width: 60ch;
+}
+
+.communityReadMore {
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+
+  .card {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .communityCard { flex-direction: row; gap: var(--space-xl); }
+  .communityImgWrap { flex: 0 0 45%; aspect-ratio: 4/3; }
+  .communityText { justify-content: center; }
+}
+
+@media (min-width: 1100px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}

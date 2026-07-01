@@ -1,0 +1,125 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.selected {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.selectedLabel {
+  font-size: 11px;
+  color: #999;
+}
+
+.selectedColors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.selectedChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #f5f5f5;
+  border: 1px solid #eee;
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.hex {
+  font-size: 11px;
+  font-family: monospace;
+  color: #333;
+}
+
+.removeColor {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+  color: #999;
+  padding: 0;
+  line-height: 1;
+}
+
+.removeColor:hover {
+  color: #c00;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.preset {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  position: relative;
+}
+
+.preset:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.presetSelected {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.custom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.colorInput {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  padding: 2px;
+  background: none;
+}
+
+.hexInput {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  font-size: 12px;
+  font-family: monospace;
+  width: 100px;
+  outline: none;
+}
+
+.hexInput:focus {
+  border-color: #000;
+}
+
+.addBtn {
+  padding: 8px 16px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+
+.addBtn:hover {
+  opacity: 0.8;
+}

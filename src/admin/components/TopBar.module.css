@@ -1,0 +1,33 @@
+.topbar {
+  height: 56px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: fixed;
+  top: 0;
+  left: 240px;
+  right: 0;
+  z-index: 99;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: 0.02em;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.badge {
+  font-size: 11px;
+  color: #999;
+  letter-spacing: 0.04em;
+}

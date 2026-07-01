@@ -3,45 +3,45 @@ import UpcomingEvents from "../components/UpcomingEvents";
 import EventArchive from "../components/EventsArchive";
 import CommunityImpact from "../components/CommunityImpact";
 
-import { getPastEvents, getCommunityImpactItems } from "../database-services/eventService";
-import { getUpcomingEvents } from "../database-services/upcomingEventService";
-import { getBrandMessageByKey } from "../database-services/brandMessageService";
-import { getSectionByPageAndName } from "../database-services/pageSectionService";
+import { usePastEvents, useCommunityImpactItems } from "../hooks/useEvents";
+import { useUpcomingEvents } from "../hooks/useUpcomingEvents";
+import { useBrandMessageByKey } from "../hooks/useBrand";
+import { useSectionByPageAndName } from "../hooks/usePages";
 
 export default function EventsPage() {
-  const upcomingEvents = getUpcomingEvents();
-  const pastEvents = getPastEvents();
-  const communityImpactItems = getCommunityImpactItems();
+  const { data: upcomingEvents } = useUpcomingEvents();
+  const { data: pastEvents } = usePastEvents();
+  const { data: communityImpactItems } = useCommunityImpactItems();
 
   // ─── Hero ──────────────────────────────────────────────────────────────────
-  const eventsHero = getBrandMessageByKey("events_hero");
+  const { data: eventsHero } = useBrandMessageByKey("events_hero");
 
   // ─── Page Sections ─────────────────────────────────────────────────────────
-  const upcomingSection = getSectionByPageAndName("page-events", "upcoming_events");
-  const archiveSection = getSectionByPageAndName("page-events", "event_archive");
-  const communitySection = getSectionByPageAndName("page-events", "community_impact");
+  const { data: upcomingSection } = useSectionByPageAndName("page-events", "upcoming_events");
+  const { data: archiveSection } = useSectionByPageAndName("page-events", "event_archive");
+  const { data: communitySection } = useSectionByPageAndName("page-events", "community_impact");
 
   return (
     <>
       <CommunityEventsHero
-        title={eventsHero?.title ?? "Fashion Beyond the Studio"}
-        description={eventsHero?.description ?? ""}
+        title={(eventsHero as any)?.title ?? "Fashion Beyond the Studio"}
+        description={(eventsHero as any)?.description ?? ""}
       />
 
       <UpcomingEvents
-        title={upcomingSection?.sectionHeader ?? "Upcoming Event"}
-        events={upcomingEvents}
+        title={(upcomingSection as any)?.sectionHeader ?? "Upcoming Event"}
+        events={(upcomingEvents as any[]) ?? []}
       />
 
       <EventArchive
-        title={archiveSection?.sectionHeader ?? "Event Archive"}
-        events={pastEvents}
+        title={(archiveSection as any)?.sectionHeader ?? "Event Archive"}
+        events={(pastEvents as any[]) ?? []}
       />
 
       <CommunityImpact
-        title={communitySection?.sectionHeader ?? "Community Impact"}
-        ctaText={communitySection?.buttonLabels[0] ?? "View Story"}
-        items={communityImpactItems}
+        title={(communitySection as any)?.sectionHeader ?? "Community Impact"}
+        ctaText={(communitySection as any)?.buttonLabels?.[0] ?? "View Story"}
+        items={(communityImpactItems as any[]) ?? []}
       />
     </>
   );

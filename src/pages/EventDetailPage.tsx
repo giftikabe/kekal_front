@@ -7,36 +7,41 @@ import EventContent from "../components/EventContent";
 import EventGallery from "../components/EventGallery";
 import RelatedEvents from "../components/RelatedEvents";
 
-import { getEventBySlug, getRelatedEvents } from "../database-services/eventService";
+import { useEventBySlug, useRelatedEvents } from "../hooks/useEvents";
 
 export default function EventDetailsPage() {
   const { slug } = useParams();
 
-  const event = getEventBySlug(slug ?? "");
+  const { data: event, loading } = useEventBySlug(slug ?? "");
 
-  if (!event) {
-    return <p>Event not found.</p>;
-  }
+  // Related events use the slug (API endpoint: /events/:slug/related)
+  const { data: relatedEvents } = useRelatedEvents(slug ?? "", 3);
 
-  const relatedEvents = getRelatedEvents(event.id, 3);
+  if (loading) return null;
+  if (!event) return <p>Event not found.</p>;
+
+  const e = event as any;
 
   return (
     <>
-      <EventHero event={event} />
+      <EventHero event={e} />
 
-      <EventIntro intro={event.intro} />
+      <EventIntro intro={e.intro} />
 
       <EventFeatureMedia
-        image={event.featuredImage}
-        title={event.title}
-        videoUrl={event.videoUrl}
+        image={e.featuredImage}
+        title={e.title}
+        videoUrl={e.videoUrl}
       />
 
-      <EventContent content={event.content} />
+      <EventContent content={e.content} />
 
-      <EventGallery images={event.gallery} />
+      <EventGallery images={e.gallery} />
 
-      <RelatedEvents title="Related Events" events={relatedEvents} />
+      <RelatedEvents
+        title="Related Events"
+        events={(relatedEvents as any[]) ?? []}
+      />
     </>
   );
 }

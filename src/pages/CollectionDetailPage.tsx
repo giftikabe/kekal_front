@@ -4,37 +4,44 @@ import CollectionHero from "../components/CollectionHero";
 import CollectionStorySection from "../components/CollectionStorySection";
 import ProductsGrid from "../components/ProductsGrid";
 
-import { getCollectionBySlug } from "../database-services/collectionService";
-import { getProductsByCollection } from "../database-services/productService";
-import { getSectionByPageAndName } from "../database-services/pageSectionService";
+import { useCollectionBySlug } from "../hooks/useCollections";
+import { useProductsByCollection } from "../hooks/useProducts";
+import { useSectionByPageAndName } from "../hooks/usePages";
 
 export default function CollectionDetailsPage() {
   const { slug } = useParams();
 
-  const collection = getCollectionBySlug(slug ?? "");
+  const { data: collection, loading } = useCollectionBySlug(slug ?? "");
 
   // ─── Page Sections ─────────────────────────────────────────────────────────
-  const collectionStorySection = getSectionByPageAndName("page-collection-details", "collection_story");
-  const productsSection = getSectionByPageAndName("page-collection-details", "products");
+  const { data: collectionStorySection } = useSectionByPageAndName(
+    "page-collection-details",
+    "collection_story"
+  );
+  const { data: productsSection } = useSectionByPageAndName(
+    "page-collection-details",
+    "products"
+  );
 
-  if (!collection) {
-    return <p>Collection not found.</p>;
-  }
+  // ─── Products for this collection ─────────────────────────────────────────
+  const collectionId = (collection as any)?.id ?? "";
+  const { data: products } = useProductsByCollection(collectionId);
 
-  const products = getProductsByCollection(collection.id);
+  if (loading) return null;
+  if (!collection) return <p>Collection not found.</p>;
 
   return (
     <>
-      <CollectionHero collection={collection} />
+      <CollectionHero collection={collection as any} />
 
       <CollectionStorySection
-        title={collectionStorySection?.sectionHeader ?? "Collection Story"}
-        description={collection.description}
+        title={(collectionStorySection as any)?.sectionHeader ?? "Collection Story"}
+        description={(collection as any).description}
       />
 
       <ProductsGrid
-        title={productsSection?.sectionHeader ?? "Products"}
-        products={products}
+        title={(productsSection as any)?.sectionHeader ?? "Products"}
+        products={(products as any[]) ?? []}
       />
     </>
   );

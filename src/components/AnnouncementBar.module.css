@@ -10,26 +10,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
 
   border-bottom: 1px solid var(--color-line);
   background: var(--color-paper);
+}
 
+.text {
   font-size: var(--text-label-sm);
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
   color: var(--color-ink);
-}
-
-.separator {
-  color: var(--color-faint);
+  transition: opacity 0.4s ease;
+  padding: 0 var(--space-sm);
+  text-align: center;
 }
 
 @media (max-width: 900px) {
-  .bar {
+  .text {
     font-size: 0.65rem;
-    gap: var(--space-xs);
-    padding: 0 var(--space-sm);
-    text-align: center;
   }
 }

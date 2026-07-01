@@ -8,7 +8,7 @@ import styles from "./MainLayout.module.css";
 
 export default function MainLayout() {
   return (
-    <>
+    <div className={styles.shell}>
       <AnnouncementBar />
       <Header />
 
@@ -17,6 +17,6 @@ export default function MainLayout() {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

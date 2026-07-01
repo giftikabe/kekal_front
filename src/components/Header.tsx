@@ -1,11 +1,10 @@
 import { useState } from "react";
-
 import { Link } from "react-router-dom";
 
 import MobileMenu from "./MobileMenu";
 
-import { getNavigation } from "../database-services/navigationService";
-import { getBrandIdentityByKey } from "../database-services/brandIdentityService";
+import { useNavigation } from "../hooks/useNavigation";
+import { useBrandIdentityByKey } from "../hooks/useBrand";
 
 import type { Navigation } from "../database-types/navigation";
 
@@ -15,15 +14,16 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // ─── Navigation ────────────────────────────────────────────────────────────
-  const navigation: Navigation[] = getNavigation();
+  const { data: navigationData } = useNavigation();
+  const navigation: Navigation[] = (navigationData as Navigation[]) ?? [];
 
   const midpoint = Math.ceil(navigation.length / 2);
   const leftNavigation = navigation.slice(0, midpoint);
   const rightNavigation = navigation.slice(midpoint);
 
   // ─── Brand ─────────────────────────────────────────────────────────────────
-  const name = getBrandIdentityByKey("name");
-  const title = getBrandIdentityByKey("title");
+  const { value: name } = useBrandIdentityByKey("name");
+  const { value: title } = useBrandIdentityByKey("title");
 
   return (
     <>
@@ -39,7 +39,6 @@ export default function Header() {
         <div className={styles.brand}>
           <Link to="/" className={styles.brandLink}>
             <h1>{name}</h1>
-
             <span>{title}</span>
           </Link>
         </div>

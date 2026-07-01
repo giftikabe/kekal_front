@@ -1,28 +1,27 @@
 import CollectionsHero from "../components/CollectionsHero";
 import CollectionsGrid from "../components/CollectionsGrid";
 
-import { getCollections } from "../services/collectionService";
-import { getBrandIdentityByKey } from "../database-services/brandIdentityService";
-import { getBrandMessageByKey } from "../database-services/brandMessageService";
-import { getSectionByPageAndName } from "../database-services/pageSectionService";
+import { useCollections } from "../hooks/useCollections";
+import { useBrandIdentityByKey, useBrandMessageByKey } from "../hooks/useBrand";
+import { useSectionByPageAndName } from "../hooks/usePages";
 
 export default function CollectionsPage() {
-  const collections = getCollections();
+  const { data: collections } = useCollections();
 
   // ─── Collections Hero ──────────────────────────────────────────────────────
-  const heroSection = getSectionByPageAndName("page-collections", "hero");
-  const eyebrow = getBrandIdentityByKey("name");
-  const collectionsHero = getBrandMessageByKey("collections_hero");
+  const { data: heroSection } = useSectionByPageAndName("page-collections", "hero");
+  const { value: eyebrow } = useBrandIdentityByKey("name");
+  const { data: collectionsHero } = useBrandMessageByKey("collections_hero");
 
   return (
     <>
       <CollectionsHero
         eyebrow={eyebrow}
-        title={heroSection?.sectionHeader ?? "Collections"}
-        description={collectionsHero?.description ?? ""}
+        title={(heroSection as any)?.sectionHeader ?? "Collections"}
+        description={(collectionsHero as any)?.description ?? ""}
       />
 
-      <CollectionsGrid collections={collections} />
+      <CollectionsGrid collections={(collections as any[]) ?? []} />
     </>
   );
 }
