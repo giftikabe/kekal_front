@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, ShieldCheck, Power } from "lucide-react";
+import {  Trash2, ShieldCheck, Power } from "lucide-react";
 import { usersApi } from "../api/client";
-import { useAuthContext } from "../hooks/AuthContext";
 import ui from "../components/ui.module.css";
 
 type Tab = "users" | "roles" | "password";
@@ -49,7 +48,6 @@ function generatePassword(): string {
 }
 
 export default function UsersPage() {
-  const { user: currentUser } = useAuthContext();
   const [tab, setTab] = useState<Tab>("users");
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [roles, setRoles] = useState<Role[]>([]);

@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { GripVertical, X } from "lucide-react";
 import { uploadImage } from "../api/cloudinary";
-import ImagePreview from "./ImagePreview";
 import styles from "./MultiImageUpload.module.css";
 
 interface MultiImageUploadProps {
@@ -72,7 +71,7 @@ export default function MultiImageUpload({
 
   return (
     <div className={styles.wrap}>
-      <label className={styles.label}>{label}</label>
+      {label && <label className={styles.label}>{label}</label>}
 
       {value.length > 0 && (
         <div className={styles.grid}>
@@ -85,15 +84,16 @@ export default function MultiImageUpload({
               onDragOver={handleDragOverItem}
               onDrop={() => handleDropOnItem(index)}
             >
+              {/* Direct img with object-fit: cover fills the fixed frame cleanly */}
+              <img
+                src={url}
+                alt={`Image ${index + 1}`}
+                className={styles.imgBox}
+              />
+
               {!disabled && (
                 <GripVertical className={styles.handle} size={14} />
               )}
-              <ImagePreview
-                src={url}
-                alt={`Image ${index + 1}`}
-                maxWidth={140}
-                maxHeight={140}
-              />
               {!disabled && (
                 <button
                   type="button"
@@ -125,7 +125,7 @@ export default function MultiImageUpload({
                 Drop images here or click to upload multiple
               </div>
               <div className={styles.dropHint}>
-                PNG, JPG, WEBP up to 10MB each. Drag tiles to reorder.
+                PNG, JPG, WEBP up to 10MB each · Drag tiles to reorder
               </div>
             </>
           )}

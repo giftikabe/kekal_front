@@ -660,8 +660,8 @@ export default function BrandPage() {
             <div className={ui.card}>
               <div className={ui.cardTitle}>Announcement Bar Messages</div>
               <div className={ui.hint} style={{ marginBottom: 16 }}>
-                These rotate in the customer site's announcement bar when there
-                is more than one.
+                These rotate in the customer site's announcement bar in the
+                order shown here. Drag to reorder.
               </div>
 
               {announcements.length > 0 && (
@@ -669,34 +669,38 @@ export default function BrandPage() {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 8,
+                    gap: 6,
                     marginBottom: 16,
                   }}
                 >
                   {announcements.map((text, index) => (
-                    <div
+                    <AnnouncementRow
                       key={index}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        padding: "10px 14px",
-                        border: "1px solid #eee",
-                        background: "#fafafa",
+                      index={index}
+                      text={text}
+                      total={announcements.length}
+                      canEdit={canEdit}
+                      saving={announcementsSaving}
+                      onRemove={() => handleRemoveAnnouncement(index)}
+                      onMoveUp={() => {
+                        if (index === 0) return;
+                        const next = [...announcements];
+                        [next[index - 1], next[index]] = [
+                          next[index],
+                          next[index - 1],
+                        ];
+                        persistAnnouncements(next);
                       }}
-                    >
-                      <span style={{ flex: 1, fontSize: 13 }}>{text}</span>
-                      {canEdit && (
-                        <button
-                          className={ui.iconBtn}
-                          onClick={() => handleRemoveAnnouncement(index)}
-                          aria-label="Remove"
-                          disabled={announcementsSaving}
-                        >
-                          <X size={13} />
-                        </button>
-                      )}
-                    </div>
+                      onMoveDown={() => {
+                        if (index === announcements.length - 1) return;
+                        const next = [...announcements];
+                        [next[index], next[index + 1]] = [
+                          next[index + 1],
+                          next[index],
+                        ];
+                        persistAnnouncements(next);
+                      }}
+                    />
                   ))}
                 </div>
               )}
@@ -1853,5 +1857,99 @@ function DragListValues({
         </div>
       )}
     />
+  );
+}
+// ─── Announcement row with up/down reorder controls ───────────────────────────
+function AnnouncementRow({
+  index,
+  text,
+  total,
+  canEdit,
+  saving,
+  onRemove,
+  onMoveUp,
+  onMoveDown,
+}: {
+  index: number;
+  text: string;
+  total: number;
+  canEdit: boolean;
+  saving: boolean;
+  onRemove: () => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "10px 14px",
+        border: "1px solid #eee",
+        background: "#fafafa",
+      }}
+    >
+      {canEdit && (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            flexShrink: 0,
+          }}
+        >
+          <button
+            type="button"
+            className={ui.iconBtn}
+            onClick={onMoveUp}
+            disabled={index === 0 || saving}
+            aria-label="Move up"
+            style={{
+              opacity: index === 0 ? 0.25 : 1,
+              width: 22,
+              height: 22,
+              padding: 2,
+            }}
+          >
+            ↑
+          </button>
+          <button
+            type="button"
+            className={ui.iconBtn}
+            onClick={onMoveDown}
+            disabled={index === total - 1 || saving}
+            aria-label="Move down"
+            style={{
+              opacity: index === total - 1 ? 0.25 : 1,
+              width: 22,
+              height: 22,
+              padding: 2,
+            }}
+          >
+            ↓
+          </button>
+        </div>
+      )}
+
+      <span style={{ flex: 1, fontSize: 13 }}>{text}</span>
+
+      <span style={{ fontSize: 11, color: "#ccc", flexShrink: 0 }}>
+        {index + 1} / {total}
+      </span>
+
+      {canEdit && (
+        <button
+          type="button"
+          className={`${ui.iconBtn} ${ui.iconBtnDanger}`}
+          onClick={onRemove}
+          disabled={saving}
+          aria-label="Remove announcement"
+          style={{ flexShrink: 0 }}
+        >
+          <X size={13} />
+        </button>
+      )}
+    </div>
   );
 }

@@ -15,19 +15,31 @@
 .grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
+/* Fixed-size frame — image is always contained inside this box */
 .item {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  border: 1px solid #eee;
+  background: #f5f5f5;
   cursor: grab;
+  overflow: hidden;
 }
 
 .item:active {
   cursor: grabbing;
+}
+
+/* The image fills the frame, cropped to cover — consistent regardless of aspect ratio */
+.imgBox {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .handle {
@@ -35,10 +47,12 @@
   top: 4px;
   left: 4px;
   color: #fff;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 2px;
   z-index: 1;
   pointer-events: none;
+  padding: 1px;
+  display: flex;
 }
 
 .removeBtn {
@@ -50,12 +64,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   border: none;
   cursor: pointer;
   border-radius: 2px;
   transition: background 0.15s;
+  z-index: 1;
 }
 
 .removeBtn:hover {
