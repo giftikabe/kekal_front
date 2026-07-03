@@ -1,0 +1,119 @@
+.hero {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 75vh;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-overlay);
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: var(--space-sm);
+  right: var(--space-sm);
+  transform: translateY(-50%);
+  z-index: 2;
+  max-width: none;
+  color: var(--color-paper);
+}
+
+.decorativeLine {
+  width: 80px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--space-lg);
+}
+
+.content h1 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-light);
+  font-size: clamp(2.25rem, 1.8rem + 3vw, 3rem);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-lg);
+}
+
+.content p {
+  max-width: 500px;
+  line-height: var(--leading-body);
+  margin-bottom: var(--space-lg);
+  font-size: var(--text-body-lg);
+  opacity: 0.92;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.primaryButton,
+.secondaryButton {
+  text-decoration: none;
+  text-align: center;
+  padding: 1rem 2rem;
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  border: 1px solid transparent;
+  transition: background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease);
+}
+
+.primaryButton {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-paper);
+}
+
+.primaryButton:hover {
+  background: transparent;
+  color: var(--color-paper);
+}
+
+.secondaryButton {
+  border-color: var(--color-paper);
+  color: var(--color-paper);
+}
+
+.secondaryButton:hover {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+@media (min-width: 900px) {
+  .image {
+    height: calc(100vh - var(--announcement-height) - var(--header-height-desktop) - var(--value-cards-height));
+  }
+
+  .content {
+    left: 8%;
+    right: auto;
+    max-width: 650px;
+  }
+
+  .content h1 {
+    font-size: var(--text-display-xl);
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    text-align: left;
+  }
+}

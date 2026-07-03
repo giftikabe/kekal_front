@@ -1,0 +1,40 @@
+.section {
+  padding: var(--section-pad-block) var(--space-sm);
+}
+
+.gallery {
+  column-count: 1;
+  column-gap: var(--space-md);
+}
+
+.item {
+  break-inside: avoid;
+  margin-bottom: var(--space-md);
+}
+
+.image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.image:hover {
+  transform: scale(1.01);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--section-pad-block) var(--section-pad-inline);
+  }
+
+  .gallery {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .gallery {
+    column-count: 3;
+  }
+}

@@ -1,0 +1,21 @@
+.section {
+  padding: var(--section-pad-block) var(--space-sm);
+}
+
+.section p {
+  max-width: var(--content-max-narrow);
+  margin: 0 auto var(--space-md);
+  text-align: justify;
+  line-height: var(--leading-body-loose);
+  font-size: var(--text-body-lg);
+}
+
+.section p:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--section-pad-block) var(--section-pad-inline);
+  }
+}

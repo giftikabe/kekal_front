@@ -1,19 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../kekal/layouts/MainLayout";
 import AdminLayout from "../admin/layouts/AdminLayout";
 import ProtectedRoute from "../admin/components/ProtectedRoute";
 import { AuthProvider } from "../admin/hooks/AuthContext";
 
-import HomePage from "../pages/HomePage";
-import AboutPage from "../pages/AboutPage";
-import CollectionsPage from "../pages/CollectionsPage";
-import CollectionDetailPage from "../pages/CollectionDetailPage";
-import ProductDetailPage from "../pages/ProductDetailPage";
-import EventsPage from "../pages/EventsPage";
-import EventDetailPage from "../pages/EventDetailPage";
-import ContactPage from "../pages/ContactPage";
-import UpcomingEventDetailsPage from "../pages/UpcomingEventDetailsPage";
+import HomePage from "../kekal/pages/HomePage";
+import AboutPage from "../kekal/pages/AboutPage";
+import CollectionsPage from "../kekal/pages/CollectionsPage";
+import CollectionDetailPage from "../kekal/pages/CollectionDetailPage";
+import ProductDetailPage from "../kekal/pages/ProductDetailPage";
+import EventsPage from "../kekal/pages/EventsPage";
+import EventDetailPage from "../kekal/pages/EventDetailPage";
+import ContactPage from "../kekal/pages/ContactPage";
+import UpcomingEventDetailsPage from "../kekal/pages/UpcomingEventDetailsPage";
 
 import LoginPage from "../admin/pages/LoginPage";
 import DashboardPage from "../admin/pages/DashboardPage";

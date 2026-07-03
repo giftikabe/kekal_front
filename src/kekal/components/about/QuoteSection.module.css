@@ -1,0 +1,31 @@
+.section {
+  padding: var(--section-pad-block) var(--space-sm);
+  max-width: var(--content-max-narrow);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.quote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: var(--weight-regular);
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem);
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+
+.author {
+  margin-top: var(--space-md);
+  text-align: center;
+  font-size: var(--text-label-sm);
+  color: var(--color-mute);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--section-pad-block) var(--section-pad-inline);
+  }
+}

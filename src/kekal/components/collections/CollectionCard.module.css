@@ -1,0 +1,37 @@
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.content {
+  padding-top: var(--space-sm);
+}
+
+.content h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-heading);
+}
+
+.content p {
+  margin: 0.5rem 0 0;
+  color: var(--color-mute);
+  font-size: var(--text-body-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}

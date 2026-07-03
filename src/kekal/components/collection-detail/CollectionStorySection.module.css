@@ -1,0 +1,19 @@
+.section {
+  padding: var(--section-pad-block) var(--space-sm);
+  margin: 0 auto;
+}
+
+.section p {
+  margin: 0;
+  max-width: var(--content-max-narrow);
+  margin-left: auto;
+  margin-right: auto;
+  line-height: var(--leading-body-loose);
+  text-align: justify;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--section-pad-block) var(--section-pad-inline);
+  }
+}
