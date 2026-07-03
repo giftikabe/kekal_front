@@ -1,6 +1,6 @@
 import * as LucideIcons from "lucide-react";
 
-import type { BrandValue } from "../database-types/brandValue";
+import type { BrandValue } from "../../../database-types/brandValue";
 
 import styles from "./HomeValueCards.module.css";
 
