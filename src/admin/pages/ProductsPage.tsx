@@ -201,6 +201,7 @@ export default function ProductsPage() {
             style={{ width: 180 }}
             value={filterCollection}
             onChange={(e) => setFilterCollection(e.target.value)}
+            aria-label="Filter by collection"
           >
             <option value="">All Collections</option>
             {collections.map((c) => (

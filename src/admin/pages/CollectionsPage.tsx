@@ -310,8 +310,9 @@ export default function CollectionsPage() {
                 <div className={ui.form}>
                   <div className={ui.fieldRow}>
                     <div className={ui.field}>
-                      <label className={ui.label}>Name *</label>
+                      <label className={ui.label} htmlFor="col-name">Name *</label>
                       <input
+                        id="col-name"
                         className={ui.input}
                         value={form.name || ""}
                         onChange={(e) => set("name", e.target.value)}
@@ -319,8 +320,9 @@ export default function CollectionsPage() {
                       />
                     </div>
                     <div className={ui.field}>
-                      <label className={ui.label}>Slug</label>
+                      <label className={ui.label} htmlFor="col-slug">Slug</label>
                       <input
+                        id="col-slug"
                         className={ui.input}
                         value={form.slug || ""}
                         onChange={(e) => set("slug", e.target.value)}
@@ -342,8 +344,9 @@ export default function CollectionsPage() {
                   />
                   <div className={ui.fieldRow}>
                     <div className={ui.field}>
-                      <label className={ui.label}>Release Year *</label>
+                      <label className={ui.label} htmlFor="col-year">Release Year *</label>
                       <input
+                        id="col-year"
                         className={ui.input}
                         type="number"
                         value={form.releaseYear || ""}
@@ -353,8 +356,9 @@ export default function CollectionsPage() {
                       />
                     </div>
                     <div className={ui.field}>
-                      <label className={ui.label}>Status *</label>
+                      <label className={ui.label} htmlFor="col-status">Status *</label>
                       <select
+                        id="col-status"
                         className={ui.select}
                         value={form.status || "current"}
                         onChange={(e) => set("status", e.target.value)}
@@ -387,8 +391,9 @@ export default function CollectionsPage() {
               {activeTab === "seo" && (
                 <div className={ui.form}>
                   <div className={ui.field}>
-                    <label className={ui.label}>Meta Title</label>
+                    <label className={ui.label} htmlFor="col-seo-title">Meta Title</label>
                     <input
+                      id="col-seo-title"
                       className={ui.input}
                       value={seoForm.metaTitle}
                       onChange={(e) =>
@@ -408,8 +413,9 @@ export default function CollectionsPage() {
                     />
                   </div>
                   <div className={ui.field}>
-                    <label className={ui.label}>Keywords</label>
+                    <label className={ui.label} htmlFor="col-seo-keywords">Keywords</label>
                     <input
+                      id="col-seo-keywords"
                       className={ui.input}
                       value={seoForm.keywords?.join(", ") || ""}
                       onChange={(e) =>

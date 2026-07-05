@@ -71,7 +71,7 @@ export default function MultiImageUpload({
 
   return (
     <div className={styles.wrap}>
-      {label && <label className={styles.label}>{label}</label>}
+      {label && <span className={styles.label}>{label}</span>}
 
       {value.length > 0 && (
         <div className={styles.grid}>
@@ -84,22 +84,23 @@ export default function MultiImageUpload({
               onDragOver={handleDragOverItem}
               onDrop={() => handleDropOnItem(index)}
             >
-              {/* Direct img with object-fit: cover fills the fixed frame cleanly */}
               <img
                 src={url}
                 alt={`Image ${index + 1}`}
                 className={styles.imgBox}
+                loading="lazy"
+                decoding="async"
               />
 
               {!disabled && (
-                <GripVertical className={styles.handle} size={14} />
+                <GripVertical className={styles.handle} size={14} aria-hidden="true" />
               )}
               {!disabled && (
                 <button
                   type="button"
                   className={styles.removeBtn}
                   onClick={() => handleRemove(index)}
-                  aria-label="Remove image"
+                  aria-label={`Remove image ${index + 1}`}
                 >
                   <X size={12} />
                 </button>
@@ -115,12 +116,20 @@ export default function MultiImageUpload({
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => inputRef.current?.click()}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
         >
           {uploading ? (
             <div className={styles.uploadingText}>Uploading...</div>
           ) : (
             <>
-              <div className={styles.dropIcon}>↑</div>
+              <div className={styles.dropIcon} aria-hidden="true">↑</div>
               <div className={styles.dropText}>
                 Drop images here or click to upload multiple
               </div>
@@ -140,9 +149,14 @@ export default function MultiImageUpload({
         onChange={(e) => e.target.files && handleFiles(e.target.files)}
         style={{ display: "none" }}
         disabled={disabled}
+        aria-label={label}
       />
 
-      {error && <div className={styles.error}>{error}</div>}
+      {error && (
+        <div className={styles.error} role="alert">
+          {error}
+        </div>
+      )}
     </div>
   );
 }

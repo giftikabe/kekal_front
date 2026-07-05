@@ -1,0 +1,10 @@
+# Allow full indexing of the public storefront.
+User-agent: *
+Allow: /
+
+# The admin console requires authentication and has no value indexed;
+# keeping crawlers out also avoids wasted crawl budget on login/API-backed
+# pages that will only ever 401 for a bot.
+Disallow: /admin
+
+Sitemap: https://kekalstudio.com/sitemap.xml

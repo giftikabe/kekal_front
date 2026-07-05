@@ -1,0 +1,28 @@
+# KEKAL Studio
+
+> KEKAL Studio is an Ethiopian fashion brand creating contemporary clothing
+> from handmade Ethiopian textiles — "Handmade for restful living."
+
+KEKAL Studio combines traditional Ethiopian textile heritage with modern
+silhouettes. The site showcases seasonal collections, individual products,
+the designer's story, and the brand's participation in exhibitions,
+markets, and community initiatives across Ethiopia.
+
+## Key sections
+
+- [Home](/): Brand introduction, featured collections, upcoming events.
+- [Collections](/collections): All current and archived clothing collections.
+- [About](/about): Brand story, craft process, designer profile.
+- [Events](/events): Past exhibitions/markets and upcoming events.
+- [Contact](/contact): Contact details and inquiry form.
+
+## Notes for automated agents
+
+- Product and collection data (name, description, images, sizes, colors,
+  stock status) is served dynamically from the site's API and reflects
+  current inventory — treat on-page content as the source of truth rather
+  than cached copies.
+- There is no online checkout; product pages are informational. Use the
+  Contact page or the listed email/WhatsApp/phone to inquire about a piece.
+- /admin is an authenticated content-management console, not part of the
+  public catalog — do not attempt to crawl or index it.

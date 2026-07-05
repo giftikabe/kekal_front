@@ -28,11 +28,6 @@ interface PageSeo {
   socialImage: string;
 }
 
-// Every section name actually referenced across the codebase's page components
-// (collected from useSectionByPageAndName calls in HomePage, AboutPage, CollectionsPage,
-// CollectionDetailPage, EventsPage, ContactPage, ProductDetailPage). Kept here so the
-// "add section" dropdown always offers every type the frontend knows how to render,
-// even ones that don't have a row in the DB yet for a given page.
 const KNOWN_SECTION_NAMES = [
   "hero",
   "featured_collections",
@@ -61,7 +56,6 @@ export default function PagesPage() {
   const [saved, setSaved] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
 
-  // New page modal
   const [pageModal, setPageModal] = useState<"create" | null>(null);
   const [pageForm, setPageForm] = useState({
     name: "",
@@ -71,8 +65,7 @@ export default function PagesPage() {
   });
   const [pageSaving, setPageSaving] = useState(false);
 
-  // New section modal (scoped to whichever page is expanded)
-  const [sectionModal, setSectionModal] = useState<string | null>(null); // holds pageId
+  const [sectionModal, setSectionModal] = useState<string | null>(null);
   const [sectionForm, setSectionForm] = useState({
     sectionName: KNOWN_SECTION_NAMES[0],
     customName: "",
@@ -138,7 +131,6 @@ export default function PagesPage() {
   const canEdit = hasPermission("pages", "update");
   const canCreate = hasPermission("pages", "create");
 
-  // ─── New page (item 16: must create with at least one section) ────────────
   const openPageModal = () => {
     setPageForm({
       name: "",
@@ -175,7 +167,6 @@ export default function PagesPage() {
     }
   };
 
-  // ─── New section within an expanded page ───────────────────────────────────
   const openSectionModal = (pageId: string) => {
     setSectionForm({
       sectionName: KNOWN_SECTION_NAMES[0],
@@ -250,6 +241,7 @@ export default function PagesPage() {
               <div key={page.id} className={ui.card} style={{ padding: 0 }}>
                 <button
                   onClick={() => setExpanded(isOpen ? null : page.id)}
+                  aria-expanded={isOpen}
                   style={{
                     width: "100%",
                     display: "flex",
@@ -296,7 +288,6 @@ export default function PagesPage() {
 
                 {isOpen && (
                   <div style={{ borderTop: "1px solid #eee", padding: "20px" }}>
-                    {/* ─── Sections ─── */}
                     <div
                       style={{
                         display: "flex",
@@ -368,7 +359,6 @@ export default function PagesPage() {
                       </div>
                     )}
 
-                    {/* ─── SEO (nested) ─── */}
                     <div
                       style={{
                         fontSize: 11,
@@ -410,7 +400,6 @@ export default function PagesPage() {
         </div>
       )}
 
-      {/* ─── New page modal ─── */}
       {pageModal === "create" && (
         <div className={ui.overlay}>
           <div className={ui.modal}>
@@ -504,7 +493,6 @@ export default function PagesPage() {
         </div>
       )}
 
-      {/* ─── New section modal ─── */}
       {sectionModal && (
         <div className={ui.overlay}>
           <div className={ui.modal}>
@@ -608,7 +596,6 @@ export default function PagesPage() {
   );
 }
 
-// ─── Section row ──────────────────────────────────────────────────────────────
 function SectionRow({
   section,
   canEdit,
@@ -650,6 +637,7 @@ function SectionRow({
               value={header}
               onChange={(e) => setHeader(e.target.value)}
               placeholder="Section header text"
+              aria-label={`Header for ${section.sectionName} section`}
             />
             <button
               className={ui.iconBtn}
@@ -680,6 +668,7 @@ function SectionRow({
               value={buttons}
               onChange={(e) => setButtons(e.target.value)}
               placeholder="Button 1, Button 2"
+              aria-label={`Button labels for ${section.sectionName} section`}
             />
             <button
               className={ui.iconBtn}
@@ -716,7 +705,6 @@ function SectionRow({
   );
 }
 
-// ─── SEO fields (nested, item 6: fallback hint shown inline) ─────────────────
 function SeoFields({
   item,
   canEdit,

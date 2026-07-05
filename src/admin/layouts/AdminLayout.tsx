@@ -9,9 +9,9 @@ export default function AdminLayout() {
       <Sidebar />
       <div className={styles.main}>
         <TopBar />
-        <div className={styles.content}>
+        <main id="main-content" className={styles.content}>
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
   );

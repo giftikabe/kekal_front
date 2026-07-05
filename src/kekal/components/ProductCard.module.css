@@ -1,0 +1,39 @@
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  background: var(--color-bone);
+}
+
+.content {
+  padding-top: var(--space-sm);
+}
+
+.content h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-normal);
+  line-height: 1.5;
+}
+
+.outOfStock {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: var(--text-label-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-mute);
+}

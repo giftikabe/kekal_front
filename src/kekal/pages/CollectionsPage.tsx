@@ -1,27 +1,48 @@
-import CollectionsHero from "../components/collections/CollectionsHero";
-import CollectionsGrid from "../components/collections/CollectionsGrid";
+import CollectionsHero from "../components/CollectionsHero";
+import CollectionsGrid from "../components/CollectionsGrid";
+import Seo from "../components/Seo";
 
 import { useCollections } from "../hooks/useCollections";
 import { useBrandIdentityByKey, useBrandMessageByKey } from "../hooks/useBrand";
 import { useSectionByPageAndName } from "../hooks/usePages";
 
+interface PageSectionData {
+  sectionHeader?: string;
+}
+interface BrandMessageData {
+  description?: string;
+}
+
 export default function CollectionsPage() {
   const { data: collections } = useCollections();
 
-  // ─── Collections Hero ──────────────────────────────────────────────────────
   const { data: heroSection } = useSectionByPageAndName("page-collections", "hero");
   const { value: eyebrow } = useBrandIdentityByKey("name");
   const { data: collectionsHero } = useBrandMessageByKey("collections_hero");
 
+  const hero = heroSection as PageSectionData | null;
+  const message = collectionsHero as BrandMessageData | null;
+  const list = (collections as any[]) ?? [];
+
   return (
     <>
-      <CollectionsHero
-        eyebrow={eyebrow}
-        title={(heroSection as any)?.sectionHeader ?? "Collections"}
-        description={(collectionsHero as any)?.description ?? ""}
+      <Seo
+        fallbackTitle="Collections"
+        fallbackDescription={message?.description}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: hero?.sectionHeader ?? "Collections",
+        }}
       />
 
-      <CollectionsGrid collections={(collections as any[]) ?? []} />
+      <CollectionsHero
+        eyebrow={eyebrow}
+        title={hero?.sectionHeader ?? "Collections"}
+        description={message?.description ?? ""}
+      />
+
+      <CollectionsGrid collections={list} />
     </>
   );
 }

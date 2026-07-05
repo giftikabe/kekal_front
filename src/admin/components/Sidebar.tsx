@@ -18,64 +18,24 @@ const NAV_ITEMS = [
   {
     section: "Content",
     items: [
-      {
-        label: "Collections",
-        path: "/admin/collections",
-        entity: "collections",
-        icon: LayoutGrid,
-      },
-      {
-        label: "Products",
-        path: "/admin/products",
-        entity: "products",
-        icon: Box,
-      },
-      {
-        label: "Events",
-        path: "/admin/events",
-        entity: "events",
-        icon: CalendarDays,
-      },
-      {
-        label: "Upcoming Events",
-        path: "/admin/upcoming-events",
-        entity: "upcoming_events",
-        icon: CalendarClock,
-      },
+      { label: "Collections", path: "/admin/collections", entity: "collections", icon: LayoutGrid },
+      { label: "Products", path: "/admin/products", entity: "products", icon: Box },
+      { label: "Events", path: "/admin/events", entity: "events", icon: CalendarDays },
+      { label: "Upcoming Events", path: "/admin/upcoming-events", entity: "upcoming_events", icon: CalendarClock },
     ],
   },
   {
     section: "Brand",
     items: [
-      {
-        label: "Brand Settings",
-        path: "/admin/brand",
-        entity: "brand",
-        icon: Palette,
-      },
-      {
-        label: "Pages & SEO",
-        path: "/admin/pages",
-        entity: "pages",
-        icon: FileText,
-      },
-      {
-        label: "Navigation",
-        path: "/admin/navigation",
-        entity: "navigation",
-        icon: Compass,
-      },
+      { label: "Brand Settings", path: "/admin/brand", entity: "brand", icon: Palette },
+      { label: "Pages & SEO", path: "/admin/pages", entity: "pages", icon: FileText },
+      { label: "Navigation", path: "/admin/navigation", entity: "navigation", icon: Compass },
     ],
   },
   {
     section: "System",
     items: [
-      {
-        label: "Users & Roles",
-        path: "/admin/users",
-        entity: "users",
-        icon: Users,
-      },
+      { label: "Users & Roles", path: "/admin/users", entity: "users", icon: Users },
     ],
   },
 ];
@@ -95,12 +55,10 @@ export default function Sidebar() {
         <BrandHeader size="sm" />
       </div>
 
-      <nav className={styles.nav}>
+      <nav className={styles.nav} aria-label="Admin">
         {NAV_ITEMS.map((section) => {
           const visibleItems = section.items.filter((item) =>
-            item.entity === "users"
-              ? user?.isSuperAdmin
-              : canAccess(item.entity),
+            item.entity === "users" ? user?.isSuperAdmin : canAccess(item.entity),
           );
 
           if (visibleItems.length === 0) return null;
@@ -118,7 +76,7 @@ export default function Sidebar() {
                       `${styles.navItem} ${isActive ? styles.active : ""}`
                     }
                   >
-                    <Icon className={styles.navIcon} size={16} />
+                    <Icon className={styles.navIcon} size={16} aria-hidden="true" />
                     {item.label}
                   </NavLink>
                 );
@@ -136,7 +94,7 @@ export default function Sidebar() {
           </div>
         </div>
         <button className={styles.logoutBtn} onClick={handleLogout}>
-          <LogOut size={14} />
+          <LogOut size={14} aria-hidden="true" />
           Sign out
         </button>
       </div>

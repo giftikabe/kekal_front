@@ -1,14 +1,7 @@
-/**
- * useNavigation.ts
- *
- * Replaces:
- *   - navigationService → getNavigation
- */
-
-import { navigationApi } from "../api/api";
+import { navigationApi } from "../api";
 import { useAsync } from "./useAsync";
 
-/** Returns all navigation items. Mirrors: getNavigation() */
+/** Returns all navigation items. */
 export function useNavigation() {
   return useAsync(() => navigationApi.getAll(), "navigation");
 }

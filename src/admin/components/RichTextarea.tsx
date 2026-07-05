@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useId } from "react";
 import styles from "./RichTextarea.module.css";
 
 interface RichTextareaProps {
@@ -17,8 +17,8 @@ export default function RichTextarea({
   minHeight = 120,
 }: RichTextareaProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaId = useId();
 
-  // Auto-expand
   useEffect(() => {
     const el = textareaRef.current;
     if (!el) return;
@@ -55,12 +55,13 @@ export default function RichTextarea({
   return (
     <div className={`${styles.wrap} ${disabled ? styles.disabled : ""}`}>
       {!disabled && (
-        <div className={styles.toolbar}>
+        <div className={styles.toolbar} role="toolbar" aria-label="Text formatting">
           {toolbarActions.map((a) => (
             <button
               key={a.label}
               type="button"
               title={a.title}
+              aria-label={a.title}
               className={styles.toolbarBtn}
               onClick={a.action}
             >
@@ -69,7 +70,11 @@ export default function RichTextarea({
           ))}
         </div>
       )}
+      <label htmlFor={textareaId} className="sr-only">
+        {placeholder || "Text"}
+      </label>
       <textarea
+        id={textareaId}
         ref={textareaRef}
         className={styles.textarea}
         value={value}

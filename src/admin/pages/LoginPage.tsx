@@ -47,27 +47,35 @@ export default function LoginPage() {
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.field}>
-            <label className={styles.label}>Email</label>
+            <label className={styles.label} htmlFor="login-email">
+              Email
+            </label>
             <input
+              id="login-email"
               className={styles.input}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="admin@kekalstudio.com"
+              autoComplete="username"
               required
               autoFocus
             />
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label}>Password</label>
+            <label className={styles.label} htmlFor="login-password">
+              Password
+            </label>
             <div className={styles.passwordWrap}>
               <input
+                id="login-password"
                 className={styles.input}
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
+                autoComplete="current-password"
                 required
               />
               <button
@@ -82,7 +90,11 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {error && <div className={styles.error}>{error}</div>}
+          {error && (
+            <div className={styles.error} role="alert">
+              {error}
+            </div>
+          )}
 
           <button className={styles.btn} type="submit" disabled={loading}>
             {loading ? "Signing in..." : "Sign In"}

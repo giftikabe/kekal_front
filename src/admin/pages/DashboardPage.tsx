@@ -61,67 +61,18 @@ export default function DashboardPage() {
   }, [canAccess]);
 
   const STATS = [
-    {
-      label: "Collections",
-      value: counts.collections,
-      path: "/admin/collections",
-      entity: "collections",
-      icon: LayoutGrid,
-    },
-    {
-      label: "Products",
-      value: counts.products,
-      path: "/admin/products",
-      entity: "products",
-      icon: Box,
-    },
-    {
-      label: "Events",
-      value: counts.events,
-      path: "/admin/events",
-      entity: "events",
-      icon: CalendarDays,
-    },
-    {
-      label: "Upcoming Events",
-      value: counts.upcomingEvents,
-      path: "/admin/upcoming-events",
-      entity: "upcoming_events",
-      icon: CalendarClock,
-    },
+    { label: "Collections", value: counts.collections, path: "/admin/collections", entity: "collections", icon: LayoutGrid },
+    { label: "Products", value: counts.products, path: "/admin/products", entity: "products", icon: Box },
+    { label: "Events", value: counts.events, path: "/admin/events", entity: "events", icon: CalendarDays },
+    { label: "Upcoming Events", value: counts.upcomingEvents, path: "/admin/upcoming-events", entity: "upcoming_events", icon: CalendarClock },
   ];
 
   const LINKS = [
-    {
-      label: "Manage Collections",
-      path: "/admin/collections",
-      entity: "collections",
-      icon: LayoutGrid,
-    },
-    {
-      label: "Manage Products",
-      path: "/admin/products",
-      entity: "products",
-      icon: Box,
-    },
-    {
-      label: "Manage Events",
-      path: "/admin/events",
-      entity: "events",
-      icon: CalendarDays,
-    },
-    {
-      label: "Brand Settings",
-      path: "/admin/brand",
-      entity: "brand",
-      icon: Palette,
-    },
-    {
-      label: "Pages & SEO",
-      path: "/admin/pages",
-      entity: "pages",
-      icon: FileText,
-    },
+    { label: "Manage Collections", path: "/admin/collections", entity: "collections", icon: LayoutGrid },
+    { label: "Manage Products", path: "/admin/products", entity: "products", icon: Box },
+    { label: "Manage Events", path: "/admin/events", entity: "events", icon: CalendarDays },
+    { label: "Brand Settings", path: "/admin/brand", entity: "brand", icon: Palette },
+    { label: "Pages & SEO", path: "/admin/pages", entity: "pages", icon: FileText },
   ];
 
   return (
@@ -138,7 +89,7 @@ export default function DashboardPage() {
           const Icon = stat.icon;
           return (
             <Link key={stat.label} to={stat.path} className={styles.statCard}>
-              <Icon className={styles.statIcon} size={20} />
+              <Icon className={styles.statIcon} size={20} aria-hidden="true" />
               <div className={styles.statValue}>{stat.value}</div>
               <div className={styles.statLabel}>{stat.label}</div>
             </Link>
@@ -146,21 +97,21 @@ export default function DashboardPage() {
         })}
       </div>
 
-      <div className={styles.quickLinks}>
+      <div>
         <h2 className={styles.sectionTitle}>Quick Actions</h2>
         <div className={styles.links}>
           {LINKS.filter((l) => canAccess(l.entity)).map((link) => {
             const Icon = link.icon;
             return (
               <Link key={link.label} to={link.path} className={styles.link}>
-                <Icon className={styles.linkIcon} size={16} />
+                <Icon className={styles.linkIcon} size={16} aria-hidden="true" />
                 <span>{link.label}</span>
               </Link>
             );
           })}
           {user?.isSuperAdmin && (
             <Link to="/admin/users" className={styles.link}>
-              <Users className={styles.linkIcon} size={16} />
+              <Users className={styles.linkIcon} size={16} aria-hidden="true" />
               <span>Users & Roles</span>
             </Link>
           )}

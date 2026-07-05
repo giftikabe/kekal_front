@@ -64,7 +64,7 @@ export default function DragList<T extends { id: string }>({
           onDragEnd={handleDragEnd}
         >
           {!disabled && (
-            <div className={styles.handle} title="Drag to reorder">
+            <div className={styles.handle} title="Drag to reorder" aria-hidden="true">
               ⠿
             </div>
           )}

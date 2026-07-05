@@ -1,6 +1,6 @@
-const CLOUD_NAME = "dkewwryqv";
-const UPLOAD_PRESET = "kekal_library";
-const FOLDER = "kekal";
+const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || "dkewwryqv";
+const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "kekal_library";
+const FOLDER = import.meta.env.VITE_CLOUDINARY_FOLDER || "kekal";
 
 export interface CloudinaryResult {
   secure_url: string;
@@ -26,9 +26,8 @@ export async function uploadImage(file: File): Promise<CloudinaryResult> {
 }
 
 export async function deleteImage(publicId: string): Promise<void> {
-  // Note: deletion requires signed requests (backend).
-  // For now we just remove from UI — full deletion handled via Cloudinary dashboard
-  // or future backend endpoint.
+  // Deletion requires a signed request (must happen server-side with the
+  // API secret) — intentionally not implemented client-side for security.
   console.warn("Image deletion queued for:", publicId);
 }
 

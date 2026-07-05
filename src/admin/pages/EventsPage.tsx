@@ -227,6 +227,7 @@ export default function EventsPage() {
             style={{ width: 160 }}
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
+            aria-label="Filter by event type"
           >
             <option value="">All Types</option>
             <option value="event">Event</option>

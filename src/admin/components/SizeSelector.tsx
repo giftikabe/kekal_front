@@ -19,7 +19,7 @@ export default function SizeSelector({ value, onChange, disabled = false }: Size
   };
 
   return (
-    <div className={styles.wrap}>
+    <div className={styles.wrap} role="group" aria-label="Available sizes">
       {STANDARD_SIZES.map((size) => (
         <button
           key={size}
@@ -27,6 +27,7 @@ export default function SizeSelector({ value, onChange, disabled = false }: Size
           className={`${styles.size} ${value.includes(size) ? styles.selected : ""}`}
           onClick={() => toggle(size)}
           disabled={disabled}
+          aria-pressed={value.includes(size)}
         >
           {size}
         </button>

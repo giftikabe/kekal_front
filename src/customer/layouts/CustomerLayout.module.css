@@ -1,9 +1,0 @@
-.main {
-  min-height: calc(100vh - var(--announcement-height) - var(--header-height-mobile));
-}
-
-@media (min-width: 768px) {
-  .main {
-    min-height: calc(100vh - var(--announcement-height) - var(--header-height-desktop));
-  }
-}

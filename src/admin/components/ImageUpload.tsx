@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useId, useState, useRef } from "react";
 import { uploadImage } from "../api/cloudinary";
 import ImagePreview from "./ImagePreview";
 import styles from "./ImageUpload.module.css";
@@ -24,6 +24,7 @@ export default function ImageUpload({
   const [error, setError] = useState("");
   const [preview, setPreview] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
+  const urlInputId = useId();
 
   const handleFile = async (file: File) => {
     if (!file.type.startsWith("image/")) {
@@ -102,12 +103,20 @@ export default function ImageUpload({
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => !disabled && inputRef.current?.click()}
+          role="button"
+          tabIndex={disabled ? -1 : 0}
+          onKeyDown={(e) => {
+            if (!disabled && (e.key === "Enter" || e.key === " ")) {
+              e.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
         >
           {uploading ? (
             <div className={styles.uploadingText}>Uploading...</div>
           ) : (
             <>
-              <div className={styles.dropIcon}>↑</div>
+              <div className={styles.dropIcon} aria-hidden="true">↑</div>
               <div className={styles.dropText}>
                 Drop image here or click to upload
               </div>
@@ -124,12 +133,21 @@ export default function ImageUpload({
         onChange={handleChange}
         style={{ display: "none" }}
         disabled={disabled}
+        aria-label={label}
       />
 
-      {error && <div className={styles.error}>{error}</div>}
+      {error && (
+        <div className={styles.error} role="alert">
+          {error}
+        </div>
+      )}
 
       <div className={styles.urlRow}>
+        <label htmlFor={urlInputId} className="sr-only">
+          {label} URL
+        </label>
         <input
+          id={urlInputId}
           className={styles.urlInput}
           type="text"
           placeholder="Or paste image URL"

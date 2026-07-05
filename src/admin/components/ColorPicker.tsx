@@ -40,7 +40,6 @@ export default function ColorPicker({ value, onChange, disabled = false }: Color
 
   return (
     <div className={styles.wrap}>
-      {/* Selected colors */}
       {value.length > 0 && (
         <div className={styles.selected}>
           <div className={styles.selectedLabel}>Selected colors:</div>
@@ -50,10 +49,18 @@ export default function ColorPicker({ value, onChange, disabled = false }: Color
                 <span
                   className={styles.swatch}
                   style={{ background: color, border: color === "#FFFFFF" ? "1px solid #eee" : "none" }}
+                  aria-hidden="true"
                 />
                 <span className={styles.hex}>{color}</span>
                 {!disabled && (
-                  <button className={styles.removeColor} onClick={() => remove(color)}>✕</button>
+                  <button
+                    type="button"
+                    className={styles.removeColor}
+                    onClick={() => remove(color)}
+                    aria-label={`Remove color ${color}`}
+                  >
+                    ✕
+                  </button>
                 )}
               </div>
             ))}
@@ -63,8 +70,7 @@ export default function ColorPicker({ value, onChange, disabled = false }: Color
 
       {!disabled && (
         <>
-          {/* Preset colors */}
-          <div className={styles.presets}>
+          <div className={styles.presets} role="group" aria-label="Preset colors">
             {PRESET_COLORS.map((color) => (
               <button
                 key={color}
@@ -73,19 +79,28 @@ export default function ColorPicker({ value, onChange, disabled = false }: Color
                 style={{ background: color, border: color === "#FFFFFF" ? "1px solid #ddd" : "1px solid transparent" }}
                 onClick={() => toggle(color)}
                 title={color}
+                aria-label={color}
+                aria-pressed={value.includes(color)}
               />
             ))}
           </div>
 
-          {/* Custom color */}
           <div className={styles.custom}>
+            <label htmlFor="custom-color-picker" className="sr-only">
+              Custom color
+            </label>
             <input
+              id="custom-color-picker"
               type="color"
               value={custom}
               onChange={(e) => setCustom(e.target.value)}
               className={styles.colorInput}
             />
+            <label htmlFor="custom-color-hex" className="sr-only">
+              Custom color hex value
+            </label>
             <input
+              id="custom-color-hex"
               type="text"
               value={custom}
               onChange={(e) => setCustom(e.target.value)}

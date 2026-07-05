@@ -1,31 +1,33 @@
 import { useParams } from "react-router-dom";
 
-import ProductHero from "../components/product-detail/ProductHero";
-import ProductBody from "../components/product-detail/ProductBody";
-import RelatedProductsGrid from "../components/product-detail/RelatedProductsGrid";
+import ProductHero from "../components/ProductHero";
+import ProductBody from "../components/ProductBody";
+import RelatedProductsGrid from "../components/RelatedProductsGrid";
+import Seo from "../components/Seo";
+import NotFoundPage from "./NotFoundPage";
 
 import { useProductBySlug, useProductsByCollection } from "../hooks/useProducts";
 import { useCollectionById } from "../hooks/useCollections";
 import { useSectionByPageAndName } from "../hooks/usePages";
-import Seo from "../components/common/Seo";
 
+interface PageSectionData {
+  sectionHeader?: string;
+  buttonLabels?: string[];
+}
 
 export default function ProductDetailsPage() {
   const { slug } = useParams();
 
   const { data: product, loading } = useProductBySlug(slug ?? "");
 
-  // ─── Page Sections ─────────────────────────────────────────────────────────
   const { data: relatedSection } = useSectionByPageAndName(
     "page-product-details",
-    "related_products"
+    "related_products",
   );
 
-  // ─── Collection ────────────────────────────────────────────────────────────
   const collectionId = (product as any)?.collectionId ?? "";
   const { data: collection } = useCollectionById(collectionId);
 
-  // ─── Related Products ──────────────────────────────────────────────────────
   const { data: collectionProducts } = useProductsByCollection(collectionId);
   const relatedProducts =
     (collectionProducts as any[])
@@ -33,41 +35,47 @@ export default function ProductDetailsPage() {
       .slice(0, 4) ?? [];
 
   if (loading) return null;
-  if (!product) return <p>Product not found.</p>;
+  if (!product) return <NotFoundPage />;
 
-  <Seo
-    fallbackTitle={(product as any).name}
-    fallbackDescription={(product as any).description}
-    fallbackImage={(product as any).mainImage}
-    jsonLd={{
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: (product as any).name,
-      description: (product as any).description,
-      image: (product as any).mainImage,
-      offers: {
-        "@type": "Offer",
-        availability: (product as any).inStock
-          ? "https://schema.org/InStock"
-          : "https://schema.org/OutOfStock",
-      },
-    }}
-  />;
+  const p = product as any;
+  const section = relatedSection as PageSectionData | null;
 
   return (
     <>
-      <ProductHero
-        productName={(product as any).name}
-        collectionName={(collection as any)?.name ?? ""}
+      <Seo
+        fallbackTitle={p.name}
+        fallbackDescription={p.description}
+        fallbackImage={p.mainImage}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: p.name,
+          description: p.description,
+          image: [p.mainImage, ...(p.gallery ?? [])].filter(Boolean),
+          // No price/currency exists anywhere in the product data model —
+          // omitting `offers` entirely is the correct choice here rather
+          // than inventing a price, but if online purchase is ever added
+          // this is the field to fill in.
+          ...(p.inStock !== undefined
+            ? {
+                offers: {
+                  "@type": "Offer",
+                  availability: p.inStock
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/OutOfStock",
+                },
+              }
+            : {}),
+        }}
       />
 
-      <ProductBody product={product as any} />
+      <ProductHero productName={p.name} collectionName={(collection as any)?.name ?? ""} />
+
+      <ProductBody product={p} />
 
       <RelatedProductsGrid
-        title={(relatedSection as any)?.sectionHeader ?? "Related Products"}
-        viewCollectionText={
-          (relatedSection as any)?.buttonLabels?.[0] ?? "View Entire Collection →"
-        }
+        title={section?.sectionHeader ?? "Related Products"}
+        viewCollectionText={section?.buttonLabels?.[0] ?? "View Entire Collection →"}
         products={relatedProducts}
         collectionSlug={(collection as any)?.slug ?? ""}
       />

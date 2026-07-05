@@ -931,6 +931,7 @@ function PermissionGrid({
                       type="checkbox"
                       checked={checked}
                       onChange={() => onToggle(entity, action)}
+                      aria-label={`${entity} ${action}`}
                       style={{ width: 16, height: 16, cursor: "pointer" }}
                     />
                   </td>

@@ -9,13 +9,10 @@ export interface AsyncState<T> {
 /**
  * Generic hook that fetches data from an async function.
  * Re-fetches whenever the `key` string changes (include all params in the key).
- *
- * @param fetcher  - async function that returns the data
- * @param key      - unique string that identifies this request; change it to re-fetch
  */
 export function useAsync<T>(
   fetcher: () => Promise<T>,
-  key: string
+  key: string,
 ): AsyncState<T> {
   const [state, setState] = useState<AsyncState<T>>({
     data: null,
@@ -23,7 +20,6 @@ export function useAsync<T>(
     error: null,
   });
 
-  // Keep a ref so stale closures from unmounted components don't set state
   const abortRef = useRef(false);
 
   useEffect(() => {

@@ -2,9 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/src/assets/logo.jpeg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Real default description/title; Seo.tsx overwrites these per-route
+         from page-seo data as soon as React mounts, but crawlers and social
+         previews that don't execute JS still get something meaningful. -->
     <title>KEKAL</title>
+    <meta
+      name="description"
+      content="Relaxed pieces handcrafted by Ethiopian artisans, inspired by heritage and made for modern living."
+    />
+    <meta name="theme-color" content="#141414" />
+    <meta name="color-scheme" content="light" />
+
+    <link rel="icon" type="image/x-icon" href="/src/assets/kekal.ico" />
+    <link rel="canonical" id="default-canonical" href="/" />
+
+    <!-- Performance: resolve DNS/TLS for third-party origins before they're
+         needed, instead of paying that latency on the first image/font request. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://res.cloudinary.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+
+    <!-- Loaded as a real stylesheet link (not @import inside CSS) so the
+         browser can fetch it in parallel with the app bundle instead of
+         discovering it only after global.css has downloaded and parsed. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+    />
+
+    <link rel="manifest" href="/site.webmanifest" />
   </head>
   <body>
     <div id="root"></div>

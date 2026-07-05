@@ -8,7 +8,7 @@ export default function BrandHeader({ size = "lg" }: BrandHeaderProps) {
   return (
     <div className={`${styles.header} ${size === "sm" ? styles.sm : ""}`}>
       <div className={styles.logoCol}>
-        <div className={styles.logoMark}>K</div>
+        <div className={styles.logoMark} aria-hidden="true">K</div>
       </div>
       <div className={styles.textCol}>
         <div className={styles.name}>KEKAL</div>

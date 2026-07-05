@@ -214,8 +214,9 @@ export default function NavigationPage() {
             <div className={ui.modalBody}>
               <div className={ui.form}>
                 <div className={ui.field}>
-                  <label className={ui.label}>Label *</label>
+                  <label className={ui.label} htmlFor="nav-label">Label *</label>
                   <input
+                    id="nav-label"
                     className={ui.input}
                     value={form.label || ""}
                     onChange={(e) =>
@@ -225,8 +226,9 @@ export default function NavigationPage() {
                   />
                 </div>
                 <div className={ui.field}>
-                  <label className={ui.label}>Link (href) *</label>
+                  <label className={ui.label} htmlFor="nav-href">Link (href) *</label>
                   <input
+                    id="nav-href"
                     className={ui.input}
                     value={form.href || ""}
                     onChange={(e) => setForm({ ...form, href: e.target.value })}
@@ -234,8 +236,9 @@ export default function NavigationPage() {
                   />
                 </div>
                 <div className={ui.field}>
-                  <label className={ui.label}>Order</label>
+                  <label className={ui.label} htmlFor="nav-order">Order</label>
                   <input
+                    id="nav-order"
                     className={ui.input}
                     type="number"
                     value={form.order || 0}

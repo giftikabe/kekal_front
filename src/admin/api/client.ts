@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const API_BASE = "https://kekal-back.kekal.workers.dev";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://kekal-back.kekal.workers.dev";
 
 export const tokens = {
   getAccess: () => localStorage.getItem("admin_access_token"),

@@ -1,0 +1,10 @@
+{
+  "name": "KEKAL Studio",
+  "short_name": "KEKAL",
+  "description": "Handmade for restful living — Ethiopian craftsmanship, contemporary clothing.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#141414",
+  "icons": []
+}

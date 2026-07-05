@@ -44,7 +44,6 @@ interface AboutBlock {
   images: string[];
 }
 
-// Suggested placeholders per known key — falls back to a generic hint for custom keys
 const IDENTITY_PLACEHOLDERS: Record<string, string> = {
   name: "e.g. KEKAL",
   tagline: "e.g. Crafted Slow, Worn Forever",
@@ -74,8 +73,6 @@ export default function BrandPage() {
   const [saving, setSaving] = useState<string | null>(null);
   const [saved, setSaved] = useState<string | null>(null);
 
-  // ─── Announcements (item 10) — stored as JSON array inside brandIdentity.value
-  // for key="announcements". No schema change; parsed/stringified client-side.
   const [announcements, setAnnouncements] = useState<string[]>([]);
   const [announcementsRecordId, setAnnouncementsRecordId] = useState<
     string | null
@@ -84,7 +81,6 @@ export default function BrandPage() {
   const [announcementsSaving, setAnnouncementsSaving] = useState(false);
   const [announcementsSaved, setAnnouncementsSaved] = useState(false);
 
-  // Value CRUD modal
   const [valueModal, setValueModal] = useState<
     "create" | "edit" | "delete" | null
   >(null);
@@ -96,7 +92,6 @@ export default function BrandPage() {
   });
   const [valueSaving, setValueSaving] = useState(false);
 
-  // Identity add/delete modal
   const [identityModal, setIdentityModal] = useState<
     "create" | "delete" | null
   >(null);
@@ -108,7 +103,6 @@ export default function BrandPage() {
   });
   const [identitySaving, setIdentitySaving] = useState(false);
 
-  // Message create modal (item 11)
   const [messageModal, setMessageModal] = useState<"create" | null>(null);
   const [messageForm, setMessageForm] = useState({
     key: "",
@@ -117,7 +111,6 @@ export default function BrandPage() {
   });
   const [messageSaving, setMessageSaving] = useState(false);
 
-  // Designer profile create modal (item 13)
   const [designerModal, setDesignerModal] = useState<"create" | null>(null);
   const [designerForm, setDesignerForm] = useState({
     key: "",
@@ -126,7 +119,6 @@ export default function BrandPage() {
   });
   const [designerSaving, setDesignerSaving] = useState(false);
 
-  // Contact info create/delete modal (item 14)
   const [contactModal, setContactModal] = useState<"create" | "delete" | null>(
     null,
   );
@@ -138,7 +130,6 @@ export default function BrandPage() {
   });
   const [contactSaving, setContactSaving] = useState(false);
 
-  // About block create/delete modal (item 15)
   const [aboutModal, setAboutModal] = useState<"create" | "delete" | null>(
     null,
   );
@@ -170,7 +161,6 @@ export default function BrandPage() {
         setContact(con as KVItem[]);
         setAbout(ab as AboutBlock[]);
 
-        // Split out "announcements" key from the rest of brand identity
         const announcementsRow = idList.find((i) => i.key === "announcements");
         setIdentity(idList.filter((i) => i.key !== "announcements"));
         if (announcementsRow) {
@@ -181,7 +171,6 @@ export default function BrandPage() {
               Array.isArray(parsed) ? parsed : [announcementsRow.value],
             );
           } catch {
-            // backward-compat: treat the raw string as a single announcement
             setAnnouncements(
               announcementsRow.value ? [announcementsRow.value] : [],
             );
@@ -235,7 +224,6 @@ export default function BrandPage() {
     }
   };
 
-  // ─── Announcements handlers ──────────────────────────────────────────────
   const persistAnnouncements = async (next: string[]) => {
     setAnnouncementsSaving(true);
     try {
@@ -273,7 +261,6 @@ export default function BrandPage() {
     persistAnnouncements(announcements.filter((_, i) => i !== index));
   };
 
-  // ─── Brand Values CRUD ────────────────────────────────────────────────────
   const handleValueSave = async () => {
     setValueSaving(true);
     try {
@@ -315,7 +302,6 @@ export default function BrandPage() {
     }
   };
 
-  // ─── Identity add/delete ──────────────────────────────────────────────────
   const handleIdentityCreate = async () => {
     setIdentitySaving(true);
     try {
@@ -345,7 +331,6 @@ export default function BrandPage() {
     }
   };
 
-  // ─── Brand message create (item 11) ──────────────────────────────────────
   const handleMessageCreate = async () => {
     setMessageSaving(true);
     try {
@@ -362,7 +347,6 @@ export default function BrandPage() {
     }
   };
 
-  // ─── Designer profile create (item 13) ───────────────────────────────────
   const handleDesignerCreate = async () => {
     setDesignerSaving(true);
     try {
@@ -379,7 +363,6 @@ export default function BrandPage() {
     }
   };
 
-  // ─── Contact info create/delete (item 14) ────────────────────────────────
   const handleContactCreate = async () => {
     setContactSaving(true);
     try {
@@ -409,7 +392,6 @@ export default function BrandPage() {
     }
   };
 
-  // ─── About block create/delete (item 15) ─────────────────────────────────
   const handleAboutCreate = async () => {
     setAboutSaving(true);
     try {
@@ -489,7 +471,6 @@ export default function BrandPage() {
         <div className={ui.loading}>Loading...</div>
       ) : (
         <>
-          {/* ─── Identity (item 10: placeholders) ─── */}
           {tab === "identity" && (
             <div>
               {canCreate && (
@@ -655,7 +636,6 @@ export default function BrandPage() {
             </div>
           )}
 
-          {/* ─── Announcements (item 10) ─── */}
           {tab === "announcements" && (
             <div className={ui.card}>
               <div className={ui.cardTitle}>Announcement Bar Messages</div>
@@ -732,7 +712,6 @@ export default function BrandPage() {
             </div>
           )}
 
-          {/* ─── Messages (item 11: add new) ─── */}
           {tab === "messages" && (
             <div>
               {canCreate && (
@@ -864,7 +843,6 @@ export default function BrandPage() {
             </div>
           )}
 
-          {/* ─── Brand Values (item 12: cleaned-up layout) ─── */}
           {tab === "values" && (
             <div>
               <div className={ui.pageHeader} style={{ marginBottom: 16 }}>
@@ -1026,7 +1004,6 @@ export default function BrandPage() {
             </div>
           )}
 
-          {/* ─── Designer (item 13: add new) ─── */}
           {tab === "designer" && (
             <div>
               {canCreate && (
@@ -1161,7 +1138,6 @@ export default function BrandPage() {
             </div>
           )}
 
-          {/* ─── Contact (item 14: add + delete) ─── */}
           {tab === "contact" && (
             <div>
               {canCreate && (
@@ -1327,7 +1303,6 @@ export default function BrandPage() {
             </div>
           )}
 
-          {/* ─── About Blocks (item 15: add + upload via MultiImageUpload + delete) ─── */}
           {tab === "about" && (
             <div>
               {canCreate && (
@@ -1550,7 +1525,6 @@ export default function BrandPage() {
   );
 }
 
-// ─── KV Field Card ─────────────────────────────────────────────────────────────
 function KVFieldCard({
   item,
   canEdit,
@@ -1654,7 +1628,6 @@ function KVFieldCard({
   );
 }
 
-// ─── Inline text field ────────────────────────────────────────────────────────
 function InlineField({
   label,
   value,
@@ -1717,7 +1690,6 @@ function InlineField({
   );
 }
 
-// ─── Inline rich text field ───────────────────────────────────────────────────
 function InlineFieldRich({
   label,
   value,
@@ -1760,7 +1732,6 @@ function InlineFieldRich({
   );
 }
 
-// ─── Brand values drag list (item 12 cleanup) ────────────────────────────────
 function DragListValues({
   values,
   onReorder,
@@ -1778,7 +1749,6 @@ function DragListValues({
   onEdit: (v: BrandValue) => void;
   onDelete: (v: BrandValue) => void;
 }) {
-  // Reuses the existing generic DragList component
   return (
     <DragList
       items={values}
@@ -1859,7 +1829,7 @@ function DragListValues({
     />
   );
 }
-// ─── Announcement row with up/down reorder controls ───────────────────────────
+
 function AnnouncementRow({
   index,
   text,

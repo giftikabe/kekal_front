@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
 
-import UpcomingEventHero from "../components/upcoming-event-detail/UpcomingEventHero";
-import UpcomingEventContent from "../components/upcoming-event-detail/UpcomingEventContent";
-import UpcomingEventInformation from "../components/upcoming-event-detail/UpcomingEventInformation";
-import UpcomingEventCTA from "../components/upcoming-event-detail/UpcomingEventCTA";
+import UpcomingEventHero from "../components/UpcomingEventHero";
+import UpcomingEventContent from "../components/UpcomingEventContent";
+import UpcomingEventInformation from "../components/UpcomingEventInformation";
+import UpcomingEventCTA from "../components/UpcomingEventCTA";
+import Seo from "../components/Seo";
+import NotFoundPage from "./NotFoundPage";
 
 import { useUpcomingEventBySlug } from "../hooks/useUpcomingEvents";
 
@@ -13,22 +15,39 @@ export default function UpcomingEventDetailPage() {
   const { data: event, loading } = useUpcomingEventBySlug(slug ?? "");
 
   if (loading) return null;
-  if (!event) return <div>Upcoming event not found.</div>;
+  if (!event) return <NotFoundPage />;
 
   const e = event as any;
 
   return (
     <>
-      <UpcomingEventHero event={e} />
-
-      <UpcomingEventContent content={e.content} />
-
-      <UpcomingEventInformation event={e} />
-
-      <UpcomingEventCTA
-        ctaText={e.ctaText}
-        registrationUrl={e.registrationUrl}
+      <Seo
+        fallbackTitle={e.title}
+        fallbackDescription={e.intro}
+        fallbackImage={e.featuredImage}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: e.title,
+          startDate: e.eventDate,
+          eventStatus: "https://schema.org/EventScheduled",
+          location: {
+            "@type": "Place",
+            name: e.location,
+          },
+          organizer: {
+            "@type": "Organization",
+            name: e.organizer,
+          },
+          image: e.featuredImage || undefined,
+          description: e.intro,
+        }}
       />
+
+      <UpcomingEventHero event={e} />
+      <UpcomingEventContent content={e.content} />
+      <UpcomingEventInformation event={e} />
+      <UpcomingEventCTA ctaText={e.ctaText} registrationUrl={e.registrationUrl} />
     </>
   );
 }

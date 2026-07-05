@@ -10,6 +10,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/admin/upcoming-events": "Upcoming Events",
   "/admin/brand": "Brand Settings",
   "/admin/pages": "Pages & SEO",
+  "/admin/navigation": "Navigation",
   "/admin/users": "Users & Roles",
 };
 

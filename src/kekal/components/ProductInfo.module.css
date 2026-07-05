@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.description {
+  margin: 0;
+  line-height: var(--leading-body-loose);
+  text-align: justify;
+  white-space: pre-line;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.group h3 {
+  margin: 0;
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-mute);
+}
+
+.colors {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.colorItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.colorSwatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  flex-shrink: 0;
+}
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.size {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--color-line);
+  font-size: var(--text-body-sm);
+}
+
+.group p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dotInStock,
+.dotOutOfStock {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dotInStock {
+  background: #2a7a2a;
+}
+
+.dotOutOfStock {
+  background: var(--color-faint);
+}

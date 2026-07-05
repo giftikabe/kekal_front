@@ -18,7 +18,6 @@
   gap: 10px;
 }
 
-/* Fixed-size frame — image is always contained inside this box */
 .item {
   position: relative;
   width: 120px;
@@ -34,7 +33,6 @@
   cursor: grabbing;
 }
 
-/* The image fills the frame, cropped to cover — consistent regardless of aspect ratio */
 .imgBox {
   width: 100%;
   height: 100%;
