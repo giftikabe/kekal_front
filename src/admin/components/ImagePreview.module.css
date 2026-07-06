@@ -1,11 +1,14 @@
+/* ImagePreview.module.css */
 .box {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #eee;
   background: #fafafa;
   padding: 8px;
-  width: fit-content;
+  box-sizing: border-box;
+  overflow: hidden;   /* safety net — contain means this shouldn't actually clip anything */
+  width: 100%;        /* fills its column, capped by maxWidth from inline style */
 }
 
 .img {

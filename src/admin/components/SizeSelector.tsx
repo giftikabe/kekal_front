@@ -1,6 +1,6 @@
 import styles from "./SizeSelector.module.css";
 
-const STANDARD_SIZES = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+const STANDARD_SIZES = ["Free Size", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 
 interface SizeSelectorProps {
   value: string[];

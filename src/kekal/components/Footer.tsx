@@ -19,9 +19,6 @@ export default function Footer() {
   const { value: siteTitle } = useBrandIdentityByKey("title");
   const { value: tagline } = useBrandIdentityByKey("tagline");
   const { value: copyright } = useBrandIdentityByKey("copyright_text");
-  // The brand's logo is managed in the admin console (Brand Settings →
-  // Brand Identity) rather than bundled as a static asset, so it updates
-  // everywhere the moment someone changes it there.
   const { value: logo } = useBrandIdentityByKey("logo");
 
   const { value: instagram } = useContactInfoByKey("instagram");
@@ -31,74 +28,117 @@ export default function Footer() {
   const { value: phone } = useContactInfoByKey("phone");
   const { value: email } = useContactInfoByKey("email");
 
+  const displayName = siteName || "KEKAL";
+
   return (
     <footer className={styles.footer}>
-      <div className={styles.brand}>
-        <Link to="/" className={styles.logoLink} aria-label={`${siteName || "KEKAL"} home`}>
-          {logo ? (
-            <img
-              src={logo}
-              alt={siteName || "KEKAL"}
-              className={styles.logoImage}
-              loading="lazy"
-              decoding="async"
-              width={64}
-              height={64}
-            />
-          ) : (
-            <span className={styles.logoFallback}>{siteName || "KEKAL"}</span>
-          )}
-        </Link>
-        <div className={styles.brandText}>
+      {/* Row 1 — four columns */}
+      <div className={styles.row}>
+        <div className={`${styles.col} ${styles.brandCol}`}>
+          <Link
+            to="/"
+            className={styles.logoLink}
+            aria-label={`${displayName} home`}
+          >
+            {logo ? (
+              <img
+                src={logo}
+                alt={displayName}
+                className={styles.logoImage}
+                loading="lazy"
+                decoding="async"
+                width={48}
+                height={48}
+              />
+            ) : (
+              <span className={styles.logoFallback}>{displayName}</span>
+            )}
+          </Link>
           <div className={styles.brandName}>{siteName}</div>
-          <div className={styles.brandTitle}>{siteTitle}</div>
-          <p className={styles.brandTagline}>{tagline}</p>
+          {siteTitle && <div className={styles.brandTitle}>{siteTitle}</div>}
+          {tagline && <p className={styles.tagline}>{tagline}</p>}
         </div>
-      </div>
 
-      <div className={styles.right}>
-        <nav className={styles.navigation} aria-label="Footer">
-          {navigation.map((item) => (
-            <Link key={item.id} to={item.href}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <div className={styles.col}>
+          <h3 className={styles.colLabel}>Navigate</h3>
+          <ul className={styles.navList}>
+            {navigation.map((item) => (
+              <li key={item.id}>
+                <Link to={item.href} className={styles.editorialLink}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <div className={styles.infoGrid}>
-          <div className={styles.socials}>
-            <h3>Social</h3>
+        <div className={styles.col}>
+          <h3 className={styles.colLabel}>Connect</h3>
+          <ul className={styles.navList}>
             {instagram && (
-              <a href={instagram} target="_blank" rel="noreferrer">
-                Instagram
-              </a>
+              <li>
+                <a
+                  href={instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.editorialLink}
+                >
+                  Instagram
+                </a>
+              </li>
             )}
             {tiktok && (
-              <a href={tiktok} target="_blank" rel="noreferrer">
-                TikTok
-              </a>
+              <li>
+                <a
+                  href={tiktok}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.editorialLink}
+                >
+                  TikTok
+                </a>
+              </li>
             )}
             {facebook && (
-              <a href={facebook} target="_blank" rel="noreferrer">
-                Facebook
-              </a>
+              <li>
+                <a
+                  href={facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.editorialLink}
+                >
+                  Facebook
+                </a>
+              </li>
             )}
-          </div>
+          </ul>
+        </div>
 
-          <div className={styles.address}>
-            <h3>Address</h3>
-            <p>{address}</p>
-          </div>
-
-          <div className={styles.contact}>
-            <h3>Contact</h3>
-            {phone && <a href={`tel:${phone.replace(/\s+/g, "")}`}>{phone}</a>}
-            {email && <a href={`mailto:${email}`}>{email}</a>}
-          </div>
+        <div className={styles.col}>
+          <h3 className={styles.colLabel}>Visit</h3>
+          {address && (
+            <address className={styles.addressText}>{address}</address>
+          )}
+          {phone && (
+            <a
+              href={`tel:${phone.replace(/\s+/g, "")}`}
+              className={styles.editorialLink}
+            >
+              {phone}
+            </a>
+          )}
+          {email && (
+            <a href={`mailto:${email}`} className={styles.editorialLink}>
+              {email}
+            </a>
+          )}
         </div>
       </div>
 
-      <p className={styles.copyright}>{copyright}</p>
+      {/* Row 2 — copyright */}
+      <div className={styles.row2}>
+        <p className={styles.copyright}>{copyright}</p>
+      </div>
     </footer>
   );
 }
