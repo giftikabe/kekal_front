@@ -1,14 +1,13 @@
 import { useState, type FormEvent } from "react";
 
+import { contactApi } from "../api";
 import styles from "./ContactFormSection.module.css";
 import SectionHeader from "./SectionHeader";
 
 interface ContactFormSectionProps {
   title: string;
   buttonText: string;
-  /** Where the message should ultimately go. There is no form-submission
-   * API in the backend yet, so this composes a mailto: link as a working
-   * fallback rather than shipping a form that silently does nothing. */
+  /** Shown in the fallback message if sending fails. */
   recipientEmail?: string;
 }
 
@@ -23,7 +22,10 @@ export default function ContactFormSection({
     subject: "",
     message: "",
   });
-  const [status, setStatus] = useState<"idle" | "error" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "error" | "sending" | "sent">(
+    "idle",
+  );
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange =
     (field: keyof typeof form) =>
@@ -31,25 +33,35 @@ export default function ContactFormSection({
       setForm((f) => ({ ...f, [field]: e.target.value }));
     };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!form.name || !form.email || !form.message) {
       setStatus("error");
+      setErrorMsg(
+        "Please fill in your name, email and message before sending.",
+      );
       return;
     }
 
-    if (!recipientEmail) {
+    setStatus("sending");
+    try {
+      await contactApi.submit({
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+      });
+      setStatus("sent");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch (err) {
       setStatus("error");
-      return;
+      setErrorMsg(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong sending your message.",
+      );
     }
-
-    const subject = encodeURIComponent(form.subject || `Message from ${form.name}`);
-    const body = encodeURIComponent(
-      `${form.message}\n\n— ${form.name} (${form.email})`,
-    );
-    window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
-    setStatus("sent");
   };
 
   return (
@@ -70,6 +82,7 @@ export default function ContactFormSection({
             required
             value={form.name}
             onChange={handleChange("name")}
+            disabled={status === "sending"}
           />
         </div>
 
@@ -86,6 +99,7 @@ export default function ContactFormSection({
             required
             value={form.email}
             onChange={handleChange("email")}
+            disabled={status === "sending"}
           />
         </div>
 
@@ -100,6 +114,7 @@ export default function ContactFormSection({
             placeholder="Subject"
             value={form.subject}
             onChange={handleChange("subject")}
+            disabled={status === "sending"}
           />
         </div>
 
@@ -115,22 +130,27 @@ export default function ContactFormSection({
             required
             value={form.message}
             onChange={handleChange("message")}
+            disabled={status === "sending"}
           />
         </div>
 
         {status === "error" && (
           <p className={`${styles.status} ${styles.statusError}`} role="alert">
-            Please fill in your name, email and message before sending.
+            {errorMsg}
+            {recipientEmail && (
+              <> You can also email us directly at {recipientEmail}.</>
+            )}
           </p>
         )}
         {status === "sent" && (
           <p className={styles.status} role="status">
-            Opening your email app to send this — if nothing happens, email
-            us directly at {recipientEmail}.
+            Thanks — your message has been sent. We'll get back to you soon.
           </p>
         )}
 
-        <button type="submit">{buttonText}</button>
+        <button type="submit" disabled={status === "sending"}>
+          {status === "sending" ? "Sending..." : buttonText}
+        </button>
       </form>
     </div>
   );

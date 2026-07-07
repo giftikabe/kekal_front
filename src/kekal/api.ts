@@ -71,3 +71,24 @@ export const pagesApi = {
   getSeoByRoute: (route: string) =>
     get<any>(`/page-seo/by-route?route=${encodeURIComponent(route)}`),
 };
+
+// ─── Contact ─────────────────────────────────────────────────────────────────
+export const contactApi = {
+  submit: async (body: {
+    name: string;
+    email: string;
+    subject?: string;
+    message: string;
+  }) => {
+    const res = await fetch(`${API_BASE}/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({ error: "Request failed" }));
+      throw new Error(error.error || "Failed to send message");
+    }
+    return res.json().catch(() => ({}));
+  },
+};
