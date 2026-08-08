@@ -17,6 +17,12 @@ import { useFeaturedEvents } from "../hooks/useEvents";
 import { useUpcomingEvents } from "../hooks/useUpcomingEvents";
 import { useSectionByPageAndName } from "../hooks/usePages";
 
+import StatsBar from "../components/StatsBar";
+import { useBrandStats } from "../hooks/useBrand";
+
+// inside the component, alongside other hook calls:
+
+
 interface PageSectionData {
   sectionHeader?: string;
   buttonLabels?: string[];
@@ -81,6 +87,9 @@ export default function HomePage() {
 
   const sameAs = [instagram, facebook, tiktok].filter(Boolean);
 
+  const { data: brandStats } = useBrandStats();
+
+
   return (
     <>
       <Seo
@@ -116,6 +125,9 @@ export default function HomePage() {
         ctaText={(designerSection as PageSectionData | null)?.buttonLabels?.[0] ?? "Read More →"}
         designer={designer}
       />
+
+      <StatsBar stats={(brandStats as any[]) ?? []} />
+
 
       <UpcomingEvents
         title={(upcomingEventSection as PageSectionData | null)?.sectionHeader ?? "Upcoming Event"}

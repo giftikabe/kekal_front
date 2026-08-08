@@ -1,4 +1,7 @@
 import styles from "./ProductInfo.module.css";
+import { useState } from 'react';
+
+import SizeGuideModal from './SizeGuideModal';
 
 interface ProductInfoData {
   description: string;
@@ -10,6 +13,8 @@ interface ProductInfoData {
 interface ProductInfoProps {
   product: ProductInfoData;
 }
+
+const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   return (
@@ -46,6 +51,30 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </div>
         </div>
       )}
+      
+      {product.sizeGuide && (
+
+  <button
+
+    type="button"
+
+    className={styles.sizeGuideLink}
+
+    onClick={() => setSizeGuideOpen(true)}
+
+  >
+
+    Size Guide →
+
+  </button>
+
+)}
+
+{sizeGuideOpen && product.sizeGuide && (
+
+  <SizeGuideModal sizeGuide={product.sizeGuide} onClose={() => setSizeGuideOpen(false)} />
+
+)}
 
       <div className={styles.group}>
         <h3>Availability</h3>

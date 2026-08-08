@@ -5,6 +5,9 @@ import { useBrandIdentityByKey, useContactInfoByKey } from "../hooks/useBrand";
 
 import styles from "./Footer.module.css";
 
+import { useCommerce } from "../hooks/useCommerce";
+
+
 interface NavItem {
   id: string;
   label: string;
@@ -29,6 +32,9 @@ export default function Footer() {
   const { value: email } = useContactInfoByKey("email");
 
   const displayName = siteName || "KEKAL";
+
+  const { isActive } = useCommerce();
+
 
   return (
     <footer className={styles.footer}>
@@ -69,6 +75,17 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+            {isActive && (
+
+  <>
+
+    <li><Link to="/shipping" className={styles.editorialLink}>Shipping Info</Link></li>
+
+    <li><Link to="/returns" className={styles.editorialLink}>Return Policy</Link></li>
+
+  </>
+
+)}
           </ul>
         </div>
 

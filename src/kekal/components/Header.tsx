@@ -8,6 +8,15 @@ import { useBrandIdentityByKey } from "../hooks/useBrand";
 
 import styles from "./Header.module.css";
 
+
+import { ShoppingCart } from "lucide-react";
+
+import { useCommerce } from "../hooks/useCommerce";
+
+import { useCart } from "../hooks/useCart";
+
+import CartDrawer from "./CartDrawer";
+
 /** Minimal shape this component actually needs — decoupled from any
  * shared "database-types" schema so Header can be reused/tested in
  * isolation with any object matching this shape. */
@@ -29,6 +38,12 @@ export default function Header() {
 
   const { value: name } = useBrandIdentityByKey("name");
   const { value: title } = useBrandIdentityByKey("title");
+
+  const { isActive } = useCommerce();
+
+const { count } = useCart();
+
+const [cartOpen, setCartOpen] = useState(false);
 
   return (
     <>
@@ -68,6 +83,31 @@ export default function Header() {
               {item.label}
             </NavLink>
           ))}
+          {isActive && (
+
+  <>
+
+    <button
+
+      className={styles.cartButton}
+
+      onClick={() => setCartOpen(true)}
+
+      aria-label={`Cart, ${count} items`}
+
+    >
+
+      <ShoppingCart size={20} aria-hidden="true" />
+
+      {count > 0 && <span className={styles.cartBadge}>{count}</span>}
+
+    </button>
+
+    <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+
+  </>
+
+)}
         </nav>
 
         <button

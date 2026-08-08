@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { brandApi } from "../api";
 import { useAsync } from "./useAsync";
+import { statsApi } from "../api";
+
 
 // ─── Brand Identity ───────────────────────────────────────────────────────────
 
@@ -73,4 +75,9 @@ export function useContactInfoByKey(key: string) {
 
 export function useAboutContentBlocks() {
   return useAsync(() => brandApi.getAboutBlocks(), "about-content-blocks");
+}
+
+
+export function useBrandStats() {
+  return useAsync(() => statsApi.getAll(), 'brand-stats');
 }

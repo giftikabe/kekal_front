@@ -9,10 +9,20 @@ import {
   Compass,
   Users,
   LogOut,
+  Puzzle,
+  Layout,
 } from "lucide-react";
 import { useAuthContext } from "../hooks/AuthContext";
 import BrandHeader from "./BrandHeader";
 import styles from "./Sidebar.module.css";
+import { Database } from "lucide-react";
+// (merge into the existing lucide-react import statement)
+
+// Add to lucide-react imports:
+import { ShoppingBag } from "lucide-react";
+
+// Add new section group in NAV_ITEMS, between Builder and System:
+
 
 const NAV_ITEMS = [
   {
@@ -22,6 +32,8 @@ const NAV_ITEMS = [
       { label: "Products", path: "/admin/products", entity: "products", icon: Box },
       { label: "Events", path: "/admin/events", entity: "events", icon: CalendarDays },
       { label: "Upcoming Events", path: "/admin/upcoming-events", entity: "upcoming_events", icon: CalendarClock },
+      { label: "Database", path: "/admin/database", entity: "custom_tables", icon: Database },
+      { label: 'Component Library', path: '/admin/component-library', entity: 'brand', icon: Puzzle },
     ],
   },
   {
@@ -33,11 +45,24 @@ const NAV_ITEMS = [
     ],
   },
   {
+  section: "Commerce",
+  items: [
+    { label: "Commerce", path: "/admin/commerce", entity: "commerce", icon: ShoppingBag },
+  ],
+},
+
+  {
     section: "System",
     items: [
       { label: "Users & Roles", path: "/admin/users", entity: "users", icon: Users },
     ],
   },
+  {
+  section: "Builder",
+  items: [
+    { label: "Page Builder", path: "/admin/page-builder", entity: "pages", icon: Layout },
+  ],
+},
 ];
 
 export default function Sidebar() {

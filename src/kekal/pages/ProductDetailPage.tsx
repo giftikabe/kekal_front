@@ -10,6 +10,12 @@ import { useProductBySlug, useProductsByCollection } from "../hooks/useProducts"
 import { useCollectionById } from "../hooks/useCollections";
 import { useSectionByPageAndName } from "../hooks/usePages";
 
+import { useState } from "react";
+
+import { useCommerce } from "../hooks/useCommerce";
+
+import { useCart } from "../hooks/useCart";
+
 interface PageSectionData {
   sectionHeader?: string;
   buttonLabels?: string[];
@@ -33,6 +39,12 @@ export default function ProductDetailsPage() {
     (collectionProducts as any[])
       ?.filter((p) => p.id !== (product as any)?.id)
       .slice(0, 4) ?? [];
+
+  // All hooks must run on every render, so these are declared before
+  // the early `loading` / `!product` returns below.
+  const { isActive } = useCommerce();
+  const { add } = useCart();
+  const [added, setAdded] = useState(false);
 
   if (loading) return null;
   if (!product) return <NotFoundPage />;
@@ -72,6 +84,34 @@ export default function ProductDetailsPage() {
       <ProductHero productName={p.name} collectionName={(collection as any)?.name ?? ""} />
 
       <ProductBody product={p} />
+
+      {isActive && (
+        <section style={{ padding: 'var(--space-md) var(--space-sm)', maxWidth: 400 }}>
+          <button
+            onClick={() => {
+              add({
+                productId: p.id,
+                name: p.name,
+                mainImage: p.mainImage,
+                slug: p.slug,
+                collectionSlug: (collection as any)?.slug ?? '',
+              });
+              setAdded(true);
+              setTimeout(() => setAdded(false), 2000);
+            }}
+            style={{
+              width: '100%', padding: '1rem 2rem', border: '1px solid var(--color-ink)',
+              background: added ? 'var(--color-ink)' : 'transparent',
+              color: added ? 'var(--color-paper)' : 'var(--color-ink)',
+              cursor: 'pointer', textTransform: 'uppercase',
+              letterSpacing: 'var(--tracking-wide)', fontSize: 'var(--text-label)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {added ? '✓ Added to Cart' : 'Add to Cart'}
+          </button>
+        </section>
+      )}
 
       <RelatedProductsGrid
         title={section?.sectionHeader ?? "Related Products"}

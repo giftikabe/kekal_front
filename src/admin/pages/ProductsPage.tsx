@@ -47,6 +47,7 @@ const EMPTY: Partial<Product> = {
   sizes: [],
   inStock: true,
   featured: false,
+  sizeGuide:"",
 };
 const EMPTY_SEO: Seo = {
   route: "",
@@ -403,6 +404,17 @@ export default function ProductsPage() {
                       onChange={(v) => set("description", v)}
                     />
                   </div>
+                  <div className={ui.field}>
+  <label className={ui.label}>Size Guide</label>
+  <textarea
+    className={ui.textarea}
+    style={{ minHeight: 120, fontFamily: 'monospace', fontSize: 11 }}
+    value={form.sizeGuide || ''}
+    onChange={(e) => set('sizeGuide', e.target.value)}
+    placeholder={"SIZE | CHEST | WAIST | HIPS | LENGTH\nXS | 80cm | 62cm | 88cm | 95cm\nS | 84cm | 66cm | 92cm | 97cm"}
+  />
+  <div className={ui.hint}>One size per line, columns separated by | — first line is the header</div>
+</div>
                   <div className={ui.fieldRow}>
                     <label className={ui.checkboxField}>
                       <input

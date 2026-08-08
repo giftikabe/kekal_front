@@ -3,7 +3,7 @@
 // Falls back to the known production worker so the app still runs if an
 // environment forgets to set VITE_API_BASE_URL, but every real deployment
 // should define it explicitly (see .env.example).
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://kekal-back.kekal.workers.dev";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8787";
 
 async function get<T>(endpoint: string): Promise<T> {
   const res = await fetch(`${API_BASE}${endpoint}`);
@@ -92,3 +92,31 @@ export const contactApi = {
     return res.json().catch(() => ({}));
   },
 };
+
+//____________________________________commere 
+
+export const checkoutApi = {
+  getStatus: () => get<{ is_active: boolean; currency: string }>('/checkout/status'),
+  initiate: async (body: {
+    items: any[]; customer_name: string; customer_email: string;
+    customer_phone: string; shipping_address: string;
+  }) => {
+    const res = await fetch(`${API_BASE}/checkout/initiate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) throw new Error('Failed to initiate checkout');
+    return res.json();
+  },
+  verify: (txRef: string) => get<any>(`/checkout/verify/${txRef}`),
+  getOrder: (orderNumber: string) => get<any>(`/checkout/order/${orderNumber}`),
+
+}
+
+
+
+//____________________________________
+export const statsApi = {
+  getAll: () => get<any[]>('/brand-stats'),
+}
