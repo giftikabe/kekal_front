@@ -83,6 +83,52 @@
   padding-bottom: 2px;
 }
 
+.cartButton {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink);
+}
+
+.cartBadge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-radius: 50%;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* On desktop (min-width 900px), move cart button out of the mobile
+   hamburger cluster and into navigationRight */
+@media (min-width: 900px) {
+  .navigationRight .cartButton {
+    margin-left: var(--space-xs);
+  }
+  .mobileControls .cartButton {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .navigationRight .cartButton {
+    display: none;
+  }
+}
+
 @media (min-width: 900px) {
   .header {
     display: grid;

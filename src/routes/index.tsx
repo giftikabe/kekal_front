@@ -6,6 +6,7 @@ import AdminLayout from "../admin/layouts/AdminLayout";
 import ProtectedRoute from "../admin/components/ProtectedRoute";
 import { AuthProvider } from "../admin/hooks/AuthContext";
 
+
 // Every route is code-split with React.lazy so the initial bundle only
 // contains what's needed to render the first page — the admin console in
 // particular (charts-free but still sizeable with all its CRUD screens)
@@ -21,6 +22,13 @@ const ContactPage = lazy(() => import("../kekal/pages/ContactPage"));
 const UpcomingEventDetailsPage = lazy(() => import("../kekal/pages/UpcomingEventDetailsPage"));
 const NotFoundPage = lazy(() => import("../kekal/pages/NotFoundPage"));
 
+const CheckoutPage = lazy(() => import('../kekal/pages/CheckoutPage'));
+const CheckoutSuccessPage = lazy(() => import('../kekal/pages/CheckoutSuccessPage'));
+const ShippingPage = lazy(() => import('../kekal/pages/ShippingPage'));
+const ReturnsPage = lazy(() => import('../kekal/pages/ReturnsPage'));
+
+// Add to customer routes (inside MainLayout children):
+
 const LoginPage = lazy(() => import("../admin/pages/LoginPage"));
 const DashboardPage = lazy(() => import("../admin/pages/DashboardPage"));
 const AdminCollectionsPage = lazy(() => import("../admin/pages/CollectionsPage"));
@@ -31,6 +39,22 @@ const BrandPage = lazy(() => import("../admin/pages/BrandPage"));
 const PagesPage = lazy(() => import("../admin/pages/PagesPage"));
 const NavigationPage = lazy(() => import("../admin/pages/NavigationPage"));
 const UsersPage = lazy(() => import("../admin/pages/UsersPage"));
+const DatabasePage = lazy(() => import('../admin/pages/DatabasePage'))
+// Add lazy import alongside other admin page imports:
+const ComponentLibraryPage = lazy(() => import('../admin/pages/ComponentLibraryPage'))
+const PageBuilderPage = lazy(() => import('../admin/pages/PageBuilderPage'))
+
+const CommercePage = lazy(() => import('../admin/pages/CommercePage'))
+const SitotaPage = lazy(() => import('../kekal/pages/SitotaPage'))
+
+const AcademiaPage = lazy(() => import('../kekal/pages/AcademiaPage'))
+
+
+
+// inside /admin children:
+// Add inside the /admin children routes:
+
+
 
 function PageFallback() {
   return (
@@ -64,6 +88,14 @@ export const router = createBrowserRouter([
       { path: "contact", element: withSuspense(<ContactPage />) },
       // Catch-all: previously a bad/typo'd URL rendered a blank page with
       // no way back. Every unmatched path now gets a real 404 experience.
+
+      { path: 'checkout', element: withSuspense(<CheckoutPage />) },
+{ path: 'checkout/success', element: withSuspense(<CheckoutSuccessPage />) },
+{ path: 'shipping', element: withSuspense(<ShippingPage />) },
+{ path: 'returns', element: withSuspense(<ReturnsPage />) },
+{ path: 'sitota', element: withSuspense(<SitotaPage />) },
+
+{ path: 'academia', element: withSuspense(<AcademiaPage />) },
       { path: "*", element: withSuspense(<NotFoundPage />) },
     ],
   },
@@ -94,6 +126,11 @@ export const router = createBrowserRouter([
       { path: "pages", element: withSuspense(<PagesPage />) },
       { path: "navigation", element: withSuspense(<NavigationPage />) },
       { path: "users", element: withSuspense(<UsersPage />) },
+      { path: 'database', element: withSuspense(<DatabasePage />) },
+      { path: 'component-library', element: withSuspense(<ComponentLibraryPage />) },
+      { path: 'page-builder', element: withSuspense(<PageBuilderPage />) },
+      { path: 'commerce', element: withSuspense(<CommercePage />) }
+      
     ],
   },
 ]);

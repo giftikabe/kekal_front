@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Pencil, Trash2, Plus, X } from "lucide-react";
-import { brandApi } from "../api/client";
+import { brandApi, brandStatsApi } from "../api/client";
 import { useAuthContext } from "../hooks/AuthContext";
 import ImageUpload from "../components/ImageUpload";
 import MultiImageUpload from "../components/MultiImageUpload";
@@ -16,7 +16,8 @@ type Tab =
   | "values"
   | "designer"
   | "contact"
-  | "about";
+  | "about"
+  | "stats";
 
 interface KVItem {
   id: string;
@@ -42,6 +43,12 @@ interface AboutBlock {
   title: string;
   content: string;
   images: string[];
+}
+interface BrandStat {
+  id: string;
+  value: string;
+  label: string;
+  order: number;
 }
 
 const IDENTITY_PLACEHOLDERS: Record<string, string> = {
@@ -142,17 +149,25 @@ export default function BrandPage() {
   });
   const [aboutSaving, setAboutSaving] = useState(false);
 
+  const [stats, setStats] = useState<BrandStat[]>([]);
+  const [statModalOpen, setStatModalOpen] = useState(false);
+  const [editingStat, setEditingStat] = useState<BrandStat | null>(null);
+  const [statForm, setStatForm] = useState({ value: "", label: "" });
+  const [statDeleteId, setStatDeleteId] = useState<string | null>(null);
+  const [statSaving, setStatSaving] = useState(false);
+
   useEffect(() => {
     const load = async () => {
       setLoading(true);
       try {
-        const [id, msg, val, des, con, ab] = await Promise.all([
+        const [id, msg, val, des, con, ab, st] = await Promise.all([
           brandApi.getIdentity(),
           brandApi.getMessages(),
           brandApi.getValues(),
           brandApi.getDesignerProfile(),
           brandApi.getContactInfo(),
           brandApi.getAboutBlocks(),
+          brandStatsApi.getAll(),
         ]);
         const idList = id as KVItem[];
         setMessages(msg as BrandMessage[]);
@@ -160,6 +175,7 @@ export default function BrandPage() {
         setDesigner(des as KVItem[]);
         setContact(con as KVItem[]);
         setAbout(ab as AboutBlock[]);
+        setStats(st as BrandStat[]);
 
         const announcementsRow = idList.find((i) => i.key === "announcements");
         setIdentity(idList.filter((i) => i.key !== "announcements"));
@@ -434,6 +450,58 @@ export default function BrandPage() {
     }
   };
 
+  const openAddStat = () => {
+    setEditingStat(null);
+    setStatForm({ value: "", label: "" });
+    setStatModalOpen(true);
+  };
+
+  const openEditStat = (stat: BrandStat) => {
+    setEditingStat(stat);
+    setStatForm({ value: stat.value, label: stat.label });
+    setStatModalOpen(true);
+  };
+
+  const saveStat = async () => {
+    setStatSaving(true);
+    try {
+      if (editingStat) {
+        const updated = (await brandStatsApi.update(editingStat.id, statForm)) as BrandStat;
+        setStats((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
+      } else {
+        const created = (await brandStatsApi.create({ ...statForm, order: stats.length })) as BrandStat;
+        setStats((prev) => [...prev, created]);
+      }
+      setStatModalOpen(false);
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setStatSaving(false);
+    }
+  };
+
+  const deleteStat = async (id: string) => {
+    setStatSaving(true);
+    try {
+      await brandStatsApi.delete(id);
+      setStats((prev) => prev.filter((s) => s.id !== id));
+      setStatDeleteId(null);
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setStatSaving(false);
+    }
+  };
+
+  const reorderStats = async (reordered: BrandStat[]) => {
+    setStats(reordered);
+    try {
+      await Promise.all(reordered.map((s, i) => brandStatsApi.update(s.id, { order: i })));
+    } catch (e: any) {
+      setError(e.message);
+    }
+  };
+
   const canEdit = hasPermission("brand", "update");
   const canCreate = hasPermission("brand", "create");
   const canDelete = hasPermission("brand", "delete");
@@ -446,6 +514,7 @@ export default function BrandPage() {
     { key: "designer", label: "Designer Profile" },
     { key: "contact", label: "Contact Info" },
     { key: "about", label: "About Blocks" },
+    { key: "stats", label: "Stats" },
   ];
 
   return (
@@ -1510,6 +1579,171 @@ export default function BrandPage() {
                         className={`${ui.btn} ${ui.btnDanger}`}
                         onClick={handleAboutDelete}
                         disabled={aboutSaving}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {tab === "stats" && (
+            <div>
+              <div className={ui.pageHeader}>
+                <div className={ui.hint}>
+                  Drag to reorder how stats appear on the site.
+                </div>
+                {canCreate && (
+                  <button
+                    className={`${ui.btn} ${ui.btnPrimary}`}
+                    onClick={openAddStat}
+                  >
+                    <Plus size={13} style={{ marginRight: 6, verticalAlign: -2 }} />
+                    Add Stat
+                  </button>
+                )}
+              </div>
+
+              {stats.length === 0 ? (
+                <div className={ui.empty}>
+                  <div className={ui.emptyIcon}>◆</div>No stats yet.
+                </div>
+              ) : (
+                <DragList
+                  items={stats}
+                  onReorder={reorderStats}
+                  disabled={!canEdit}
+                  renderItem={(stat: BrandStat) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "14px 16px",
+                        width: "100%",
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontSize: 15, fontWeight: 700 }}>{stat.value}</div>
+                        <div style={{ fontSize: 12, color: "#666" }}>{stat.label}</div>
+                      </div>
+                      <div className={ui.actions}>
+                        {canEdit && (
+                          <button
+                            className={ui.iconBtn}
+                            onClick={() => openEditStat(stat)}
+                            aria-label="Edit"
+                          >
+                            <Pencil size={14} />
+                          </button>
+                        )}
+                        {canDelete && (
+                          <button
+                            className={`${ui.iconBtn} ${ui.iconBtnDanger}`}
+                            onClick={() => setStatDeleteId(stat.id)}
+                            aria-label="Delete"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                />
+              )}
+
+              {statModalOpen && (
+                <div className={ui.overlay}>
+                  <div className={ui.modal}>
+                    <div className={ui.modalHeader}>
+                      <div className={ui.modalTitle}>
+                        {editingStat ? "Edit Stat" : "Add Stat"}
+                      </div>
+                      <button
+                        className={ui.modalClose}
+                        onClick={() => setStatModalOpen(false)}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    <div className={ui.modalBody}>
+                      <div className={ui.form}>
+                        <div className={ui.field}>
+                          <label className={ui.label}>Value</label>
+                          <input
+                            className={ui.input}
+                            value={statForm.value}
+                            onChange={(e) =>
+                              setStatForm({ ...statForm, value: e.target.value })
+                            }
+                            placeholder="e.g. 5+, 10K+, 50+"
+                          />
+                        </div>
+                        <div className={ui.field}>
+                          <label className={ui.label}>Label</label>
+                          <input
+                            className={ui.input}
+                            value={statForm.label}
+                            onChange={(e) =>
+                              setStatForm({ ...statForm, label: e.target.value })
+                            }
+                            placeholder="e.g. Years, Customers, Exhibitions"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className={ui.modalFooter}>
+                      <button
+                        className={`${ui.btn} ${ui.btnSecondary}`}
+                        onClick={() => setStatModalOpen(false)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className={`${ui.btn} ${ui.btnPrimary}`}
+                        onClick={saveStat}
+                        disabled={statSaving}
+                      >
+                        {statSaving ? "Saving..." : "Save"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {statDeleteId && (
+                <div className={ui.overlay}>
+                  <div className={ui.modal}>
+                    <div className={ui.modalHeader}>
+                      <div className={ui.modalTitle}>Delete Stat</div>
+                      <button
+                        className={ui.modalClose}
+                        onClick={() => setStatDeleteId(null)}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    <div className={ui.modalBody}>
+                      <div className={ui.confirmText}>
+                        Are you sure you want to delete this stat?
+                      </div>
+                      <div className={ui.confirmSub}>
+                        This action cannot be undone.
+                      </div>
+                    </div>
+                    <div className={ui.modalFooter}>
+                      <button
+                        className={`${ui.btn} ${ui.btnSecondary}`}
+                        onClick={() => setStatDeleteId(null)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className={`${ui.btn} ${ui.btnDanger}`}
+                        onClick={() => deleteStat(statDeleteId)}
+                        disabled={statSaving}
                       >
                         Delete
                       </button>
