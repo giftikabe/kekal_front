@@ -35,7 +35,7 @@ export default function CommercePage() {
     chapa_webhook_secret: "",
   });
   const [showSecrets, setShowSecrets] = useState({ key: false, webhook: false });
-  const [credentialsSaved, setCredentialsSaved] = useState(false);
+  const [_credentialsSaved, setCredentialsSaved] = useState(false); // 👈 Fixed
   const [testResult, setTestResult] = useState<{ success: boolean; error?: string } | null>(null);
 
   const [orderStatusFilter, setOrderStatusFilter] = useState("");

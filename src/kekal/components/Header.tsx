@@ -84,43 +84,46 @@ const [cartOpen, setCartOpen] = useState(false);
             </NavLink>
           ))}
           {isActive && (
-
-  <>
-
-    <button
-
-      className={styles.cartButton}
-
-      onClick={() => setCartOpen(true)}
-
-      aria-label={`Cart, ${count} items`}
-
-    >
-
-      <ShoppingCart size={20} aria-hidden="true" />
-
-      {count > 0 && <span className={styles.cartBadge}>{count}</span>}
-
-    </button>
-
-    <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
-
-  </>
-
-)}
+            <button
+              className={styles.cartButton}
+              onClick={() => setCartOpen(true)}
+              aria-label={`Cart, ${count} items`}
+            >
+              <ShoppingCart size={20} aria-hidden="true" />
+              {count > 0 && <span className={styles.cartBadge}>{count}</span>}
+            </button>
+          )}
         </nav>
 
-        <button
-          type="button"
-          className={styles.menuButton}
-          onClick={() => setIsMenuOpen(true)}
-          aria-label="Open menu"
-          aria-haspopup="dialog"
-          aria-expanded={isMenuOpen}
-        >
-          <span aria-hidden="true">☰</span>
-        </button>
+        {/* Mobile controls: cart icon + hamburger, visible below 900px */}
+        <div className={styles.mobileControls}>
+          {isActive && (
+            <button
+              className={styles.cartButton}
+              onClick={() => setCartOpen(true)}
+              aria-label={`Cart, ${count} items`}
+            >
+              <ShoppingCart size={20} aria-hidden="true" />
+              {count > 0 && <span className={styles.cartBadge}>{count}</span>}
+            </button>
+          )}
+          <button
+            type="button"
+            className={styles.menuButton}
+            onClick={() => setIsMenuOpen(true)}
+            aria-label="Open menu"
+            aria-haspopup="dialog"
+            aria-expanded={isMenuOpen}
+          >
+            <span aria-hidden="true">☰</span>
+          </button>
+        </div>
       </header>
+
+      {/* Single CartDrawer instance shared by both mobile and desktop buttons */}
+      {isActive && (
+        <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+      )}
 
       <MobileMenu
         isOpen={isMenuOpen}

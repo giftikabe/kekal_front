@@ -36,6 +36,7 @@ const ENTITIES = [
   "page_seo",
   "about_content_blocks",
   "navigation",
+  "commerce",
 ];
 const ACTIONS = ["create", "read", "update", "delete"];
 

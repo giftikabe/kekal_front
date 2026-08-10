@@ -112,17 +112,26 @@
   font-weight: 700;
 }
 
-/* On desktop (min-width 900px), move cart button out of the mobile
-   hamburger cluster and into navigationRight */
+/* Mobile controls cluster: cart + hamburger, visible only on mobile */
+.mobileControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* On desktop, hide the whole mobile controls cluster (cart + hamburger
+   both live in navigationRight / are hidden via .menuButton rule instead) */
 @media (min-width: 900px) {
+  .mobileControls {
+    display: none;
+  }
   .navigationRight .cartButton {
     margin-left: var(--space-xs);
   }
-  .mobileControls .cartButton {
-    display: none;
-  }
 }
 
+/* On mobile, hide the desktop cart button (inside navigationRight which
+   is display:none anyway, but be explicit for clarity) */
 @media (max-width: 899px) {
   .navigationRight .cartButton {
     display: none;
