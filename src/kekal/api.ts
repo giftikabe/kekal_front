@@ -3,7 +3,7 @@
 // Falls back to the known production worker so the app still runs if an
 // environment forgets to set VITE_API_BASE_URL, but every real deployment
 // should define it explicitly (see .env.example).
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8787";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "https://kekal-back.kekal.workers.dev";
 
 async function get<T>(endpoint: string): Promise<T> {
   const res = await fetch(`${API_BASE}${endpoint}`);

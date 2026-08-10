@@ -11,18 +11,14 @@ import {
   LogOut,
   Puzzle,
   Layout,
+  Database,
+  ShoppingBag,
+  Table2,
 } from "lucide-react";
 import { useAuthContext } from "../hooks/AuthContext";
+import { useCustomTables } from "../hooks/useCustomTables";
 import BrandHeader from "./BrandHeader";
 import styles from "./Sidebar.module.css";
-import { Database } from "lucide-react";
-// (merge into the existing lucide-react import statement)
-
-// Add to lucide-react imports:
-import { ShoppingBag } from "lucide-react";
-
-// Add new section group in NAV_ITEMS, between Builder and System:
-
 
 const NAV_ITEMS = [
   {
@@ -32,8 +28,7 @@ const NAV_ITEMS = [
       { label: "Products", path: "/admin/products", entity: "products", icon: Box },
       { label: "Events", path: "/admin/events", entity: "events", icon: CalendarDays },
       { label: "Upcoming Events", path: "/admin/upcoming-events", entity: "upcoming_events", icon: CalendarClock },
-      { label: "Database", path: "/admin/database", entity: "custom_tables", icon: Database },
-      { label: 'Component Library', path: '/admin/component-library', entity: 'brand', icon: Puzzle },
+      { label: "Component Library", path: "/admin/component-library", entity: "brand", icon: Puzzle },
     ],
   },
   {
@@ -45,12 +40,11 @@ const NAV_ITEMS = [
     ],
   },
   {
-  section: "Commerce",
-  items: [
-    { label: "Commerce", path: "/admin/commerce", entity: "commerce", icon: ShoppingBag },
-  ],
-},
-
+    section: "Commerce",
+    items: [
+      { label: "Commerce", path: "/admin/commerce", entity: "commerce", icon: ShoppingBag },
+    ],
+  },
   {
     section: "System",
     items: [
@@ -58,21 +52,31 @@ const NAV_ITEMS = [
     ],
   },
   {
-  section: "Builder",
-  items: [
-    { label: "Page Builder", path: "/admin/page-builder", entity: "pages", icon: Layout },
-  ],
-},
+    section: "Builder",
+    items: [
+      { label: "Page Builder", path: "/admin/page-builder", entity: "pages", icon: Layout },
+    ],
+  },
 ];
 
 export default function Sidebar() {
   const { user, logout, canAccess } = useAuthContext();
   const navigate = useNavigate();
 
+  // Dynamic custom-table entries. The hook re-fetches whenever the Sidebar
+  // mounts; DatabasePage calls refresh() on its own instance of the hook
+  // after create/delete, which triggers its own re-render. If you want
+  // sidebar nav to update immediately after DatabasePage mutates, lift
+  // useCustomTables into a shared context — for now a lightweight re-fetch
+  // here on mount is sufficient and matches the existing pattern.
+  const { tables: customTables } = useCustomTables();
+
   const handleLogout = async () => {
     await logout();
     navigate("/admin/login");
   };
+
+  const showDatabaseSection = canAccess("custom_tables");
 
   return (
     <aside className={styles.sidebar}>
@@ -85,7 +89,6 @@ export default function Sidebar() {
           const visibleItems = section.items.filter((item) =>
             item.entity === "users" ? user?.isSuperAdmin : canAccess(item.entity),
           );
-
           if (visibleItems.length === 0) return null;
 
           return (
@@ -109,6 +112,40 @@ export default function Sidebar() {
             </div>
           );
         })}
+
+        {/* ── Database section: static "Database Manager" + one entry per
+            custom table. Only rendered when the user can access custom_tables. */}
+        {showDatabaseSection && (
+          <div className={styles.navSection}>
+            <div className={styles.navSectionLabel}>Database</div>
+
+            {/* Top-level manager (create / delete tables) */}
+            <NavLink
+              to="/admin/database"
+              end
+              className={({ isActive }) =>
+                `${styles.navItem} ${isActive ? styles.active : ""}`
+              }
+            >
+              <Database className={styles.navIcon} size={16} aria-hidden="true" />
+              Database Manager
+            </NavLink>
+
+            {/* One nav entry per custom table */}
+            {customTables.map((t) => (
+              <NavLink
+                key={t.id}
+                to={`/admin/database/${t.id}`}
+                className={({ isActive }) =>
+                  `${styles.navItem} ${styles.navItemSub ?? ""} ${isActive ? styles.active : ""}`
+                }
+              >
+                <Table2 className={styles.navIcon} size={14} aria-hidden="true" />
+                {t.displayName}
+              </NavLink>
+            ))}
+          </div>
+        )}
       </nav>
 
       <div className={styles.footer}>

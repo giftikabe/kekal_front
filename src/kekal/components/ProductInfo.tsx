@@ -1,6 +1,5 @@
 import styles from "./ProductInfo.module.css";
 import { useState } from 'react';
-
 import SizeGuideModal from './SizeGuideModal';
 
 interface ProductInfoData {
@@ -8,15 +7,17 @@ interface ProductInfoData {
   colors: string[];
   sizes: string[];
   inStock: boolean;
+  sizeGuide?: string; // 👈 Fixed: Added the missing property (adjust type if it's not a string)
 }
 
 interface ProductInfoProps {
   product: ProductInfoData;
 }
 
-const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
-
 export default function ProductInfo({ product }: ProductInfoProps) {
+  // 👈 Fixed: Moved useState INSIDE the component body
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
+
   return (
     <div className={styles.container}>
       <p className={styles.description}>{product.description}</p>
@@ -53,28 +54,18 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       )}
       
       {product.sizeGuide && (
+        <button
+          type="button"
+          className={styles.sizeGuideLink}
+          onClick={() => setSizeGuideOpen(true)}
+        >
+          Size Guide →
+        </button>
+      )}
 
-  <button
-
-    type="button"
-
-    className={styles.sizeGuideLink}
-
-    onClick={() => setSizeGuideOpen(true)}
-
-  >
-
-    Size Guide →
-
-  </button>
-
-)}
-
-{sizeGuideOpen && product.sizeGuide && (
-
-  <SizeGuideModal sizeGuide={product.sizeGuide} onClose={() => setSizeGuideOpen(false)} />
-
-)}
+      {sizeGuideOpen && product.sizeGuide && (
+        <SizeGuideModal sizeGuide={product.sizeGuide} onClose={() => setSizeGuideOpen(false)} />
+      )}
 
       <div className={styles.group}>
         <h3>Availability</h3>

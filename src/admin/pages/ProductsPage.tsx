@@ -22,6 +22,7 @@ interface Product {
   sizes: string[];
   inStock: boolean;
   featured: boolean;
+  sizeGuide?: string; // 👈 Add this line
 }
 interface Collection {
   id: string;

@@ -5,6 +5,13 @@ import { componentLibraryApi } from '../api/client';
 import { useAuthContext } from '../hooks/AuthContext';
 import ui from '../components/ui.module.css';
 
+// Near the top of the file
+interface PublishResult {
+  success: boolean;
+  commit_url?: string;
+  error?: string;
+}
+
 const CATEGORY_OPTIONS = ['all', 'hero', 'card', 'section', 'navigation', 'form', 'media', 'stats', 'other'];
 
 function toPascalCase(str: string): string {
@@ -202,18 +209,25 @@ export default function ComponentLibraryPage() {
   }
 
   // Publish
+  // Publish
   async function handlePublish() {
     if (!selectedComponent) return;
     setPublishing(true);
     setPublishResult(null);
     try {
+      // 👈 Fixed: Call method on componentLibraryApi passing the component ID
       const result = await componentLibraryApi.publish(selectedComponent.id);
-      setPublishResult(result);
-      if (result.success) {
+      const res = result as PublishResult | null;
+      setPublishResult(res);
+
+      if (res?.success) {
         const updated = await componentLibraryApi.getOne(selectedComponent.id);
         setSelectedComponent(updated);
         await loadComponents();
-        setTimeout(() => { setModal(null); setPublishResult(null); }, 3000);
+        setTimeout(() => {
+          setModal(null);
+          setPublishResult(null);
+        }, 3000);
       }
     } catch (e: any) {
       setPublishResult({ success: false, error: e.message || 'Publish failed' });
@@ -221,7 +235,6 @@ export default function ComponentLibraryPage() {
       setPublishing(false);
     }
   }
-
   // Add component
   async function handleAdd() {
     setAddError('');
@@ -246,7 +259,7 @@ export default function ComponentLibraryPage() {
       setModal(null);
       setAddForm({ display_name: '', category: 'hero', description: '', tsx_code: '', css_code: '' });
       setPromptOpen(false);
-      await selectComponent(created.id);
+await selectComponent((created as { id: string }).id);
     } catch (e: any) {
       setAddError(e.message || 'Failed to create component');
     } finally {

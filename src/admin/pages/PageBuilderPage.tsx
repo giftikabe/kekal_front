@@ -113,7 +113,7 @@ function SortableSection({
 // ─── PageBuilderPage ──────────────────────────────────────────────────────────
 
 export default function PageBuilderPage() {
-  const { hasPermission } = useAuthContext();
+  useAuthContext();
 
   // Data state
   const [pages, setPages] = useState<any[]>([]);
@@ -136,8 +136,8 @@ export default function PageBuilderPage() {
   // Operation state
   const [loading, setLoading] = useState(true);
   const [publishing, setPublishing] = useState(false);
-  const [publishResult, setPublishResult] = useState<any | null>(null);
-  const [saving, setSaving] = useState(false);
+  const [publishResult, setPublishResult] = useState<any | null>(null)
+  const [_saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
   // Modal state
@@ -220,7 +220,7 @@ export default function PageBuilderPage() {
           activeSection.id,
           body
         );
-        setActiveSection((prev: any) => ({ ...prev, ...updated }));
+setActiveSection((prev: any) => ({ ...prev, ...(updated as object) }));
         refreshPage();
       } catch (err: any) {
         setError(err?.message || "Failed to update section");
