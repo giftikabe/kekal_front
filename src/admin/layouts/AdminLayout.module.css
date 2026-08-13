@@ -9,6 +9,11 @@
   padding-top: 56px;
   flex: 1;
   min-height: 100vh;
+  transition: margin-left 0.18s ease;
+}
+
+.mainCollapsed {
+  margin-left: 64px;
 }
 
 .content {

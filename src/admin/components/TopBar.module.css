@@ -11,6 +11,11 @@
   left: 240px;
   right: 0;
   z-index: 99;
+  transition: left 0.18s ease;
+}
+
+.topbarCollapsed {
+  left: 64px;
 }
 
 .title {

@@ -1,11 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
 import { customTablesApi } from "../api/client";
 
+export interface CustomTableColumn {
+  column_name: string;
+  data_type: string;
+}
+
 export interface CustomTable {
   id: string;
   name: string;
   displayName: string;
   createdAt: string;
+  // Present when the table list comes from GET /admin/custom-tables — lets
+  // the Database Manager show, at a glance, whether columns actually got
+  // saved instead of only finding out when Custom Data comes up empty.
+  columns?: CustomTableColumn[];
 }
 
 /**

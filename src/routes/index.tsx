@@ -105,9 +105,14 @@ export const router = createBrowserRouter([
       { path: "pages", element: withSuspense(<PagesPage />) },
       { path: "navigation", element: withSuspense(<NavigationPage />) },
       { path: "users", element: withSuspense(<UsersPage />) },
+      // Database Manager: create/delete custom tables (schema-level CRUD).
       { path: "database", element: withSuspense(<DatabasePage />) },
-      // Dynamic route: each custom table gets its own reachable URL.
-      { path: "database/:tableId", element: withSuspense(<CustomTableDataPage />) },
+      // Custom Data: row-level CRUD on the data inside a custom table.
+      // DatabasePage's "View Data" button navigates here via
+      // navigate("/admin/custom-data", { state: { tableId } }), and the
+      // Sidebar's "Custom Data" nav item links here directly too — this
+      // path must match both of those exactly or you get a 404.
+      { path: "custom-data", element: withSuspense(<CustomTableDataPage />) },
       { path: "component-library", element: withSuspense(<ComponentLibraryPage />) },
       { path: "page-builder", element: withSuspense(<PageBuilderPage />) },
       { path: "commerce", element: withSuspense(<CommercePage />) },

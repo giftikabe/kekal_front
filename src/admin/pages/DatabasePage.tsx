@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Trash2, Table, Plus } from "lucide-react";
+import { Trash2, Table, Plus, AlertTriangle } from "lucide-react";
 import { customTablesApi } from "../api/client";
 import { useAuthContext } from "../hooks/AuthContext";
 import { useCustomTables } from "../hooks/useCustomTables";
@@ -18,6 +18,13 @@ const COLUMN_TYPE_OPTIONS = [
   { value: "date", label: "Date" },
 ];
 
+// Lookup for the Columns badges below — turns a stored column's `type`
+// key (e.g. "richtext") into its human label (e.g. "Rich Text") for the
+// badge's tooltip.
+const COLUMN_TYPE_LABEL: Record<string, string> = Object.fromEntries(
+  COLUMN_TYPE_OPTIONS.map((o) => [o.value, o.label]),
+);
+
 type ModalType = "create-table" | "delete-table" | null;
 
 interface CreateColumnDraft {
@@ -26,6 +33,11 @@ interface CreateColumnDraft {
   required: boolean;
 }
 
+// This is only used to render a live PREVIEW of the internal name while the
+// admin types. The server is the source of truth for the actual name it
+// creates — it re-derives and, if needed, de-duplicates or falls back
+// (e.g. for labels typed in a non-Latin script, or labels that collide with
+// each other) — so the real result can differ slightly from this preview.
 function toSnakeCase(value: string): string {
   return value
     .toLowerCase()
@@ -135,6 +147,14 @@ export default function DatabasePage() {
     setSaving(true);
     setModalError("");
     try {
+      // We still send a `name`/`label` hint per column, but the backend is
+      // authoritative: it re-derives every identifier itself, so labels
+      // that don't slugify cleanly (non-Latin script, symbols only) or that
+      // collide with each other still produce a valid, complete table
+      // instead of silently dropping columns or failing outright. The
+      // `type` chosen here (e.g. "richtext"/"image"/"link"/"date") is now
+      // persisted verbatim on the custom_tables row server-side, so it
+      // survives round-trips instead of collapsing to a guess later.
       await customTablesApi.create({
         name: toSnakeCase(displayName),
         display_name: displayName,
@@ -213,39 +233,78 @@ export default function DatabasePage() {
               <tr>
                 <th>Display Name</th>
                 <th>Internal Name</th>
+                <th>Columns</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {customTables.map((t) => (
-                <tr key={t.id}>
-                  <td>
-                    <strong>{t.displayName}</strong>
-                    <div style={{ fontFamily: "monospace", fontSize: "0.8em", color: "#999" }}>
-                      {t.name}
-                    </div>
-                  </td>
-                  <td style={{ fontFamily: "monospace" }}>{t.name}</td>
-                  <td>
-                    <div className={ui.actions}>
-                      <button
-                        className={`${ui.btn} ${ui.btnSecondary}`}
-                        onClick={() => navigate(`/admin/database/${t.id}`)}
-                      >
-                        View Data
-                      </button>
-                      {hasPermission("custom_tables", "delete") && (
-                        <button
-                          className={ui.iconBtnDanger}
-                          onClick={() => openDeleteTableModal(t)}
+              {customTables.map((t) => {
+                const columns = t.columns ?? [];
+                const isGhost = columns.length === 0;
+                return (
+                  <tr key={t.id}>
+                    <td>
+                      <strong>{t.displayName}</strong>
+                      <div style={{ fontFamily: "monospace", fontSize: "0.8em", color: "#999" }}>
+                        {t.name}
+                      </div>
+                    </td>
+                    <td style={{ fontFamily: "monospace" }}>{t.name}</td>
+                    <td>
+                      {isGhost ? (
+                        <span
+                          className={`${ui.badge} ${ui.badgeGray}`}
+                          title="No columns found for this table — it may not have been created correctly."
+                          style={{ display: "inline-flex", alignItems: "center", gap: 4 }}
                         >
-                          <Trash2 size={16} />
-                        </button>
+                          <AlertTriangle size={12} /> No columns found
+                        </span>
+                      ) : (
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 4, maxWidth: 320 }}>
+                          {/*
+                            columns now come from the stored { name, label,
+                            type, required } shape on the custom_tables row
+                            (self-healed for legacy tables), not from a raw
+                            information_schema introspection — so the badge
+                            can show the real semantic type (e.g. "Image",
+                            "Rich Text") instead of just "text" for
+                            everything.
+                          */}
+                          {columns.map((col: any) => (
+                            <span
+                              key={col.name}
+                              className={`${ui.badge} ${ui.badgeGray}`}
+                              title={COLUMN_TYPE_LABEL[col.type] || col.type}
+                            >
+                              {col.label || col.name}
+                            </span>
+                          ))}
+                        </div>
                       )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td>
+                      <div className={ui.actions}>
+                        <button
+                          className={`${ui.btn} ${ui.btnSecondary}`}
+                          onClick={() =>
+                            navigate("/admin/custom-data", { state: { tableId: t.id } })
+                          }
+                        >
+                          View Data
+                        </button>
+                        {hasPermission("custom_tables", "delete") && (
+                          <button
+                            className={ui.iconBtnDanger}
+                            onClick={() => openDeleteTableModal(t)}
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -287,7 +346,8 @@ export default function DatabasePage() {
                     }
                   />
                   <div className={ui.hint}>
-                    Internal name: {toSnakeCase(createTableForm.displayName) || "—"}
+                    Internal name preview: {toSnakeCase(createTableForm.displayName) || "—"}
+                    {" "}(may be adjusted for uniqueness)
                   </div>
                 </div>
 

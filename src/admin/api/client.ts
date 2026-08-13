@@ -216,36 +216,86 @@ export const usersApi = {
     api.delete(`/admin/users/${userId}/permissions/${permissionId}`),
 };
 
-
-//------- Append this to the end of src/admin/api/client.ts (do not change anything existing):
-
 export const customTablesApi = {
-  getAll: () => api.get<any>('/admin/custom-tables'),
-  create: (body: unknown) => api.post('/admin/custom-tables', body),
+  getAll: () => api.get<any>("/admin/custom-tables"),
+  create: (body: unknown) => api.post("/admin/custom-tables", body),
   delete: (id: string) => api.delete(`/admin/custom-tables/${id}`),
   getColumns: (id: string) => api.get<any[]>(`/admin/custom-tables/${id}/columns`),
+  // The backend supports LIMIT/OFFSET via getPagination. Pass a query string
+  // such as "?limit=200&offset=0" as `params` for paginated access. The
+  // default server limit applies when params is omitted.
   getData: (tableName: string, params?: string) =>
-    api.get<any[]>(`/admin/custom-data/${tableName}${params || ''}`),
+    api.get<any[]>(`/admin/custom-data/${tableName}${params || ""}`),
   createData: (tableName: string, body: unknown) =>
     api.post(`/admin/custom-data/${tableName}`, body),
   updateData: (tableName: string, id: string, body: unknown) =>
     api.patch(`/admin/custom-data/${tableName}/${id}`, body),
   deleteData: (tableName: string, id: string) =>
     api.delete(`/admin/custom-data/${tableName}/${id}`),
-}
+};
+
+export const commerceApi = {
+  getSettings: () => api.get<any>("/admin/commerce/settings"),
+  saveSettings: (body: unknown) => api.post("/admin/commerce/settings", body),
+  activate: () => api.patch("/admin/commerce/settings/activate", {}),
+  deactivate: () => api.patch("/admin/commerce/settings/deactivate", {}),
+  getOrders: (params?: string) =>
+    api.get<any[]>(`/admin/commerce/orders${params || ""}`),
+  getOrder: (id: string) => api.get<any>(`/admin/commerce/orders/${id}`),
+  updateOrder: (id: string, body: unknown) =>
+    api.patch(`/admin/commerce/orders/${id}`, body),
+  getStats: () => api.get<any>("/admin/commerce/stats"),
+};
+
+export const brandStatsApi = {
+  getAll: () => api.get<any[]>("/admin/brand-stats"),
+  create: (body: unknown) => api.post("/admin/brand-stats", body),
+  update: (id: string, body: unknown) =>
+    api.patch(`/admin/brand-stats/${id}`, body),
+  delete: (id: string) => api.delete(`/admin/brand-stats/${id}`),
+};
 
 export const componentLibraryApi = {
-  getAll: () => api.get<any[]>('/admin/component-library'),
+  getAll: () => api.get<any[]>("/admin/component-library"),
   getOne: (id: string) => api.get<any>(`/admin/component-library/${id}`),
-  create: (body: unknown) => api.post('/admin/component-library', body),
-  update: (id: string, body: unknown) => api.patch(`/admin/component-library/${id}`, body),
+  getSource: (id: string) =>
+    api.get<{ tsx: string; css: string }>(
+      `/admin/component-library/${id}/source`,
+    ),
+  create: (body: unknown) => api.post("/admin/component-library", body),
+  update: (id: string, body: unknown) =>
+    api.patch(`/admin/component-library/${id}`, body),
   delete: (id: string) => api.delete(`/admin/component-library/${id}`),
-  publish: (id: string) => api.post(`/admin/component-library/${id}/publish`, {}),
-}
+  publish: (id: string, body: { tsx_code: string; css_code?: string }) =>
+    api.post(`/admin/component-library/${id}/publish`, body),
+};
+
+export const mediaPlaceholdersApi = {
+  getAll: () => api.get<any[]>("/admin/media-placeholders"),
+  update: (key: string, body: { url?: string; label?: string }) =>
+    api.patch(`/admin/media-placeholders/${key}`, body),
+};
+
+export const sectionComponentsApi = {
+  getBySection: (sectionId: string) =>
+    api.get<any[]>(
+      `/admin/page-builder/sections/${sectionId}/components`,
+    ),
+  create: (sectionId: string, body: unknown) =>
+    api.post(
+      `/admin/page-builder/sections/${sectionId}/components`,
+      body,
+    ),
+  update: (instanceId: string, body: unknown) =>
+    api.patch(`/admin/page-builder/section-components/${instanceId}`, body),
+  delete: (instanceId: string) =>
+    api.delete(`/admin/page-builder/section-components/${instanceId}`),
+};
 
 export const pageBuilderApi = {
-  getPages: () => api.get<any[]>('/admin/page-builder/pages'),
-  getPage: (pageId: string) => api.get<any>(`/admin/page-builder/pages/${pageId}`),
+  getPages: () => api.get<any[]>("/admin/page-builder/pages"),
+  getPage: (pageId: string) =>
+    api.get<any>(`/admin/page-builder/pages/${pageId}`),
   addSection: (pageId: string, body: unknown) =>
     api.post(`/admin/page-builder/pages/${pageId}/sections`, body),
   updateSection: (sectionId: string, body: unknown) =>
@@ -253,29 +303,10 @@ export const pageBuilderApi = {
   deleteSection: (sectionId: string) =>
     api.delete(`/admin/page-builder/sections/${sectionId}`),
   reorder: (body: unknown) =>
-    api.post('/admin/page-builder/sections/reorder', body),
-  getTemplates: () => api.get<any[]>('/admin/page-builder/templates'),
+    api.post("/admin/page-builder/sections/reorder", body),
+  getTemplates: () => api.get<any[]>("/admin/page-builder/templates"),
   useTemplate: (sectionId: string, body: unknown) =>
     api.post(`/admin/page-builder/templates/${sectionId}/use`, body),
   publishPage: (pageId: string) =>
     api.post(`/admin/page-builder/pages/${pageId}/publish`, {}),
-}
-
-export const commerceApi = {
-  getSettings: () => api.get<any>('/admin/commerce/settings'),
-  saveSettings: (body: unknown) => api.post('/admin/commerce/settings', body),
-  activate: () => api.patch('/admin/commerce/settings/activate', {}),
-  deactivate: () => api.patch('/admin/commerce/settings/deactivate', {}),
-  getOrders: (params?: string) => api.get<any[]>(`/admin/commerce/orders${params || ''}`),
-  getOrder: (id: string) => api.get<any>(`/admin/commerce/orders/${id}`),
-  updateOrder: (id: string, body: unknown) => api.patch(`/admin/commerce/orders/${id}`, body),
-  getStats: () => api.get<any>('/admin/commerce/stats'),
-}
-
-
-export const brandStatsApi = {
-  getAll: () => api.get<any[]>('/admin/brand-stats'),
-  create: (body: unknown) => api.post('/admin/brand-stats', body),
-  update: (id: string, body: unknown) => api.patch(`/admin/brand-stats/${id}`, body),
-  delete: (id: string) => api.delete(`/admin/brand-stats/${id}`),
-}
+};

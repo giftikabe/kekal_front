@@ -13,30 +13,34 @@ import {
   Layout,
   Database,
   ShoppingBag,
-  Table2,
+  TableProperties,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react";
 import { useAuthContext } from "../hooks/AuthContext";
-import { useCustomTables } from "../hooks/useCustomTables";
+import { useSidebar } from "../hooks/SidebarContext";
 import BrandHeader from "./BrandHeader";
 import styles from "./Sidebar.module.css";
+
+// ─── Static nav config ────────────────────────────────────────────────────────
 
 const NAV_ITEMS = [
   {
     section: "Content",
     items: [
-      { label: "Collections", path: "/admin/collections", entity: "collections", icon: LayoutGrid },
-      { label: "Products", path: "/admin/products", entity: "products", icon: Box },
-      { label: "Events", path: "/admin/events", entity: "events", icon: CalendarDays },
-      { label: "Upcoming Events", path: "/admin/upcoming-events", entity: "upcoming_events", icon: CalendarClock },
-      { label: "Component Library", path: "/admin/component-library", entity: "brand", icon: Puzzle },
+      { label: "Collections",     path: "/admin/collections",    entity: "collections",    icon: LayoutGrid },
+      { label: "Products",         path: "/admin/products",        entity: "products",        icon: Box },
+      { label: "Events",           path: "/admin/events",          entity: "events",          icon: CalendarDays },
+      { label: "Upcoming Events",  path: "/admin/upcoming-events", entity: "upcoming_events", icon: CalendarClock },
+      { label: "Custom Data",      path: "/admin/custom-data",     entity: "custom_tables",   icon: TableProperties },
     ],
   },
   {
     section: "Brand",
     items: [
-      { label: "Brand Settings", path: "/admin/brand", entity: "brand", icon: Palette },
-      { label: "Pages & SEO", path: "/admin/pages", entity: "pages", icon: FileText },
-      { label: "Navigation", path: "/admin/navigation", entity: "navigation", icon: Compass },
+      { label: "Brand Settings", path: "/admin/brand",      entity: "brand",      icon: Palette },
+      { label: "Pages & SEO",    path: "/admin/pages",      entity: "pages",      icon: FileText },
+      { label: "Navigation",     path: "/admin/navigation", entity: "navigation", icon: Compass },
     ],
   },
   {
@@ -54,7 +58,9 @@ const NAV_ITEMS = [
   {
     section: "Builder",
     items: [
-      { label: "Page Builder", path: "/admin/page-builder", entity: "pages", icon: Layout },
+      { label: "Component Library", path: "/admin/component-library", entity: "brand",         icon: Puzzle },
+      { label: "Page Builder",       path: "/admin/page-builder",      entity: "pages",         icon: Layout },
+      { label: "Database Manager",   path: "/admin/database",          entity: "custom_tables", icon: Database },
     ],
   },
 ];
@@ -62,26 +68,26 @@ const NAV_ITEMS = [
 export default function Sidebar() {
   const { user, logout, canAccess } = useAuthContext();
   const navigate = useNavigate();
-
-  // Dynamic custom-table entries. The hook re-fetches whenever the Sidebar
-  // mounts; DatabasePage calls refresh() on its own instance of the hook
-  // after create/delete, which triggers its own re-render. If you want
-  // sidebar nav to update immediately after DatabasePage mutates, lift
-  // useCustomTables into a shared context — for now a lightweight re-fetch
-  // here on mount is sufficient and matches the existing pattern.
-  const { tables: customTables } = useCustomTables();
+  const { collapsed, toggle } = useSidebar();
 
   const handleLogout = async () => {
     await logout();
     navigate("/admin/login");
   };
 
-  const showDatabaseSection = canAccess("custom_tables");
-
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`}>
       <div className={styles.logo}>
-        <BrandHeader size="sm" />
+        {!collapsed && <BrandHeader size="sm" />}
+        <button
+          type="button"
+          className={styles.collapseBtn}
+          onClick={toggle}
+          title={collapsed ? "Expand sidebar (Ctrl+B)" : "Collapse sidebar (Ctrl+B)"}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {collapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
+        </button>
       </div>
 
       <nav className={styles.nav} aria-label="Admin">
@@ -93,71 +99,47 @@ export default function Sidebar() {
 
           return (
             <div key={section.section} className={styles.navSection}>
-              <div className={styles.navSectionLabel}>{section.section}</div>
+              {!collapsed && (
+                <div className={styles.navSectionLabel}>{section.section}</div>
+              )}
               {visibleItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <NavLink
                     key={item.path}
                     to={item.path}
+                    end={item.path === "/admin/database"}
                     className={({ isActive }) =>
                       `${styles.navItem} ${isActive ? styles.active : ""}`
                     }
+                    title={collapsed ? item.label : undefined}
                   >
                     <Icon className={styles.navIcon} size={16} aria-hidden="true" />
-                    {item.label}
+                    {!collapsed && item.label}
                   </NavLink>
                 );
               })}
             </div>
           );
         })}
-
-        {/* ── Database section: static "Database Manager" + one entry per
-            custom table. Only rendered when the user can access custom_tables. */}
-        {showDatabaseSection && (
-          <div className={styles.navSection}>
-            <div className={styles.navSectionLabel}>Database</div>
-
-            {/* Top-level manager (create / delete tables) */}
-            <NavLink
-              to="/admin/database"
-              end
-              className={({ isActive }) =>
-                `${styles.navItem} ${isActive ? styles.active : ""}`
-              }
-            >
-              <Database className={styles.navIcon} size={16} aria-hidden="true" />
-              Database Manager
-            </NavLink>
-
-            {/* One nav entry per custom table */}
-            {customTables.map((t) => (
-              <NavLink
-                key={t.id}
-                to={`/admin/database/${t.id}`}
-                className={({ isActive }) =>
-                  `${styles.navItem} ${styles.navItemSub ?? ""} ${isActive ? styles.active : ""}`
-                }
-              >
-                <Table2 className={styles.navIcon} size={14} aria-hidden="true" />
-                {t.displayName}
-              </NavLink>
-            ))}
-          </div>
-        )}
       </nav>
 
       <div className={styles.footer}>
-        <div className={styles.userInfo}>
-          <div className={styles.userEmail}>{user?.email}</div>
-          <div className={styles.userRole}>
-            {user?.isSuperAdmin ? "Super Admin" : "Admin"}
+        {!collapsed && (
+          <div className={styles.userInfo}>
+            <div className={styles.userEmail}>{user?.email}</div>
+            <div className={styles.userRole}>
+              {user?.isSuperAdmin ? "Super Admin" : "Admin"}
+            </div>
           </div>
-        </div>
-        <button className={styles.logoutBtn} onClick={handleLogout}>
+        )}
+        <button
+          className={styles.logoutBtn}
+          onClick={handleLogout}
+          title={collapsed ? "Sign out" : undefined}
+        >
           <LogOut size={14} aria-hidden="true" />
-          Sign out
+          {!collapsed && "Sign out"}
         </button>
       </div>
     </aside>
