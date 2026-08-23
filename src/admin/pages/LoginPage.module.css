@@ -61,6 +61,11 @@
   position: relative;
 }
 
+.passwordWrap .input {
+  padding-right: 40px;
+  /* make room for the eye button */
+}
+
 .input {
   padding: 12px 14px;
   border: 1px solid #ddd;
