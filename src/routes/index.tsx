@@ -35,9 +35,10 @@ const NavigationPage = lazy(() => import("../admin/pages/NavigationPage"));
 const UsersPage = lazy(() => import("../admin/pages/UsersPage"));
 const DatabasePage = lazy(() => import("../admin/pages/DatabasePage"));
 const CustomTableDataPage = lazy(() => import("../admin/pages/CustomTableDataPage"));
-const ComponentLibraryPage = lazy(() => import("../admin/pages/ComponentLibraryPage"));
-const PageBuilderPage = lazy(() => import("../admin/pages/PageBuilderPage"));
 const CommercePage = lazy(() => import("../admin/pages/CommercePage"));
+
+const PageBuilderPage = lazy(() => import("../admin/pages/PageBuilderPage"));
+const ComponentLibraryPage = lazy(() => import("../admin/pages/ComponentLibraryPage"));
 
 function PageFallback() {
   return (
@@ -113,9 +114,9 @@ export const router = createBrowserRouter([
       // Sidebar's "Custom Data" nav item links here directly too — this
       // path must match both of those exactly or you get a 404.
       { path: "custom-data", element: withSuspense(<CustomTableDataPage />) },
-      { path: "component-library", element: withSuspense(<ComponentLibraryPage />) },
-      { path: "page-builder", element: withSuspense(<PageBuilderPage />) },
       { path: "commerce", element: withSuspense(<CommercePage />) },
+      { path: "page-builder", element: withSuspense(<PageBuilderPage />) },
+{ path: "component-library", element: withSuspense(<ComponentLibraryPage />) },
     ],
   },
 ]);

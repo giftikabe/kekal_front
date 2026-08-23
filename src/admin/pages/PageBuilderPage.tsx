@@ -1,556 +1,735 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState, useCallback } from "react";
-import { Trash2, Layout, Plus } from "lucide-react";
-import { pageBuilderApi, componentLibraryApi, sectionComponentsApi } from "../api/client";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  GripVertical,
+  Plus,
+  Trash2,
+  Eye,
+  EyeOff,
+  Copy,
+  ChevronLeft,
+  Pencil,
+  Check,
+} from "lucide-react";
+import { pagesApi } from "../api/client";
 import { useAuthContext } from "../hooks/AuthContext";
-import SectionCanvas, { type CanvasInstance } from "../components/SectionCanvas";
-import DataBindingSelect, { type DataBindingValue } from "../components/DataBindingSelect";
 import ui from "../components/ui.module.css";
-import styles from "./PageBuilderPage.module.css";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface Page {
+  id: string;
+  name: string;
+  route: string;
+}
+
+interface Section {
+  id: string;
+  pageId: string;
+  sectionName: string | null;
+  sectionHeader: string | null;
+  componentId: string | null;
+  componentConfig: string | null;
+  layoutOrder: number;
+  isVisible: boolean;
+  templateName: string | null;
+  createdAt: string;
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function displayName(s: Section) {
+  return s.sectionHeader || s.sectionName || s.componentId || "Untitled Section";
+}
+
+function componentLabel(s: Section) {
+  return s.componentId || s.sectionName || "—";
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
 
 export default function PageBuilderPage() {
-  useAuthContext();
+  const { hasPermission } = useAuthContext();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [pages, setPages] = useState<any[]>([]);
-  const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
-  const [selectedPage, setSelectedPage] = useState<any | null>(null);
-  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
-  const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null);
-
-  const [library, setLibrary] = useState<any[]>([]); // published components only — the palette
-  const [templates, setTemplates] = useState<any[]>([]);
-  const [sourceCache, setSourceCache] = useState<Record<string, { tsx: string; css: string }>>({});
-
-  const [loading, setLoading] = useState(true);
-  const [publishing, setPublishing] = useState(false);
-  const [publishResult, setPublishResult] = useState<any | null>(null);
-  const [error, setError] = useState("");
-  const [modal, setModal] = useState<"publish" | "new-section" | null>(null);
-  const [newSectionHeader, setNewSectionHeader] = useState("");
-  const [rightTab, setRightTab] = useState<"components" | "instance">("components");
-
-  useEffect(() => {
-    async function loadInitial() {
-      setLoading(true);
-      try {
-        const [pagesData, componentsData, templatesData] = await Promise.all([
-          pageBuilderApi.getPages(),
-          componentLibraryApi.getAll(),
-          pageBuilderApi.getTemplates(),
-        ]);
-        setPages(pagesData);
-        setLibrary((componentsData as any[]).filter((c) => c.status === "published"));
-        setTemplates(templatesData);
-      } catch (err: any) {
-        setError(err?.message || "Failed to load data");
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadInitial();
-  }, []);
-
-  const fetchPage = useCallback(async (pageId: string) => {
-    try {
-      const data = await pageBuilderApi.getPage(pageId);
-      setSelectedPage(data);
-    } catch (err: any) {
-      setError(err?.message || "Failed to load page");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (selectedPageId) fetchPage(selectedPageId);
-    else setSelectedPage(null);
-    setActiveSectionId(null);
-    setSelectedInstanceId(null);
-  }, [selectedPageId, fetchPage]);
-
-  const refreshPage = useCallback(() => {
-    if (selectedPageId) fetchPage(selectedPageId);
-  }, [selectedPageId, fetchPage]);
-
-  // Warm the source cache for a component so the canvas can actually
-  // render it (PreviewFrame needs real code — there's nothing to render
-  // from the DB, code only exists on GitHub).
-  const ensureSource = useCallback(
-    async (componentId: string) => {
-      if (sourceCache[componentId]) return sourceCache[componentId];
-      try {
-        const src = await componentLibraryApi.getSource(componentId);
-        setSourceCache((prev) => ({ ...prev, [componentId]: { tsx: src.tsx, css: src.css || "" } }));
-        return src;
-      } catch {
-        return { tsx: "", css: "" };
-      }
-    },
-    [sourceCache]
+  const [pages, setPages] = useState<Page[]>([]);
+  const [selectedPageId, setSelectedPageId] = useState<string>(
+    searchParams.get("page") || "",
   );
+  const [sections, setSections] = useState<Section[]>([]);
+  const [templates, setTemplates] = useState<Section[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const activeSection = selectedPage?.sections?.find((s: any) => s.id === activeSectionId) ?? null;
-  const selectedInstance = activeSection?.instances?.find((i: any) => i.id === selectedInstanceId) ?? null;
-  const selectedInstanceComponent = selectedInstance
-    ? library.find((c) => c.id === selectedInstance.componentId)
-    : null;
+  // Drag state
+  const dragIdx = useRef<number | null>(null);
+  const [dragOver, setDragOver] = useState<number | null>(null);
 
-  // Warm sources whenever the active section's instances change.
-  useEffect(() => {
-    if (!activeSection?.instances) return;
-    activeSection.instances.forEach((inst: any) => {
-      if (inst.componentId) ensureSource(inst.componentId);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSection?.instances?.length, activeSectionId]);
-
-  async function handleAddSection() {
-    if (!selectedPageId) return;
-    try {
-      const created = await pageBuilderApi.addSection(selectedPageId, {
-        section_header: newSectionHeader || "New Section",
-        layout_order: selectedPage?.sections?.length || 0,
-        canvas_height: 480,
-      });
-      setModal(null);
-      setNewSectionHeader("");
-      await refreshPage();
-      setActiveSectionId((created as any).id);
-    } catch (err: any) {
-      setError(err?.message || "Failed to add section");
-    }
-  }
-
-  async function handleDeleteSection(sectionId: string) {
-    try {
-      await pageBuilderApi.deleteSection(sectionId);
-      if (activeSectionId === sectionId) setActiveSectionId(null);
-      await refreshPage();
-    } catch (err: any) {
-      setError(err?.message || "Failed to delete section");
-    }
-  }
-
-  async function handleAddComponentToSection(component: any) {
-    if (!activeSectionId) return;
-    try {
-      await sectionComponentsApi.create(activeSectionId, {
-        componentId: component.id,
-        x: 5,
-        y: 5,
-        width: 40,
-        height: 30,
-        zIndex: (activeSection?.instances?.length || 0) + 1,
-        propsOverride: {},
-        dataBindings: {},
-      });
-      await ensureSource(component.id);
-      await refreshPage();
-    } catch (err: any) {
-      setError(err?.message || "Failed to add component");
-    }
-  }
-
-  async function handleInstanceChange(id: string, patch: { x: number; y: number; width: number; height: number }) {
-    // Optimistic local update so dragging feels instant.
-    setSelectedPage((prev: any) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        sections: prev.sections.map((s: any) =>
-          s.id !== activeSectionId
-            ? s
-            : { ...s, instances: s.instances.map((i: any) => (i.id === id ? { ...i, ...patch } : i)) }
-        ),
-      };
-    });
-    try {
-      await sectionComponentsApi.update(id, patch);
-    } catch {
-      refreshPage(); // roll back on failure
-    }
-  }
-
-  async function handleInstanceDelete(id: string) {
-    try {
-      await sectionComponentsApi.delete(id);
-      if (selectedInstanceId === id) setSelectedInstanceId(null);
-      await refreshPage();
-    } catch (err: any) {
-      setError(err?.message || "Failed to remove component");
-    }
-  }
-
-  async function updateInstanceProp(propName: string, value: any, isBinding: boolean) {
-    if (!selectedInstance) return;
-    const propsOverride = { ...(selectedInstance.propsOverride || {}) };
-    const dataBindings = { ...(selectedInstance.dataBindings || {}) };
-
-    if (isBinding) {
-      if (value === null) delete dataBindings[propName];
-      else dataBindings[propName] = value;
-      delete propsOverride[propName]; // binding takes precedence over a static value
-    } else {
-      propsOverride[propName] = value;
-      delete dataBindings[propName];
-    }
-
-    setSelectedPage((prev: any) => ({
-      ...prev,
-      sections: prev.sections.map((s: any) =>
-        s.id !== activeSectionId
-          ? s
-          : {
-              ...s,
-              instances: s.instances.map((i: any) =>
-                i.id === selectedInstance.id ? { ...i, propsOverride, dataBindings } : i
-              ),
-            }
-      ),
-    }));
-
-    try {
-      await sectionComponentsApi.update(selectedInstance.id, { propsOverride, dataBindings });
-    } catch {
-      refreshPage();
-    }
-  }
-
-  async function handleSaveAsTemplate(section: any) {
-    const name = window.prompt("Template name:", section.templateName || section.sectionHeader || "");
-    if (name === null) return;
-    try {
-      await pageBuilderApi.updateSection(section.id, { template_name: name.trim() || null });
-      const [templatesData] = await Promise.all([pageBuilderApi.getTemplates(), refreshPage()]);
-      setTemplates(templatesData);
-    } catch (err: any) {
-      setError(err?.message || "Failed to save template");
-    }
-  }
-
-  async function handleUseTemplate(template: any) {
-    if (!selectedPageId) return;
-    try {
-      await pageBuilderApi.useTemplate(template.id, {
-        pageId: selectedPageId,
-        layout_order: selectedPage?.sections?.length || 0,
-      });
-      await refreshPage();
-    } catch (err: any) {
-      setError(err?.message || "Failed to use template");
-    }
-  }
-
-  async function handlePublish() {
-    if (!selectedPageId) return;
-    setPublishing(true);
-    setPublishResult(null);
-    try {
-      setPublishResult(await pageBuilderApi.publishPage(selectedPageId));
-    } catch (err: any) {
-      setPublishResult({ success: false, error: err?.message || "Publish failed" });
-    } finally {
-      setPublishing(false);
-    }
-  }
-
-  const canvasInstances: CanvasInstance[] = (activeSection?.instances || []).map((inst: any) => {
-    const src = sourceCache[inst.componentId] || { tsx: "", css: "" };
-    const comp = library.find((c) => c.id === inst.componentId);
-    const propSchema = comp?.propSchema || [];
-    // Resolve preview props: dataBindings show a "bound" placeholder tag
-    // (we don't re-fetch the real record just for canvas preview — the
-    // dropdown itself shows what's selected), everything else falls back
-    // through propsOverride -> propSchema placeholder.
-    const props: Record<string, any> = {};
-    for (const p of propSchema) {
-      if (inst.dataBindings?.[p.name]) {
-        props[p.name] = `[bound: ${inst.dataBindings[p.name].source} → ${inst.dataBindings[p.name].field}]`;
-      } else if (p.name in (inst.propsOverride || {})) {
-        props[p.name] = inst.propsOverride[p.name];
-      } else {
-        props[p.name] = p.placeholder ?? "";
-      }
-    }
-    return {
-      id: inst.id,
-      componentId: inst.componentId,
-      componentName: inst.componentName || comp?.name || "Unknown",
-      x: inst.x,
-      y: inst.y,
-      width: inst.width,
-      height: inst.height,
-      zIndex: inst.zIndex,
-      props,
-      tsxCode: src.tsx,
-      cssCode: src.css,
-    };
+  // Modals
+  const [addModal, setAddModal] = useState(false);
+  const [editSection, setEditSection] = useState<Section | null>(null);
+  const [addForm, setAddForm] = useState({
+    sectionName: "",
+    sectionHeader: "",
+    componentId: "",
+    fromTemplate: "",
   });
+  const [addSaving, setAddSaving] = useState(false);
 
-  if (loading) return <p className={ui.loading}>Loading…</p>;
+  const canEdit = hasPermission("page_sections", "update");
+  const canCreate = hasPermission("page_sections", "create");
+  const canDelete = hasPermission("page_sections", "delete");
+
+  // ── Load pages on mount ──────────────────────────────────────────────────
+  useEffect(() => {
+    pagesApi.getAll().then((p) => setPages(p as Page[])).catch(() => {});
+    pagesApi.getTemplates().then((t) => setTemplates(t as Section[])).catch(() => {});
+  }, []);
+
+  // ── Load sections when page changes ─────────────────────────────────────
+  useEffect(() => {
+    if (!selectedPageId) {
+      setSections([]);
+      return;
+    }
+    setSearchParams({ page: selectedPageId }, { replace: true });
+    setLoading(true);
+    setError("");
+    pagesApi
+      .getSectionsByPage(selectedPageId)
+      .then((s) => setSections(s as Section[]))
+      .catch((e: any) => setError(e.message))
+      .finally(() => setLoading(false));
+  }, [selectedPageId]);
+
+  // ── Drag & drop ──────────────────────────────────────────────────────────
+  const handleDragStart = (idx: number) => {
+    dragIdx.current = idx;
+  };
+
+  const handleDragOver = (e: React.DragEvent, idx: number) => {
+    e.preventDefault();
+    setDragOver(idx);
+  };
+
+  const handleDrop = async (e: React.DragEvent, targetIdx: number) => {
+    e.preventDefault();
+    setDragOver(null);
+    const fromIdx = dragIdx.current;
+    if (fromIdx === null || fromIdx === targetIdx) return;
+
+    const reordered = [...sections];
+    const [moved] = reordered.splice(fromIdx, 1);
+    reordered.splice(targetIdx, 0, moved);
+
+    // Assign new layoutOrder values
+    const updated = reordered.map((s, i) => ({ ...s, layoutOrder: i }));
+    setSections(updated);
+    dragIdx.current = null;
+
+    try {
+      await pagesApi.reorderSections(
+        updated.map((s) => ({ id: s.id, layoutOrder: s.layoutOrder })),
+      );
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDragOver(null);
+    dragIdx.current = null;
+  };
+
+  // ── Toggle visibility ────────────────────────────────────────────────────
+  const toggleVisible = async (s: Section) => {
+    try {
+      await pagesApi.updateSection(s.id, { isVisible: !s.isVisible });
+      setSections(sections.map((sec) =>
+        sec.id === s.id ? { ...sec, isVisible: !s.isVisible } : sec,
+      ));
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  // ── Delete section ────────────────────────────────────────────────────────
+  const deleteSection = async (id: string) => {
+    if (!confirm("Remove this section from the page?")) return;
+    try {
+      await pagesApi.deleteSection(id);
+      setSections(sections.filter((s) => s.id !== id));
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  // ── Duplicate section as template ────────────────────────────────────────
+  const duplicateToPage = async (s: Section) => {
+    if (!selectedPageId) return;
+    try {
+      const copy = await pagesApi.duplicateSection(s.id, {
+        pageId: selectedPageId,
+        layoutOrder: sections.length,
+      });
+      setSections([...sections, copy as Section]);
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  // ── Add section ────────────────────────────────────────────────────────────
+  const openAddModal = () => {
+    setAddForm({ sectionName: "", sectionHeader: "", componentId: "", fromTemplate: "" });
+    setAddModal(true);
+  };
+
+  const handleAdd = async () => {
+    if (!selectedPageId) return;
+    setAddSaving(true);
+    try {
+      if (addForm.fromTemplate) {
+        // Duplicate a template section onto this page
+        const copy = await pagesApi.duplicateSection(addForm.fromTemplate, {
+          pageId: selectedPageId,
+          layoutOrder: sections.length,
+        });
+        setSections([...sections, copy as Section]);
+      } else {
+        // Brand new section
+        if (!addForm.sectionName && !addForm.componentId) return;
+        const created = await pagesApi.createSection({
+          pageId: selectedPageId,
+          sectionName: addForm.sectionName || null,
+          sectionHeader: addForm.sectionHeader || null,
+          componentId: addForm.componentId || null,
+          layoutOrder: sections.length,
+          isVisible: true,
+        });
+        setSections([...sections, created as Section]);
+      }
+      setAddModal(false);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setAddSaving(false);
+    }
+  };
+
+  // ── Save template name (mark as reusable template) ───────────────────────
+  const saveAsTemplate = async (s: Section, templateName: string) => {
+    try {
+      const updated = await pagesApi.updateSection(s.id, { templateName });
+      setSections(sections.map((sec) => (sec.id === s.id ? (updated as Section) : sec)));
+      setTemplates((prev) => {
+        const exists = prev.find((t) => t.id === s.id);
+        return exists
+          ? prev.map((t) => (t.id === s.id ? (updated as Section) : t))
+          : [...prev, updated as Section];
+      });
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  const selectedPage = pages.find((p) => p.id === selectedPageId);
+
+  // ─────────────────────────────────────────────────────────────────────────────
 
   return (
-    <div className={styles.layout}>
-      {/* LEFT: pages + this page's sections */}
-      <aside className={styles.leftPanel}>
-        <div className={styles.panelHeader}>Pages</div>
-        {pages.map((page: any) => (
-          <div
-            key={page.id}
-            className={[styles.pageItem, selectedPageId === page.id ? styles.pageItemActive : ""].filter(Boolean).join(" ")}
-            onClick={() => setSelectedPageId(page.id)}
-          >
-            {page.name}
-          </div>
-        ))}
-
-        {selectedPageId && (
-          <>
-            <div className={styles.panelHeader} style={{ borderTop: "1px solid #eee" }}>Sections</div>
-            {(selectedPage?.sections || []).map((s: any) => (
-              <div
-                key={s.id}
-                className={[styles.pageItem, activeSectionId === s.id ? styles.pageItemActive : ""].filter(Boolean).join(" ")}
-                onClick={() => { setActiveSectionId(s.id); setSelectedInstanceId(null); setRightTab("components"); }}
-                style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
-              >
-                <span>
-                  {s.sectionHeader || s.sectionName || "Untitled"}
-                  {s.templateName && <span className={ui.badge} style={{ marginLeft: 6, fontSize: 9 }}>Template</span>}
-                </span>
-                <button
-                  className={ui.iconBtnDanger}
-                  style={{ width: 22, height: 22, flexShrink: 0 }}
-                  onClick={(e) => { e.stopPropagation(); handleDeleteSection(s.id); }}
-                >
-                  <Trash2 size={11} />
-                </button>
-              </div>
-            ))}
-            <button className={styles.addSectionBtn} onClick={() => setModal("new-section")}>
-              <Plus size={13} style={{ verticalAlign: -2, marginRight: 4 }} /> Add Section
-            </button>
-          </>
-        )}
-      </aside>
-
-      {/* CENTER: canvas */}
-      <main className={styles.centerPanel}>
-        {error && <p className={ui.errorMsg}>{error}</p>}
-
-        {!selectedPageId ? (
-          <div className={styles.emptyCanvas}>
-            <Layout size={32} style={{ marginBottom: 12, opacity: 0.3 }} />
-            <span>Select a page to start building</span>
-          </div>
-        ) : !activeSection ? (
-          <div className={styles.emptyCanvas}>
-            <span>Select or add a section to start placing components</span>
-          </div>
-        ) : (
-          <>
-            <div className={styles.canvasHeader}>
-              <h1 className={styles.canvasTitle}>{activeSection.sectionHeader}</h1>
-              <div style={{ display: "flex", gap: 8 }}>
-                <button className={`${ui.btn} ${ui.btnSecondary}`} onClick={() => handleSaveAsTemplate(activeSection)}>
-                  {activeSection.templateName ? "Update Template" : "Save as Template"}
-                </button>
-                <button className={`${ui.btn} ${ui.btnPrimary}`} onClick={() => setModal("publish")} disabled={publishing}>
-                  {publishing ? "Publishing…" : "Publish Page"}
-                </button>
-              </div>
+    <div>
+      {/* ── Header ── */}
+      <div className={ui.pageHeader}>
+        <div>
+          <div className={ui.pageTitle}>Page Builder</div>
+          {selectedPage && (
+            <div className={ui.pageCount} style={{ fontFamily: "monospace" }}>
+              {selectedPage.route}
             </div>
-
-            <SectionCanvas
-              canvasHeight={activeSection.canvasHeight || 480}
-              instances={canvasInstances}
-              selectedId={selectedInstanceId}
-              onSelect={(id) => { setSelectedInstanceId(id || null); if (id) setRightTab("instance"); }}
-              onChange={handleInstanceChange}
-              onDelete={handleInstanceDelete}
-            />
-          </>
-        )}
-      </main>
-
-      {/* RIGHT: palette / instance settings */}
-      <aside className={styles.rightPanel}>
-        <div className={styles.tabBar}>
-          <button className={[styles.tab, rightTab === "components" ? styles.tabActive : ""].filter(Boolean).join(" ")} onClick={() => setRightTab("components")}>
-            Components
-          </button>
-          <button className={[styles.tab, rightTab === "instance" ? styles.tabActive : ""].filter(Boolean).join(" ")} onClick={() => setRightTab("instance")} disabled={!selectedInstance}>
-            Selected
-          </button>
+          )}
         </div>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button
+            className={`${ui.btn} ${ui.btnSecondary}`}
+            onClick={() => navigate("/admin/pages")}
+          >
+            <ChevronLeft size={13} style={{ marginRight: 4, verticalAlign: -2 }} />
+            Pages & SEO
+          </button>
+          {canCreate && selectedPageId && (
+            <button
+              className={`${ui.btn} ${ui.btnPrimary}`}
+              onClick={openAddModal}
+            >
+              <Plus size={13} style={{ marginRight: 6, verticalAlign: -2 }} />
+              Add Section
+            </button>
+          )}
+        </div>
+      </div>
 
-        {rightTab === "components" && (
-          <div className={styles.rightContent}>
-            {!activeSectionId ? (
-              <p style={{ fontSize: 12, color: "#999" }}>Select a section first.</p>
-            ) : (
-              <>
-                {library.map((component: any) => (
-                  <div key={component.id} className={styles.componentCard} onClick={() => handleAddComponentToSection(component)}>
-                    <p className={styles.componentName}>{component.displayName}</p>
-                    <p style={{ fontSize: 11, color: "#bbb", margin: "0 0 8px" }}>{component.category}</p>
-                    <button className={`${ui.btn} ${ui.btnSecondary}`} style={{ fontSize: 11, padding: "4px 10px" }}>
-                      + Add to Section
-                    </button>
-                  </div>
-                ))}
+      {error && <div className={ui.errorMsg}>{error}</div>}
+
+      {/* ── Page selector ── */}
+      <div className={ui.card} style={{ marginBottom: 16, padding: "16px 20px" }}>
+        <label className={ui.label}>Select a Page to Edit</label>
+        <select
+          className={ui.select}
+          value={selectedPageId}
+          onChange={(e) => setSelectedPageId(e.target.value)}
+          style={{ maxWidth: 360 }}
+        >
+          <option value="">— choose a page —</option>
+          {pages.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.name} ({p.route})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* ── Section list ── */}
+      {!selectedPageId ? (
+        <div className={ui.empty}>
+          <div className={ui.emptyIcon}>◱</div>
+          Select a page above to start building.
+        </div>
+      ) : loading ? (
+        <div className={ui.loading}>Loading sections…</div>
+      ) : sections.length === 0 ? (
+        <div className={ui.empty}>
+          <div className={ui.emptyIcon}>＋</div>
+          No sections yet — add one to start building.
+        </div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          {sections.map((s, idx) => (
+            <SectionRow
+              key={s.id}
+              section={s}
+              idx={idx}
+              dragOver={dragOver === idx}
+              canEdit={canEdit}
+              canDelete={canDelete}
+              onDragStart={() => handleDragStart(idx)}
+              onDragOver={(e) => handleDragOver(e, idx)}
+              onDrop={(e) => handleDrop(e, idx)}
+              onDragEnd={handleDragEnd}
+              onToggleVisible={() => toggleVisible(s)}
+              onDelete={() => deleteSection(s.id)}
+              onDuplicate={() => duplicateToPage(s)}
+              onSaveAsTemplate={(name) => saveAsTemplate(s, name)}
+              onEdit={() => setEditSection(s)}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* ── Add Section Modal ── */}
+      {addModal && (
+        <div className={ui.overlay}>
+          <div className={ui.modal}>
+            <div className={ui.modalHeader}>
+              <div className={ui.modalTitle}>Add Section</div>
+              <button className={ui.modalClose} onClick={() => setAddModal(false)}>✕</button>
+            </div>
+            <div className={ui.modalBody}>
+              <div className={ui.form}>
+
                 {templates.length > 0 && (
-                  <>
-                    <hr style={{ margin: "20px 0", borderColor: "#eee" }} />
-                    <div className={styles.panelHeader} style={{ padding: "0 0 12px" }}>Section Templates</div>
-                    {templates.map((t: any) => (
-                      <div key={t.id} className={styles.componentCard}>
-                        <p className={styles.componentName}>{t.templateName}</p>
-                        <p style={{ fontSize: 11, color: "#bbb", margin: "0 0 8px" }}>From: {t.pageName}</p>
-                        <button className={`${ui.btn} ${ui.btnSecondary}`} style={{ fontSize: 11, padding: "4px 10px" }} disabled={!selectedPageId} onClick={() => handleUseTemplate(t)}>
-                          Use Template
-                        </button>
+                  <div className={ui.field}>
+                    <label className={ui.label}>Use a Template</label>
+                    <select
+                      className={ui.select}
+                      value={addForm.fromTemplate}
+                      onChange={(e) =>
+                        setAddForm({ ...addForm, fromTemplate: e.target.value })
+                      }
+                    >
+                      <option value="">— start from scratch —</option>
+                      {templates.map((t) => (
+                        <option key={t.id} value={t.id}>
+                          {t.templateName}
+                        </option>
+                      ))}
+                    </select>
+                    {addForm.fromTemplate && (
+                      <div className={ui.hint}>
+                        A copy of this template will be added to the page.
                       </div>
-                    ))}
+                    )}
+                  </div>
+                )}
+
+                {!addForm.fromTemplate && (
+                  <>
+                    <div className={ui.field}>
+                      <label className={ui.label}>Component ID</label>
+                      <input
+                        className={ui.input}
+                        value={addForm.componentId}
+                        onChange={(e) =>
+                          setAddForm({ ...addForm, componentId: e.target.value })
+                        }
+                        placeholder="e.g. Hero, FeaturedCollections, StatsBar"
+                      />
+                      <div className={ui.hint}>
+                        Must match the .tsx component filename exactly.
+                      </div>
+                    </div>
+                    <div className={ui.field}>
+                      <label className={ui.label}>Section Name</label>
+                      <input
+                        className={ui.input}
+                        value={addForm.sectionName}
+                        onChange={(e) =>
+                          setAddForm({ ...addForm, sectionName: e.target.value })
+                        }
+                        placeholder="e.g. hero, featured_collections"
+                      />
+                    </div>
+                    <div className={ui.field}>
+                      <label className={ui.label}>Section Header</label>
+                      <input
+                        className={ui.input}
+                        value={addForm.sectionHeader}
+                        onChange={(e) =>
+                          setAddForm({ ...addForm, sectionHeader: e.target.value })
+                        }
+                        placeholder="e.g. Our Collections"
+                      />
+                    </div>
                   </>
                 )}
-              </>
-            )}
-          </div>
-        )}
-
-        {rightTab === "instance" && (
-          <div className={styles.rightContent}>
-            {!selectedInstance ? (
-              <p style={{ fontSize: 13, color: "#bbb", fontStyle: "italic" }}>Click a component on the canvas to edit it.</p>
-            ) : (
-              <>
-                <p className={styles.componentName} style={{ marginBottom: 12 }}>
-                  {selectedInstanceComponent?.displayName || selectedInstance.componentName}
-                </p>
-                {(selectedInstanceComponent?.propSchema || []).length === 0 && (
-                  <p style={{ fontSize: 12, color: "#999" }}>
-                    This component has no configurable props defined in the Component Library yet.
-                  </p>
-                )}
-                {(selectedInstanceComponent?.propSchema || []).map((p: any) => {
-                  const isBound = !!selectedInstance.dataBindings?.[p.name];
-                  return (
-                    <div key={p.name} className={styles.settingField}>
-                      <label className={styles.settingLabel}>{p.label || p.name}</label>
-
-                      {p.bindable && (
-                        <div style={{ marginBottom: 6 }}>
-                          <DataBindingSelect
-                            value={(selectedInstance.dataBindings?.[p.name] as DataBindingValue) || null}
-                            onChange={(v) => updateInstanceProp(p.name, v, true)}
-                          />
-                        </div>
-                      )}
-
-                      {!isBound && (
-                        p.type === "boolean" ? (
-                          <label className={ui.checkboxLabel}>
-                            <input
-                              type="checkbox"
-                              checked={!!selectedInstance.propsOverride?.[p.name]}
-                              onChange={(e) => updateInstanceProp(p.name, e.target.checked, false)}
-                            />
-                            {" "}enabled
-                          </label>
-                        ) : p.type === "richtext" ? (
-                          <textarea
-                            className={ui.textarea}
-                            rows={3}
-                            value={selectedInstance.propsOverride?.[p.name] ?? ""}
-                            onChange={(e) => updateInstanceProp(p.name, e.target.value, false)}
-                          />
-                        ) : (
-                          <input
-                            className={ui.input}
-                            type={p.type === "number" ? "number" : "text"}
-                            value={selectedInstance.propsOverride?.[p.name] ?? ""}
-                            onChange={(e) => updateInstanceProp(p.name, p.type === "number" ? Number(e.target.value) : e.target.value, false)}
-                            placeholder={p.placeholder ? String(p.placeholder) : ""}
-                          />
-                        )
-                      )}
-                    </div>
-                  );
-                })}
-
-                <button className={`${ui.btn} ${ui.btnDanger}`} style={{ width: "100%", marginTop: 16 }} onClick={() => handleInstanceDelete(selectedInstance.id)}>
-                  Remove from Section
-                </button>
-              </>
-            )}
-          </div>
-        )}
-      </aside>
-
-      {/* NEW SECTION MODAL */}
-      {modal === "new-section" && (
-        <div className={ui.overlay} onClick={() => setModal(null)}>
-          <div className={ui.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={ui.modalHeader}>
-              <span className={ui.modalTitle}>New Section</span>
-              <button className={ui.modalClose} onClick={() => setModal(null)}>×</button>
-            </div>
-            <div className={ui.modalBody}>
-              <div className={ui.field}>
-                <label className={ui.label}>Section Header</label>
-                <input className={ui.input} value={newSectionHeader} onChange={(e) => setNewSectionHeader(e.target.value)} placeholder="e.g. Featured Products" />
               </div>
             </div>
             <div className={ui.modalFooter}>
-              <button className={`${ui.btn} ${ui.btnSecondary}`} onClick={() => setModal(null)}>Cancel</button>
-              <button className={`${ui.btn} ${ui.btnPrimary}`} onClick={handleAddSection}>Create</button>
+              <button
+                className={`${ui.btn} ${ui.btnSecondary}`}
+                onClick={() => setAddModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className={`${ui.btn} ${ui.btnPrimary}`}
+                onClick={handleAdd}
+                disabled={addSaving}
+              >
+                {addSaving ? "Adding…" : "Add Section"}
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* PUBLISH MODAL */}
-      {modal === "publish" && (
-        <div className={ui.overlay} onClick={() => !publishing && setModal(null)}>
-          <div className={ui.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={ui.modalHeader}>
-              <span className={ui.modalTitle}>Publish Page</span>
-              <button className={ui.modalClose} onClick={() => !publishing && setModal(null)}>×</button>
+      {/* ── Edit Section Modal ── */}
+      {editSection && (
+        <EditSectionModal
+          section={editSection}
+          onClose={() => setEditSection(null)}
+          onSaved={(updated) => {
+            setSections(sections.map((s) => (s.id === updated.id ? updated : s)));
+            setEditSection(null);
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─── Section row ──────────────────────────────────────────────────────────────
+
+function SectionRow({
+  section,
+  idx,
+  dragOver,
+  canEdit,
+  canDelete,
+  onDragStart,
+  onDragOver,
+  onDrop,
+  onDragEnd,
+  onToggleVisible,
+  onDelete,
+  onDuplicate,
+  onSaveAsTemplate,
+  onEdit,
+}: {
+  section: Section;
+  idx: number;
+  dragOver: boolean;
+  canEdit: boolean;
+  canDelete: boolean;
+  onDragStart: () => void;
+  onDragOver: (e: React.DragEvent) => void;
+  onDrop: (e: React.DragEvent) => void;
+  onDragEnd: () => void;
+  onToggleVisible: () => void;
+  onDelete: () => void;
+  onDuplicate: () => void;
+  onSaveAsTemplate: (name: string) => void;
+  onEdit: () => void;
+}) {
+  const [templateInput, setTemplateInput] = useState(section.templateName || "");
+  const [showTemplateInput, setShowTemplateInput] = useState(false);
+
+  return (
+    <div
+      draggable={canEdit}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      onDragEnd={onDragEnd}
+      className={ui.card}
+      style={{
+        padding: "14px 16px",
+        opacity: section.isVisible ? 1 : 0.5,
+        borderLeft: dragOver ? "3px solid #000" : "3px solid transparent",
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        transition: "border-color 0.1s",
+        cursor: canEdit ? "grab" : "default",
+      }}
+    >
+      {/* Drag handle */}
+      {canEdit && (
+        <GripVertical size={16} style={{ color: "#ccc", flexShrink: 0 }} />
+      )}
+
+      {/* Order badge */}
+      <span
+        style={{
+          fontSize: 10,
+          fontWeight: 700,
+          color: "#999",
+          minWidth: 20,
+          textAlign: "center",
+        }}
+      >
+        {idx + 1}
+      </span>
+
+      {/* Section info */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontWeight: 600, fontSize: 13, color: "#000" }}>
+          {displayName(section)}
+        </div>
+        <div
+          style={{
+            fontFamily: "monospace",
+            fontSize: 11,
+            color: "#999",
+            marginTop: 2,
+          }}
+        >
+          {componentLabel(section)}
+        </div>
+        {section.templateName && (
+          <span
+            style={{
+              fontSize: 10,
+              background: "#f0f0f0",
+              padding: "1px 6px",
+              borderRadius: 4,
+              color: "#666",
+              marginTop: 4,
+              display: "inline-block",
+            }}
+          >
+            template: {section.templateName}
+          </span>
+        )}
+      </div>
+
+      {/* Template save inline */}
+      {canEdit && (
+        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          {showTemplateInput ? (
+            <>
+              <input
+                className={ui.input}
+                style={{ fontSize: 11, padding: "4px 8px", width: 140 }}
+                value={templateInput}
+                onChange={(e) => setTemplateInput(e.target.value)}
+                placeholder="Template name…"
+                autoFocus
+              />
+              <button
+                className={ui.iconBtn}
+                onClick={() => {
+                  if (templateInput.trim()) {
+                    onSaveAsTemplate(templateInput.trim());
+                  }
+                  setShowTemplateInput(false);
+                }}
+                title="Save template name"
+              >
+                <Check size={13} />
+              </button>
+            </>
+          ) : (
+            <button
+              className={ui.iconBtn}
+              onClick={() => setShowTemplateInput(true)}
+              title="Save as template"
+              style={{ fontSize: 10, padding: "2px 8px" }}
+            >
+              {section.templateName ? "rename template" : "+ template"}
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Action buttons */}
+      <div style={{ display: "flex", gap: 4, flexShrink: 0 }}>
+        {canEdit && (
+          <button
+            className={ui.iconBtn}
+            onClick={onEdit}
+            title="Edit section"
+          >
+            <Pencil size={14} />
+          </button>
+        )}
+        {canEdit && (
+          <button
+            className={ui.iconBtn}
+            onClick={onToggleVisible}
+            title={section.isVisible ? "Hide section" : "Show section"}
+          >
+            {section.isVisible ? <Eye size={14} /> : <EyeOff size={14} />}
+          </button>
+        )}
+        {canEdit && (
+          <button
+            className={ui.iconBtn}
+            onClick={onDuplicate}
+            title="Duplicate to end of page"
+          >
+            <Copy size={14} />
+          </button>
+        )}
+        {canDelete && (
+          <button
+            className={ui.iconBtn}
+            onClick={onDelete}
+            title="Remove section"
+            style={{ color: "#e53" }}
+          >
+            <Trash2 size={14} />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Edit Section Modal ───────────────────────────────────────────────────────
+
+function EditSectionModal({
+  section,
+  onClose,
+  onSaved,
+}: {
+  section: Section;
+  onClose: () => void;
+  onSaved: (s: Section) => void;
+}) {
+  const [form, setForm] = useState({
+    sectionName: section.sectionName || "",
+    sectionHeader: section.sectionHeader || "",
+    componentId: section.componentId || "",
+    componentConfig: section.componentConfig || "",
+  });
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const updated = await pagesApi.updateSection(section.id, {
+        sectionName: form.sectionName || null,
+        sectionHeader: form.sectionHeader || null,
+        componentId: form.componentId || null,
+        componentConfig: form.componentConfig || null,
+      });
+      onSaved(updated as Section);
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className={ui.overlay}>
+      <div className={ui.modal}>
+        <div className={ui.modalHeader}>
+          <div className={ui.modalTitle}>Edit Section</div>
+          <button className={ui.modalClose} onClick={onClose}>✕</button>
+        </div>
+        <div className={ui.modalBody}>
+          {error && <div className={ui.errorMsg}>{error}</div>}
+          <div className={ui.form}>
+            <div className={ui.field}>
+              <label className={ui.label}>Component ID</label>
+              <input
+                className={ui.input}
+                value={form.componentId}
+                onChange={(e) => setForm({ ...form, componentId: e.target.value })}
+                placeholder="e.g. Hero, FeaturedCollections"
+              />
+              <div className={ui.hint}>Must match the .tsx component filename exactly.</div>
             </div>
-            <div className={ui.modalBody}>
-              {!publishResult ? (
-                <>
-                  <p className={ui.confirmText}>
-                    This bakes in current bound data and commits <code>{selectedPage?.name}</code> to
-                    <strong> giftikabe/kekal_frontend</strong> as a real page file.
-                  </p>
-                  <p className={ui.confirmSub}>Deployment triggers automatically, live in ~30–90 seconds.</p>
-                </>
-              ) : publishResult.error || !publishResult.success ? (
-                <p className={ui.errorMsg}>{publishResult.error || "Publish failed"}</p>
-              ) : (
-                <>
-                  <p className={ui.confirmText}>✓ Published successfully!</p>
-                  {publishResult.commit_url && (
-                    <p className={ui.confirmSub}><a href={publishResult.commit_url} target="_blank" rel="noreferrer">View commit →</a></p>
-                  )}
-                </>
-              )}
+            <div className={ui.field}>
+              <label className={ui.label}>Section Name</label>
+              <input
+                className={ui.input}
+                value={form.sectionName}
+                onChange={(e) => setForm({ ...form, sectionName: e.target.value })}
+                placeholder="e.g. hero"
+              />
             </div>
-            <div className={ui.modalFooter}>
-              {!publishResult ? (
-                <>
-                  <button className={`${ui.btn} ${ui.btnSecondary}`} onClick={() => setModal(null)} disabled={publishing}>Cancel</button>
-                  <button className={`${ui.btn} ${ui.btnPrimary}`} onClick={handlePublish} disabled={publishing}>
-                    {publishing ? "Publishing…" : "Publish Now"}
-                  </button>
-                </>
-              ) : (
-                <button className={`${ui.btn} ${ui.btnSecondary}`} onClick={() => setModal(null)}>Close</button>
-              )}
+            <div className={ui.field}>
+              <label className={ui.label}>Section Header</label>
+              <input
+                className={ui.input}
+                value={form.sectionHeader}
+                onChange={(e) => setForm({ ...form, sectionHeader: e.target.value })}
+                placeholder="e.g. Our Story"
+              />
+            </div>
+            <div className={ui.field}>
+              <label className={ui.label}>Component Config (JSON)</label>
+              <textarea
+                className={ui.input}
+                style={{ fontFamily: "monospace", fontSize: 11, minHeight: 100 }}
+                value={form.componentConfig}
+                onChange={(e) => setForm({ ...form, componentConfig: e.target.value })}
+                placeholder='{"dataSource": "products", "limit": 6}'
+              />
+              <div className={ui.hint}>
+                Optional JSON passed as props to the component at render time.
+              </div>
             </div>
           </div>
         </div>
-      )}
+        <div className={ui.modalFooter}>
+          <button className={`${ui.btn} ${ui.btnSecondary}`} onClick={onClose}>
+            Cancel
+          </button>
+          <button
+            className={`${ui.btn} ${ui.btnPrimary}`}
+            onClick={handleSave}
+            disabled={saving}
+          >
+            {saving ? "Saving…" : "Save Changes"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

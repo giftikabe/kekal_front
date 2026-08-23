@@ -9,8 +9,8 @@ import {
   Compass,
   Users,
   LogOut,
-  Puzzle,
-  Layout,
+  Layers,
+  Package,
   Database,
   ShoppingBag,
   TableProperties,
@@ -55,12 +55,12 @@ const NAV_ITEMS = [
       { label: "Users & Roles", path: "/admin/users", entity: "users", icon: Users },
     ],
   },
-  {
+    {
     section: "Builder",
     items: [
-      { label: "Component Library", path: "/admin/component-library", entity: "brand",         icon: Puzzle },
-      { label: "Page Builder",       path: "/admin/page-builder",      entity: "pages",         icon: Layout },
-      { label: "Database Manager",   path: "/admin/database",          entity: "custom_tables", icon: Database },
+      { label: "Page Builder",       path: "/admin/page-builder",      entity: "page_sections",  icon: Layers },
+      { label: "Component Library",  path: "/admin/component-library", entity: "page_sections",  icon: Package },
+      { label: "Database Manager",   path: "/admin/database",          entity: "custom_tables",  icon: Database },
     ],
   },
 ];

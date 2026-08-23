@@ -176,8 +176,7 @@ export const pagesApi = {
   create: (body: unknown) => api.post("/admin/pages", body),
   update: (id: string, body: unknown) => api.patch(`/admin/pages/${id}`, body),
   getSections: () => api.get<any[]>("/admin/page-sections"),
-  getSectionsByPage: (pageId: string) =>
-    api.get<any[]>(`/admin/page-sections/${pageId}`),
+  
   createSection: (body: unknown) => api.post("/admin/page-sections", body),
   updateSection: (id: string, body: unknown) =>
     api.patch(`/admin/page-sections/${id}`, body),
@@ -190,6 +189,17 @@ export const pagesApi = {
   updateNavigation: (id: string, body: unknown) =>
     api.patch(`/admin/navigation/${id}`, body),
   deleteNavigation: (id: string) => api.delete(`/admin/navigation/${id}`),
+    // Page Builder
+  getSectionsByPage: (pageId: string) =>
+    api.get<any[]>(`/admin/page-sections/by-page/${pageId}`),
+  getTemplates: () =>
+    api.get<any[]>("/admin/page-sections/templates"),
+  deleteSection: (id: string) =>
+    api.delete(`/admin/page-sections/${id}`),
+  duplicateSection: (id: string, body: { pageId: string; layoutOrder?: number }) =>
+    api.post(`/admin/page-sections/duplicate/${id}`, body),
+  reorderSections: (updates: Array<{ id: string; layoutOrder: number }>) =>
+    api.patch("/admin/page-sections/reorder", { updates }),
 };
 
 export const usersApi = {
@@ -255,20 +265,7 @@ export const brandStatsApi = {
   delete: (id: string) => api.delete(`/admin/brand-stats/${id}`),
 };
 
-export const componentLibraryApi = {
-  getAll: () => api.get<any[]>("/admin/component-library"),
-  getOne: (id: string) => api.get<any>(`/admin/component-library/${id}`),
-  getSource: (id: string) =>
-    api.get<{ tsx: string; css: string }>(
-      `/admin/component-library/${id}/source`,
-    ),
-  create: (body: unknown) => api.post("/admin/component-library", body),
-  update: (id: string, body: unknown) =>
-    api.patch(`/admin/component-library/${id}`, body),
-  delete: (id: string) => api.delete(`/admin/component-library/${id}`),
-  publish: (id: string, body: { tsx_code: string; css_code?: string }) =>
-    api.post(`/admin/component-library/${id}/publish`, body),
-};
+
 
 export const mediaPlaceholdersApi = {
   getAll: () => api.get<any[]>("/admin/media-placeholders"),
@@ -292,21 +289,3 @@ export const sectionComponentsApi = {
     api.delete(`/admin/page-builder/section-components/${instanceId}`),
 };
 
-export const pageBuilderApi = {
-  getPages: () => api.get<any[]>("/admin/page-builder/pages"),
-  getPage: (pageId: string) =>
-    api.get<any>(`/admin/page-builder/pages/${pageId}`),
-  addSection: (pageId: string, body: unknown) =>
-    api.post(`/admin/page-builder/pages/${pageId}/sections`, body),
-  updateSection: (sectionId: string, body: unknown) =>
-    api.patch(`/admin/page-builder/sections/${sectionId}`, body),
-  deleteSection: (sectionId: string) =>
-    api.delete(`/admin/page-builder/sections/${sectionId}`),
-  reorder: (body: unknown) =>
-    api.post("/admin/page-builder/sections/reorder", body),
-  getTemplates: () => api.get<any[]>("/admin/page-builder/templates"),
-  useTemplate: (sectionId: string, body: unknown) =>
-    api.post(`/admin/page-builder/templates/${sectionId}/use`, body),
-  publishPage: (pageId: string) =>
-    api.post(`/admin/page-builder/pages/${pageId}/publish`, {}),
-};
