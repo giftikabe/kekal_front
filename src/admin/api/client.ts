@@ -289,3 +289,20 @@ export const sectionComponentsApi = {
     api.delete(`/admin/page-builder/section-components/${instanceId}`),
 };
 
+export const sectionTemplatesApi = {
+  getAll:   () => api.get<any[]>("/admin/section-templates"),
+  get:      (id: string) => api.get<any>(`/admin/section-templates/${id}`),
+  create:   (body: unknown) => api.post("/admin/section-templates", body),
+  update:   (id: string, body: unknown) => api.patch(`/admin/section-templates/${id}`, body),
+  delete:   (id: string) => api.delete(`/admin/section-templates/${id}`),
+  publish:  (id: string) => api.post(`/admin/section-templates/${id}/publish`, {}),
+};
+
+export const pageSectionInstancesApi = {
+  getByPage: (pageId: string) => api.get<any[]>(`/admin/page-section-instances/by-page/${pageId}`),
+  create:    (body: unknown) => api.post("/admin/page-section-instances", body),
+  update:    (id: string, body: unknown) => api.patch(`/admin/page-section-instances/${id}`, body),
+  delete:    (id: string) => api.delete(`/admin/page-section-instances/${id}`),
+  reorder:   (updates: Array<{ id: string; layout_order: number }>) =>
+               api.patch("/admin/page-section-instances/reorder", { updates }),
+};

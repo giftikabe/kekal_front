@@ -17,7 +17,9 @@ const PAGE_TITLES: Record<string, string> = {
   "/admin/custom-data":       "Custom Data",
   "/admin/commerce": "Commerce",
   "/admin/page-builder":       "Page Builder",
-"/admin/component-library":  "Component Library",
+  "/admin/component-library": "Component Library",
+"/admin/template-editor":    "Template Editor",
+"/admin/page-builder-v2":    "Page Builder",
 };
 
 export default function TopBar() {

@@ -40,6 +40,10 @@ const CommercePage = lazy(() => import("../admin/pages/CommercePage"));
 const PageBuilderPage = lazy(() => import("../admin/pages/PageBuilderPage"));
 const ComponentLibraryPage = lazy(() => import("../admin/pages/ComponentLibraryPage"));
 
+const TemplateEditorPage = lazy(() => import("../admin/pages/TemplateEditorPage"));
+const NewPageBuilderPage  = lazy(() => import("../admin/pages/NewPageBuilderPage"));
+// children:
+
 function PageFallback() {
   return (
     <div
@@ -116,7 +120,11 @@ export const router = createBrowserRouter([
       { path: "custom-data", element: withSuspense(<CustomTableDataPage />) },
       { path: "commerce", element: withSuspense(<CommercePage />) },
       { path: "page-builder", element: withSuspense(<PageBuilderPage />) },
-{ path: "component-library", element: withSuspense(<ComponentLibraryPage />) },
+      { path: "component-library", element: withSuspense(<ComponentLibraryPage />) },
+{ path: "template-editor/:id",  element: withSuspense(<TemplateEditorPage />) },
+{ path: "template-editor",      element: withSuspense(<TemplateEditorPage />) },
+{ path: "page-builder-v2", element: withSuspense(<NewPageBuilderPage />) },
+
     ],
   },
 ]);

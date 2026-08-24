@@ -1,0 +1,55 @@
+{
+  "heading": "Section Heading",
+  "subheading": "A short supporting line that adds context",
+  "title": "Card Title",
+  "paragraph": "This is placeholder text for your section. The actual content will come from your database or be entered by the admin when this section is added to a page.",
+  "label": "Learn More",
+  "label2": "Get Started",
+  "caption": "Image caption or tag line",
+  "name": "Full Name",
+  "role": "Designer & Founder",
+  "date": "August 2026",
+  "location": "Addis Ababa, Ethiopia",
+  "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+  "image2": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
+  "image3": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80",
+  "images": [
+    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
+    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80",
+    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80"
+  ],
+  "items": [
+    {
+      "id": "1",
+      "title": "Item One",
+      "text": "Short description for item one.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+      "label": "View",
+      "date": "Aug 2026"
+    },
+    {
+      "id": "2",
+      "title": "Item Two",
+      "text": "Short description for item two.",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80",
+      "label": "View",
+      "date": "Jul 2026"
+    },
+    {
+      "id": "3",
+      "title": "Item Three",
+      "text": "Short description for item three.",
+      "image": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80",
+      "label": "View",
+      "date": "Jun 2026"
+    }
+  ],
+  "stats": [
+    { "label": "Years",    "value": "10+" },
+    { "label": "Pieces",   "value": "500+" },
+    { "label": "Countries","value": "12" }
+  ],
+  "quote": "Fashion is not just clothing — it is a form of self-expression and identity.",
+  "author": "Kekal Studio"
+}

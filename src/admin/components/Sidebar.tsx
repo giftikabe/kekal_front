@@ -58,9 +58,9 @@ const NAV_ITEMS = [
     {
     section: "Builder",
     items: [
-      { label: "Page Builder",       path: "/admin/page-builder",      entity: "page_sections",  icon: Layers },
-      { label: "Component Library",  path: "/admin/component-library", entity: "page_sections",  icon: Package },
-      { label: "Database Manager",   path: "/admin/database",          entity: "custom_tables",  icon: Database },
+{ label: "Page Builder",      path: "/admin/page-builder-v2",   entity: "page_sections", icon: Layers },
+      { label: "Component Library", path: "/admin/component-library", entity: "page_sections", icon: Package },
+      { label: "Database Manager", path: "/admin/database", entity: "custom_tables", icon: Database },
     ],
   },
 ];
