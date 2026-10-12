@@ -9,11 +9,7 @@ import {
   Compass,
   Users,
   LogOut,
-  Layers,
-  Package,
-  Database,
   ShoppingBag,
-  TableProperties,
   PanelLeftClose,
   PanelLeftOpen,
 } from "lucide-react";

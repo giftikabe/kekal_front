@@ -33,14 +33,11 @@ const BrandPage = lazy(() => import("../admin/pages/BrandPage"));
 const PagesPage = lazy(() => import("../admin/pages/PagesPage"));
 const NavigationPage = lazy(() => import("../admin/pages/NavigationPage"));
 const UsersPage = lazy(() => import("../admin/pages/UsersPage"));
-const DatabasePage = lazy(() => import("../admin/pages/DatabasePage"));
-const CustomTableDataPage = lazy(() => import("../admin/pages/CustomTableDataPage"));
+
 const CommercePage = lazy(() => import("../admin/pages/CommercePage"));
 
 const PageBuilderPage = lazy(() => import("../admin/pages/PageBuilderPage"));
-const ComponentLibraryPage = lazy(() => import("../admin/pages/ComponentLibraryPage"));
 
-const TemplateEditorPage = lazy(() => import("../admin/pages/TemplateEditorPage"));
 const NewPageBuilderPage  = lazy(() => import("../admin/pages/NewPageBuilderPage"));
 // children:
 
@@ -111,18 +108,13 @@ export const router = createBrowserRouter([
       { path: "navigation", element: withSuspense(<NavigationPage />) },
       { path: "users", element: withSuspense(<UsersPage />) },
       // Database Manager: create/delete custom tables (schema-level CRUD).
-      { path: "database", element: withSuspense(<DatabasePage />) },
       // Custom Data: row-level CRUD on the data inside a custom table.
       // DatabasePage's "View Data" button navigates here via
       // navigate("/admin/custom-data", { state: { tableId } }), and the
       // Sidebar's "Custom Data" nav item links here directly too — this
       // path must match both of those exactly or you get a 404.
-      { path: "custom-data", element: withSuspense(<CustomTableDataPage />) },
       { path: "commerce", element: withSuspense(<CommercePage />) },
       { path: "page-builder", element: withSuspense(<PageBuilderPage />) },
-      { path: "component-library", element: withSuspense(<ComponentLibraryPage />) },
-{ path: "template-editor/:id",  element: withSuspense(<TemplateEditorPage />) },
-{ path: "template-editor",      element: withSuspense(<TemplateEditorPage />) },
 { path: "page-builder-v2", element: withSuspense(<NewPageBuilderPage />) },
 
     ],
