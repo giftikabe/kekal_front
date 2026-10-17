@@ -1,69 +1,18 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SitotaHero from "../components/SitotaHero";
-import SitotaGiftCards from "../components/SitotaGiftCards";
 import FeaturedCollections from "../components/FeaturedCollections";
 import ContactCTASection from "../components/ContactCTASection";
 import Seo from "../components/Seo";
 import { useFeaturedCollections } from "../hooks/useCollections";
 import { useBrandIdentityByKey } from "../hooks/useBrand";
-
+import { sitotaApi } from "../api";
+import { optimizeImageUrl } from "../utils/image";
+import styles from "./SitotaPage.module.css";
+interface Gift { id:string; name:string; slug:string; description:string; mainImage:string; occasion?:string; inStock:boolean; featured:boolean; }
 export default function SitotaPage() {
-  const { value: sitotaTagline } = useBrandIdentityByKey("sitota_tagline");
-  const { value: sitotaImage } = useBrandIdentityByKey("sitota_hero_image");
-  const { value: homeHeroImage } = useBrandIdentityByKey("home_hero_image");
-  const { data: featuredCollections } = useFeaturedCollections();
-
-  return (
-    <>
-      <Seo
-        fallbackTitle="Sitota — Gifts of Craft | KEKAL Studio"
-        fallbackDescription="Discover KEKAL Studio's gift collections. Handcrafted Ethiopian garments prepared with intention for every meaningful moment."
-      />
-
-      <SitotaHero
-        tagline={sitotaTagline || "The Art of Giving"}
-        subtitle="Gifts crafted with intention"
-        image={sitotaImage || homeHeroImage}
-      />
-
-      <section
-        style={{
-          padding: "var(--section-pad-block) var(--section-pad-inline)",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: "var(--content-max-prose)", margin: "0 auto" }}>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "var(--text-display-md)",
-              fontWeight: "var(--weight-light)",
-              letterSpacing: "var(--tracking-tight)",
-              marginBottom: "var(--space-md)",
-            }}
-          >
-            Every Piece, a Story
-          </h2>
-          <p style={{ lineHeight: "var(--leading-body-loose)", color: "var(--color-mute)" }}>
-            KEKAL gifts are not just garments — they are moments. Each piece is handcrafted
-            by Ethiopian artisans, prepared with care, and wrapped in the warmth of our
-            heritage. Whether for a newborn, a celebration, or someone you love, our pieces
-            carry meaning that lasts.
-          </p>
-        </div>
-      </section>
-
-      <SitotaGiftCards />
-
-      <FeaturedCollections
-        title="Gift From Our Collections"
-        collections={(featuredCollections as any[]) ?? []}
-      />
-
-      <ContactCTASection
-        title="Commission a Custom Gift"
-        description="Have something specific in mind? We create custom pieces for your most meaningful moments."
-        buttonText="Get in Touch"
-      />
-    </>
-  );
+ const {value:tagline}=useBrandIdentityByKey("sitota_tagline"); const {value:heroImage}=useBrandIdentityByKey("sitota_hero_image"); const {value:homeImage}=useBrandIdentityByKey("home_hero_image"); const {data:collections}=useFeaturedCollections(); const [gifts,setGifts]=useState<Gift[]>([]); const [loading,setLoading]=useState(true);
+ useEffect(()=>{let active=true; sitotaApi.getAll().then((items:Gift[])=>{if(active)setGifts(items.filter(i=>i.inStock));}).catch(()=>{if(active)setGifts([]);}).finally(()=>{if(active)setLoading(false);}); return ()=>{active=false;};},[]);
+ const featured=gifts.filter(g=>g.featured); const shown=featured.length?featured:gifts;
+ return <><Seo fallbackTitle="Sitota — Thoughtful Gifts | KEKAL Living" fallbackDescription="Discover thoughtful gifts rooted in Ethiopian craft. Find a meaningful KEKAL piece for life's special moments."/><SitotaHero tagline={tagline||"The art of giving, rooted in heritage."} subtitle="Thoughtfully chosen. Handcrafted in Ethiopia. Given with meaning." image={heroImage||homeImage||""}/><section className={styles.intro}><p className={styles.kicker}>A GIFT WITH A STORY</p><h2>Some things are more meaningful<br className={styles.desktopBreak}/> when they are chosen with care.</h2><p>Each KEKAL piece carries the touch of Ethiopian craftsmanship. Sitota brings together pieces made to be gifted, remembered, and lived in — from small gestures to life’s most meaningful milestones.</p></section><section className={styles.gifts} id="sitota-gifts"><div className={styles.sectionHead}><div><p className={styles.kicker}>THE SITOTA EDIT</p><h2>Find a gift that feels personal.</h2></div><span>{gifts.length.toString().padStart(2,"0")} pieces</span></div>{loading?<p className={styles.state}>Gathering thoughtful gifts…</p>:shown.length===0?<div className={styles.empty}><h3>Something meaningful is being prepared.</h3><p>Our gift edit will be here soon. In the meantime, explore the collections below.</p></div>:<div className={styles.grid}>{shown.map((gift,index)=><Link to={`/sitota/${gift.slug}`} className={`${styles.card} ${index===0?styles.featuredCard:""}`} key={gift.id}><div className={styles.imageWrap}><img src={optimizeImageUrl(gift.mainImage,900)} alt={gift.name} loading="lazy"/><span className={styles.view}>Discover piece ↗</span></div><div className={styles.cardCopy}><div><h3>{gift.name}</h3><p>{gift.occasion||"A thoughtful gift"}</p></div><span className={styles.arrow}>↗</span></div></Link>)}</div>}</section><section className={styles.note}><div className={styles.noteMark}>“</div><p>Not simply something to unwrap — something to keep, wear, and remember.</p><span>THE SITOTA PHILOSOPHY</span></section><FeaturedCollections title="Give a piece of the KEKAL story" collections={(collections as any[])??[]}/><div className={styles.collectionLink}><p>Looking for something beyond the Sitota edit?</p><Link to="/collections">Explore all collections <span>→</span></Link></div><ContactCTASection title="Make the moment more personal" description="Looking for a particular piece or a thoughtful custom gift? Tell us what you have in mind." buttonText="Talk to KEKAL"/></>;
 }

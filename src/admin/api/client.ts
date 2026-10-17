@@ -150,6 +150,13 @@ export const productsApi = {
   delete: (id: string) => api.delete(`/admin/products/${id}`),
 };
 
+export const sitotaApi = {
+  getAll: () => api.get<any[]>("/admin/sitota-items"),
+  create: (body: unknown) => api.post("/admin/sitota-items", body),
+  update: (id: string, body: unknown) => api.patch(`/admin/sitota-items/${id}`, body),
+  delete: (id: string) => api.delete(`/admin/sitota-items/${id}`),
+};
+
 export const eventsApi = {
   getAll: () => api.get<any[]>("/admin/events"),
   create: (body: unknown) => api.post("/admin/events", body),

@@ -44,6 +44,13 @@ export const productsApi = {
     get<any[]>(`/products/by-collection/${collectionId}`),
 };
 
+// ─── Sitota gift collection (independent of seasonal collections) ─────────────
+export const sitotaApi = {
+  getAll: () => get<any[]>("/sitota-items"),
+  getFeatured: () => get<any[]>("/sitota-items/featured"),
+  getBySlug: (slug: string) => get<any>(`/sitota-items/${slug}`),
+};
+
 // ─── Events ──────────────────────────────────────────────────────────────────
 export const eventsApi = {
   getAll: () => get<any[]>("/events"),

@@ -6,7 +6,8 @@ import styles from "./TopBar.module.css";
 const PAGE_TITLES: Record<string, string> = {
   "/admin":                   "Dashboard",
   "/admin/collections":       "Collections",
-  "/admin/products":          "Products",
+  "/admin/products": "Products",
+   "/admin/sitota":            "Sitota Packge",
   "/admin/events":            "Events",
   "/admin/upcoming-events":   "Upcoming Events",
   "/admin/brand":             "Brand Settings",

@@ -21,24 +21,23 @@ const CheckoutSuccessPage = lazy(() => import("../kekal/pages/CheckoutSuccessPag
 const ShippingPage = lazy(() => import("../kekal/pages/ShippingPage"));
 const ReturnsPage = lazy(() => import("../kekal/pages/ReturnsPage"));
 const SitotaPage = lazy(() => import("../kekal/pages/SitotaPage"));
+const SitotaDetailPage = lazy(() => import("../kekal/pages/SitotaDetailPage"));
 const AcademiaPage = lazy(() => import("../kekal/pages/AcademiaPage"));
 
 const LoginPage = lazy(() => import("../admin/pages/LoginPage"));
 const DashboardPage = lazy(() => import("../admin/pages/DashboardPage"));
 const AdminCollectionsPage = lazy(() => import("../admin/pages/CollectionsPage"));
 const AdminProductsPage = lazy(() => import("../admin/pages/ProductsPage"));
+const AdminSitotaPage = lazy(() => import("../admin/pages/SitotaAdminPage"));
 const AdminEventsPage = lazy(() => import("../admin/pages/EventsPage"));
 const AdminUpcomingEventsPage = lazy(() => import("../admin/pages/UpcomingEventsPage"));
 const BrandPage = lazy(() => import("../admin/pages/BrandPage"));
 const PagesPage = lazy(() => import("../admin/pages/PagesPage"));
 const NavigationPage = lazy(() => import("../admin/pages/NavigationPage"));
 const UsersPage = lazy(() => import("../admin/pages/UsersPage"));
-
 const CommercePage = lazy(() => import("../admin/pages/CommercePage"));
 
 const PageBuilderPage = lazy(() => import("../admin/pages/PageBuilderPage"));
-
-const NewPageBuilderPage  = lazy(() => import("../admin/pages/NewPageBuilderPage"));
 // children:
 
 function PageFallback() {
@@ -76,6 +75,7 @@ export const router = createBrowserRouter([
       { path: "shipping", element: withSuspense(<ShippingPage />) },
       { path: "returns", element: withSuspense(<ReturnsPage />) },
       { path: "sitota", element: withSuspense(<SitotaPage />) },
+      { path: "sitota/:slug", element: withSuspense(<SitotaDetailPage />) },
       { path: "academia", element: withSuspense(<AcademiaPage />) },
       { path: "*", element: withSuspense(<NotFoundPage />) },
     ],
@@ -101,6 +101,7 @@ export const router = createBrowserRouter([
       { index: true, element: withSuspense(<DashboardPage />) },
       { path: "collections", element: withSuspense(<AdminCollectionsPage />) },
       { path: "products", element: withSuspense(<AdminProductsPage />) },
+      { path: "sitota", element: withSuspense(<AdminSitotaPage />) },
       { path: "events", element: withSuspense(<AdminEventsPage />) },
       { path: "upcoming-events", element: withSuspense(<AdminUpcomingEventsPage />) },
       { path: "brand", element: withSuspense(<BrandPage />) },
@@ -115,8 +116,7 @@ export const router = createBrowserRouter([
       // path must match both of those exactly or you get a 404.
       { path: "commerce", element: withSuspense(<CommercePage />) },
       { path: "page-builder", element: withSuspense(<PageBuilderPage />) },
-{ path: "page-builder-v2", element: withSuspense(<NewPageBuilderPage />) },
-
+      
     ],
   },
 ]);

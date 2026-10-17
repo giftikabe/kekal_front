@@ -25,7 +25,9 @@ const NAV_ITEMS = [
     section: "Content",
     items: [
       { label: "Collections",     path: "/admin/collections",    entity: "collections",    icon: LayoutGrid },
-      { label: "Products",         path: "/admin/products",        entity: "products",        icon: Box },
+      { label: "Products", path: "/admin/products", entity: "products", icon: Box },
+      { label: "Sitota Gifts",      path: "/admin/sitota",           entity: "products",        icon: ShoppingBag },
+      
       { label: "Events",           path: "/admin/events",          entity: "events",          icon: CalendarDays },
       { label: "Upcoming Events",  path: "/admin/upcoming-events", entity: "upcoming_events", icon: CalendarClock },
     ],
